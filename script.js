@@ -173,4 +173,40 @@ document.addEventListener('DOMContentLoaded', function(){
             tableBody.appendChild(row);
         });
     }
+    function loadStayTable(){
+        const tableBody = document.querySelector('#stay-table tbody');
+        tableBody.innerHTML = '';
+
+        appData.stay.forEach(stay => {
+            const row = document.createElement('tr');
+
+            const statusClass = stay.status === 'Eligible' ? 'status-approved' : 'status-pending' ;
+                // stay.status === 'Not Eligible' ? status-rejected ;
+
+            row.innerHTML = `
+            <td>${stay.requestNo}</td>
+            <td>${stay.studentName}</td>
+            <td>${stay.studentID}</td>
+            <td>${stay.educationLevel}</td>
+            <td>${stay.requestDate}</td>
+            <td>${stay.extensionDuration}</td>
+            <td>${stay.reasonForExtension}</td>
+            <td><span class="status ${statusClass}">${stay.status}</span></td>
+            <td>
+                <div class="action-buttons">
+                    <button class="btn btn-primary btn-sm view-stay" data-id="${stay.requestNo}> 
+                        <i class="fa-solid fa-eye"></i>
+                    </button>
+                    <button class="btn btn-secondary btn-sm edit-stay" data-id="${stay.requestNo}> 
+                        <i class="fa-solid fa-edit"></i>
+                    </button>
+                    <button class="btn btn-danger btn-sm delete-stay" data-id="${stay.requestNo}> 
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>    
+            </td>
+            `;
+            tableBody.appendChild(row);
+        })
+    }
 })
