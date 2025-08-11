@@ -261,7 +261,29 @@
             </div>
       </main>
 
-      <!-- Modal overly -->
+       <!-- Notification Panel -->
+
+        <div class="notificationPanel">
+          <h2>Notifications</h2>
+          <div class="notification" data-tab="payment">
+            <div class="notifyHeader">
+             <span>New Payment Receipt</span>
+             <small>10 Aug 2025</small>
+           </div>
+            <p><strong>Student:</strong>Ali Raza (ID:1)</p>
+            <p><strong>Amount:</strong>PKR 8,000</p>
+            <p><strong>Status:</strong>Cleared</p>
+            <button onclick="viewPaymentDetails('Ali Raza', '1', 'PKR 8,000', 'Bank Transfer', 'Hostel Fee - Semester 7')">
+            View Details
+            </button>
+          </div>
+        <div class="notification" data-tab="food">
+          <div class="notifyHeader"></div>
+        </div>
+        </div>
+
+
+       <!-- Modal overly -->
        <div class="modalOverly" id="modal-overly"></div>
 
        <!-- Add Student Modal -->
