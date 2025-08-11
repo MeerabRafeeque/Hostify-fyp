@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function(){
                 </div>
             </td>
         `;
-
+        tableBody.appendChild(row);
         })
 
     }
