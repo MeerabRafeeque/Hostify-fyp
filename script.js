@@ -95,9 +95,17 @@ document.addEventListener('DOMContentLoaded', function(){
             <td>
                 <div class="action-buttons">
                     <button class="btn btn-primary btn-sm view-student" data-id="${student.id}
-                        <i class="fa-solid fa-eye"><i>
-                    </button>`
-                    
+                        <i class="fa-solid fa-eye"></i>
+                    </button>
+                    <button class="btn btn-secondary btn-sm edit-student" data-id="${student.id}
+                        <i class="fa-solid fa-edit"></i>
+                    <button class="btn btn-danger btn-sm delete-student" data-id="${student.id}
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+            </td>
+        `;
+
         })
 
     }
