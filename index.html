@@ -46,9 +46,13 @@
               <i class="fa-solid fa-pencil"></i>
               <span>Attendance & Penalty</span>
             </li>
-            <li data-tab="att-com-feed">
+            <li data-tab="comp-feed">
               <i class="fa-solid fa-circle-exclamation"></i>
               <span>Complaints & Feedback</span>
+            </li>
+            <li data-tab="meal-feed">
+              <i class="fa-solid fa-bowl-food"></i>
+              <span>Meal Menu & Feedback</span>
             </li>
             <li data-tab="stay">
               <i class="fa-solid fa-bed"></i>
@@ -101,7 +105,9 @@
                 <div class="activity-list" id="activity-list"></div>
             </div>
         </div>
+
             <!-- Student Management -->
+
             <div class="tab-content" id="students">
                 <div class="tab-header">
                     <h2>Student Management</h2>
@@ -109,7 +115,6 @@
                         <i class="fa-solid fa-user-plus"></i> Reg Student
                     </button>
                 </div>
-
                 <div class="table-container">
                     <table id="students-table">
                         <thead>
@@ -128,7 +133,9 @@
                     </table>
                 </div>
             </div>
+
             <!-- Payment Management -->
+
             <div class="tab-content" id="students">
                <div class="table-container">
                     <table id="payments-table">
@@ -149,7 +156,9 @@
                     </table>
                 </div>
             </div>
+
             <!-- Room Management -->
+
             <div class="tab-content" id="rooms">
                 <div class="tab-header">
                     <h2>Room Management</h2>
@@ -157,7 +166,6 @@
                         <i class="fa-solid fa-plus"></i> Add Room
                     </button>
                 </div>
-
                 <div class="table-container">
                     <table id="students-table">
                         <thead>
@@ -176,7 +184,9 @@
                     </table>
                 </div>
             </div>
+
             <!-- Stay Extension Request -->
+
              <div class="tab-content" id="requests">
                 <div class="tab-header">
                     <h2>Stay Extension Requests</h2>
@@ -206,7 +216,9 @@
                     </table>
                 </div>
             </div>
+
             <!-- Staff Management -->
+
               <div class="tab-content" id="staff">
                 <div class="tab-header">
                     <h2>Staff Management</h2>
@@ -233,7 +245,111 @@
                     </table>
                 </div>
             </div>
+
+             <!-- View Attendance & Penalty List -->
+
+            <div class="tab-content" id="attendance">
+              <div class="tab-header">
+                <h2>Student Attendance</h2>
+              </div>
+              <div class="table-container">
+                <table id="attendance-table">
+                  <thead>
+                    <tr>
+                      <th>Student ID</th>
+                      <th>Student Name</th>
+                      <th>Shift</th>
+                      <th>Marked By</th>
+                      <th>Date</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="attendance-table"></tbody>
+                </table>
+              </div>
+              <div class="tab-header">
+                <h2>Penalty List-Late Entry</h2>
+              </div>
+              <div class="table-container">
+                <table id="penalty-table">
+                  <thead>
+                    <tr>
+                      <th>Student ID</th>
+                      <th>Student Name</th>
+                      <th>Date of Late Entry</th>
+                      <th>Penalty</th>
+                      <th>Reason</th>
+                    </tr>
+                  </thead>
+                  <tbody id="penalty-table"></tbody>
+                </table>
+              </div> 
+            </div> 
+
+            <!-- Complaints & Feedback -->
+
+            <div class="tab-content" id="complaints-table">
+              <div class="tab-header">
+                <h2>Complaints Handled By Warden</h2>
+              </div>
+              <div class="table-container">
+                <table id="complaint-table">
+                  <thead>
+                    <tr>
+                      <th>Complaint ID</th>
+                      <th>Student Name</th>
+                      <th>Complaint</th>
+                      <th>Status</th>
+                      <th>Handled By</th>
+                      <th>Feedback</th>
+                    </tr>
+                  </thead>
+                  <tbody id="complaint-table"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Meal Menu & Feedback -->
+
+            <div class="tab-content" id="meal-table">
+              <div class="tab-header">
+                <h2>Weekly Mess Menu</h2>
+              </div>
+              <div class="table-container">
+                <table id="meal-table">
+                  <thead>
+                    <tr>
+                      <th>Day</th>
+                      <th>Meal</th>
+                      <th>Description</th>
+                      <th>Updated By</th>
+                      <th>Updated Date</th>
+                    </tr>
+                  </thead>
+                  <tbody id="meal-table"></tbody>
+                </table>
+              </div>
+              <div class="tab-header">
+                <h2>Student Feedback on Meals</h2>
+              </div>
+              <div class="table-container">
+                <table id="meal-feedback">
+                  <thead>
+                    <tr>
+                      <th>Day</th>
+                      <th>Meal</th>
+                      <th>Student Name</th>
+                      <th>Feedback</th>
+                      <th>Rating</th>
+                    </tr>
+                  </thead>
+                  <tbody id="meal-feedback"></tbody>
+                </table>
+              </div>
+            </div>
+
             <!-- Setting Section -->
+
              <div class="tab-content" id="settings">
               <h2>System Setting</h2>
               <div class="settigs-form">
@@ -262,38 +378,41 @@
       </main>
 
        <!-- Notification Panel -->
-
-        <div class="notificationPanel">
-          <h2>Notifications</h2>
-          <div class="notification" data-tab="payment">
-            <div class="notifyHeader">
-             <span>New Payment Receipt</span>
-             <small>10 Aug 2025</small>
-           </div>
-            <p><strong>Student:</strong>Ali Raza (ID:1)</p>
-            <p><strong>Amount:</strong>PKR 8,000</p>
-            <p><strong>Status:</strong>Cleared</p>
-            <button clonclick="viewPaymentDetails('Ali Raza', '1', 'PKR 8,000', 'Bank Transfer', 'Hostel Fee - Semester 7')" class="btn btn-primary">
-            View Details
-            </button>
-          </div>
-          <div class="notification" data-tab="food">
-            <div class="notifyHeader">
-              <span>Food Shortage Alert</span>
-              <small>10 Aug 2025</small>
+        
+        <div class="tab-content">
+          <div class="notificationPanel">
+            <h2>Notifications</h2>
+            <div class="notification" data-tab="payment">
+              <div class="notifyHeader">
+                <span>New Payment Receipt</span>
+                <small>10 Aug 2025</small>
+              </div>
+              <p><strong>Student:</strong>Ali Raza (ID:1)</p>
+              <p><strong>Amount:</strong>PKR 8,000</p>
+              <p><strong>Status:</strong>Cleared</p>
+              <button clonclick="viewPaymentDetails('Ali Raza', '1', 'PKR 8,000', 'Bank Transfer', 'Hostel Fee - Semester 7')" class="btn btn-primary">
+              View Details
+              </button>
             </div>
-            <p>Mess Committee reports shortage of rice for dinner.</p>
-            <button onclick="clert('Conntact Mess Committee to resolve the shortage')" class="btn btn-primary">Acknowledge</button>
-          </div>
-          <div class="notification" data-tab="inactive">
-            <div class="notifyHeader">
-              <span>Inactive Student</span>
-              <small>09 Aug 2025</small>
+            <div class="notification" data-tab="food">
+              <div class="notifyHeader">
+                <span>Food Shortage Alert</span>
+                <small>10 Aug 2025</small>
+              </div>
+              <p>Mess Committee reports shortage of rice for dinner.</p>
+              <button onclick="clert('Conntact Mess Committee to resolve the shortage')" class="btn btn-primary">Acknowledge</button>
             </div>
-            <p>Student Mudassar Khan (ID:2) has not applied for room after 7 days of login.</p>
-            <button onclick="removeStudent('Mudassar Khan')" class="btn btn-danger">Remove Student</button>
+            <div class="notification" data-tab="inactive">
+              <div class="notifyHeader">
+                <span>Inactive Student</span>
+                <small>09 Aug 2025</small>
+              </div>
+              <p>Student Mudassar Khan (ID:2) has not applied for room after 7 days of login.</p>
+              <button onclick="removeStudent('Mudassar Khan')" class="btn btn-danger">Remove Student</button>
+            </div>
           </div>
         </div>
+        
 
 
        <!-- Modal overly -->
@@ -748,7 +867,7 @@
         </div>
       </div>
 
-
+       
     </div>
   </body>
 </html>
