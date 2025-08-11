@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function(){
                 <div class="action-buttons">
                     <button class="btn btn-primary btn-sm view-student" data-id="${student.id}
                         <i class="fa-solid fa-eye"><i>
-                    </button>
+                    </button>`
                     
         })
 
