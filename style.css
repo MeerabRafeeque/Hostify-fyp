@@ -147,6 +147,41 @@ body {
   display: none;
 } */
 
+/* Notification Panel */
+
+.notificationPanel {
+  position: absolute;
+  top: 264%;
+  left: 21.75%;
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  width: 77%;
+  margin-right: 100px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.notification {
+  border-bottom: 1px solid #ddd;
+  padding: 15px 0;
+}
+
+.notification:last-child {
+  border-bottom: none;
+}
+
+.notifyHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+button {
+  margin-top: 5px;
+}
+
 .tab-header {
   display: flex;
   justify-content: space-between;
@@ -331,7 +366,7 @@ th:hover {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   transition: all 0.3s;
 }
-/* for future use */
+/* for action buttons */
 .btn-secondary {
   color: white;
   background-color: darkgray;
@@ -340,6 +375,8 @@ th:hover {
 .btn-secondary:hover {
   color: darkgray;
   background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s;
 }
 
 .action-buttons {
@@ -359,6 +396,8 @@ th:hover {
 .btn-danger:hover {
   color: red;
   background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s;
 }
 
 /* setting section form */
