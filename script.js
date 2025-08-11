@@ -94,19 +94,83 @@ document.addEventListener('DOMContentLoaded', function(){
             <td><span class="status status-available">${student.status}</span></td>
             <td>
                 <div class="action-buttons">
-                    <button class="btn btn-primary btn-sm view-student" data-id="${student.id}
+                    <button class="btn btn-primary btn-sm view-student" data-id="${student.id}>
                         <i class="fa-solid fa-eye"></i>
                     </button>
-                    <button class="btn btn-secondary btn-sm edit-student" data-id="${student.id}
+                    <button class="btn btn-secondary btn-sm edit-student" data-id="${student.id}>
                         <i class="fa-solid fa-edit"></i>
-                    <button class="btn btn-danger btn-sm delete-student" data-id="${student.id}
+                    <button class="btn btn-danger btn-sm delete-student" data-id="${student.id}>
                         <i class="fa-solid fa-trash"></i>
                     </button>
                 </div>
             </td>
         `;
         tableBody.appendChild(row);
-        })
+        });
+    }
 
+    function loadRoomTable() {
+        const tableBody = document.querySelector('#room-table tbody');
+        tableBody.innerHTML = '';
+
+        appData.rooms.forEach(room => {
+            const row = document.createElement('tr');
+
+            const statusClass = room.status === 'Available' ? 'status-available' :
+                room.status === 'Under Maintenance' ? 'status-pending' : 'status-occupied'  ;
+
+            row.innerHTML = `
+                <td>${room.number}</td>
+                <td>${room.type}</td>
+                <td>${room.capacity}</td>
+                <td>${room.occupied}/${room.capacity}</td>
+                <td><span  class="status ${statusClass}">${room.status}</span></td>
+                <td>
+                    <div class="action-buttons">
+                        <button class="btn btn-primary btn-sm view-room" data-id="${room.number}>
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                        <button class="btn btn-secondary btn-sm edit-room" data-id="${room.number}>
+                            <i class="fa-solid fa-edit"></i>
+                        </button>
+                        <button class="btn btn-danger btn-sm delete-room" data-id="${room.number}>
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                </td>
+            `;
+            tableBody.appendChild(row);
+        });
+    }
+
+    function loadPaymentsTable() {
+        const tableBody = document.querySelector('#payments-table tbody');
+        tableBody.innerHTML = '';
+
+        appData.payments.forEach(payment => {
+            const row = document.createElement('tr');
+
+            const statusClass = payment.status === 'Completed' ? 'status-available' : 'status-pending';
+
+            row.innerHTML = `
+            <td>${payment.receiptNo}</td>
+            <td>${payment.studentName}</td>
+            <td>${payment.amount}</td>
+            <td>${payment.date}</td>
+            <td>${payment.method}</td>
+            <td><span class="status ${statusClass}">${payment.status}</span></td>
+            <td>
+                <div class="action-buttons">
+                    <button class="btn btn-primary btn-sm view-payments" data-id="${payment.receiptNo}">
+                        <i class="fa-solid fa-eye"></i>
+                    </button>
+                    <button class="btn btn-danger btn-sm delete-payments" data-id="${payment.receiptNo}">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+            </td>
+            `;
+            tableBody.appendChild(row);
+        });
     }
 })
