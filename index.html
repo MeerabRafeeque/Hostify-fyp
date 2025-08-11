@@ -277,9 +277,22 @@
             View Details
             </button>
           </div>
-        <div class="notification" data-tab="food">
-          <div class="notifyHeader"></div>
-        </div>
+          <div class="notification" data-tab="food">
+            <div class="notifyHeader">
+              <span>Food Shortage Alert</span>
+              <small>10 Aug 2025</small>
+            </div>
+            <p>Mess Committee reports shortage of rice for dinner.</p>
+            <button onclick="clert('Conntact Mess Committee to resolve the shortage')">Acknowledge</button>
+          </div>
+          <div class="notification" data-tab="inactive">
+            <div class="notifyHeader">
+              <span>Inactive Student</span>
+              <small>09 Aug 2025</small>
+            </div>
+            <p>Student Mudassar Khan (ID:2) has not applied for room after 7 days of login/</p>
+            <button onclick="removeStudent('Mudassar Khan')">Remove Student</button>
+          </div>
         </div>
 
 
