@@ -1,92 +1,111 @@
-document.addEventListener('DOMContentLoaded', function(){
-    // initialize empty data structure
-    let appData = {
-        students: [],
-        rooms: [],
-        payment: [],
-        stay: [],
-        activities: [],
-        settings: {
-            hostelName: 'Hostify',
-            hostelAddress: '',
-            contactNumber: '',
-            roomTypes: ['Single', 'Double', 'Dormitory']
-        }
+document.addEventListener("DOMContentLoaded", function () {
+  // initialize empty data structure
+  let appData = {
+    students: [],
+    rooms: [],
+    payment: [],
+    stay: [],
+    activities: [],
+    settings: {
+      hostelName: "Hostify",
+      hostelAddress: "",
+      contactNumber: "",
+      roomTypes: ["Single", "Double", "Dormitory"],
+    },
+  };
 
-    };
+  // initialize application
 
-    // initialize application
+  initApp();
 
-    initApp();
+  function initApp() {
+    // load all tables
 
-    function initApp() {
-        // load all tables
+    loadDashboard();
+    loadStudentTable();
+    loadRoomTable();
+    loadPaymentsTable();
+    loadStayTable();
+    loadStaffTable();
+    loadSettings();
 
-        loadDashboard();
-        loadStudentTable();
-        loadRoomTable();
-        loadPaymentsTable();
-        loadStayTable();
-        loadStaffTable();
-        loadSettings();
+    setupeventListeners();
+  }
 
-        setupeventListeners();
-    }
+  function loadDashboard() {
+    document.getElementById("total-students").textContent =
+      appData.students.length;
 
-    function loadDashboard() {
-        document.getElementById('total-students').textContent = appData.students.length;
+    const totalRooms = appData.rooms.length;
+    const occupiedRooms = appData.rooms.filter(
+      (room) => room.occupied > 0
+    ).length;
+    document.getElementById(
+      "occupied-rooms"
+    ).textContent = `${occupiedRooms}/${totalRooms}`;
 
-        const totalRooms = appData.rooms.length;
-        const occupiedRooms = appData.rooms.filter(room => room.occupied > 0).length;
-        document.getElementById('occupied-rooms').textContent = `${occupiedRooms}/${totalRooms}`;
+    const pendingPayments = appData.payments.filter(
+      (payment) => payment.status === "pending"
+    ).length;
+    document.getElementById("pending-payments").textContent = pendingPayments;
 
-        const pendingPayments = appData.payments.filter(payment => payment.status === 'pending').length;
-        document.getElementById('pending-payments').textContent = pendingPayments;
+    const activeRequests = appData.stay.filter(
+      (stay) =>
+        stay.educationLevel === "BS" &&
+        (stay.semester === 7 || stay.semester === 8)
+    ).length;
+    document.getElementById("current-extension").textContent = activeRequests;
 
-        const activeRequests = appData.stay.filter(stay => edu.level === 'BS' ).length;
-        document.getElementById('current-extension').textContent = activeRequests;
+    // load recent activity
 
-        // load recent activity
+    const activityList = document.getElementById("activity-list");
+    activityList.innerHTML = "";
+    appData.activities.forEach((activity) => {
+      const activityItem = document.createElement("div");
 
-        const activityList = document.getElementById('activity-list');
-        activityList.innerHTML = '';
-        appData.activities.forEach(activity => {
-            const activityItem = document.createElement('div');
+      activityItem.className = "activity-item";
 
-            activityItem.className = 'activity-item';
+      let iconClass = "";
+      switch (activity.type) {
+        case "payment":
+          iconClass = "fa-solid fa-money-bill-1-wave";
+          break;
+        case "stay":
+          iconClass = "fa-solid fa-bed";
+          break;
+        case "staff":
+          iconClass = "fa-solid fa-user-tie";
+          break;
+        case "student":
+          iconClass = "fa-solid fa-users";
+          break;
+        default:
+          iconClass = "fa-solid fa-info-circle";
+      }
 
-            let iconClass = '';
-            switch(activity.type) {
-                case 'payment' : iconClass = 'fa-solid fa-money-bill-1-wave'; break;
-                case 'stay' : iconClass = 'fa-solid fa-bed'; break;
-                case 'staff' : iconClass = 'fa-solid fa-user-tie'; break;
-                case 'student' : iconClass = 'fa-solid fa-users'; break;
-                default : iconClass = 'fa-solid fa-info-circle';
-            }
-
-            activityItem.innerHTML = `
+      activityItem.innerHTML = `
             <div class="activity-icon">
             <i class="${iconClass}"></i>
             </div>
             <div class="activity-details">
                 <p>${activity.description}</p>
                 <span class="activity-item">${activity.time}</span>
-            </div>`
-            ;
+            </div>`;
 
-            activityList.appendChild(activityItem);
-        })
-    }
+      activityList.appendChild(activityItem);
+    });
+  }
 
-    function loadStudentTable() {
-        const tableBody = document.querySelector('#students-table tbody');
-        tableBody.innerHTML = '';
+  // load student table
 
+  function loadStudentTable() {
+    const tableBody = document.querySelector("#students-table tbody");
+    tableBody.innerHTML = "";
 
-        appData.students.forEach(student => {
-            const row = document.createElement('tr');
+    appData.students.forEach((student) => {
+      const row = document.createElement("tr");
 
-            row.innerHTML = `
+      row.innerHTML = `
             <td>${student.id}</td>
             <td>${student.name}</td>
             <td>${student.room}</td>
@@ -105,21 +124,27 @@ document.addEventListener('DOMContentLoaded', function(){
                 </div>
             </td>
         `;
-        tableBody.appendChild(row);
-        });
-    }
+      tableBody.appendChild(row);
+    });
+  }
 
-    function loadRoomTable() {
-        const tableBody = document.querySelector('#room-table tbody');
-        tableBody.innerHTML = '';
+  // load room table
 
-        appData.rooms.forEach(room => {
-            const row = document.createElement('tr');
+  function loadRoomTable() {
+    const tableBody = document.querySelector("#room-table tbody");
+    tableBody.innerHTML = "";
 
-            const statusClass = room.status === 'Available' ? 'status-available' :
-                room.status === 'Under Maintenance' ? 'status-pending' : 'status-occupied'  ;
+    appData.rooms.forEach((room) => {
+      const row = document.createElement("tr");
 
-            row.innerHTML = `
+      const statusClass =
+        room.status === "Available"
+          ? "status-available"
+          : room.status === "Under Maintenance"
+          ? "status-pending"
+          : "status-occupied";
+
+      row.innerHTML = `
                 <td>${room.number}</td>
                 <td>${room.type}</td>
                 <td>${room.capacity}</td>
@@ -139,20 +164,23 @@ document.addEventListener('DOMContentLoaded', function(){
                     </div>
                 </td>
             `;
-            tableBody.appendChild(row);
-        });
-    }
+      tableBody.appendChild(row);
+    });
+  }
 
-    function loadPaymentsTable() {
-        const tableBody = document.querySelector('#payments-table tbody');
-        tableBody.innerHTML = '';
+  // load payment table
 
-        appData.payments.forEach(payment => {
-            const row = document.createElement('tr');
+  function loadPaymentsTable() {
+    const tableBody = document.querySelector("#payments-table tbody");
+    tableBody.innerHTML = "";
 
-            const statusClass = payment.status === 'Completed' ? 'status-available' : 'status-pending';
+    appData.payments.forEach((payment) => {
+      const row = document.createElement("tr");
 
-            row.innerHTML = `
+      const statusClass =
+        payment.status === "Completed" ? "status-available" : "status-pending";
+
+      row.innerHTML = `
             <td>${payment.receiptNo}</td>
             <td>${payment.studentName}</td>
             <td>${payment.amount}</td>
@@ -170,20 +198,30 @@ document.addEventListener('DOMContentLoaded', function(){
                 </div>
             </td>
             `;
-            tableBody.appendChild(row);
-        });
-    }
-    function loadStayTable(){
-        const tableBody = document.querySelector('#stay-table tbody');
-        tableBody.innerHTML = '';
+      tableBody.appendChild(row);
+    });
+  }
+  function loadStayTable() {
+    const tableBody = document.querySelector("#stay-table tbody");
+    tableBody.innerHTML = "";
 
-        appData.stay.forEach(stay => {
-            const row = document.createElement('tr');
+    appData.stay.forEach((stay) => {
+      let statusClass = '';
+      let eligibilityStatus = '';
 
-            const statusClass = stay.status === 'Eligible' ? 'status-approved' : 'status-pending' ;
-                // stay.status === 'Not Eligible' ? status-rejected ;
+      if (
+        stay.educationLevel === "BS" &&
+        (stay.semester === 7 || stay.semester === 8)
+      ) {
+        eligibilityStatus = 'Eligible';
+        statusClass = 'status-approved'
+      } else {
+        eligibilityStatus = 'No Eligible';
+        statusClass = 'status-rejected';
+      }
 
-            row.innerHTML = `
+      const row = document.createElement('tr');
+      row.innerHTML = `
             <td>${stay.requestNo}</td>
             <td>${stay.studentName}</td>
             <td>${stay.studentID}</td>
@@ -191,7 +229,7 @@ document.addEventListener('DOMContentLoaded', function(){
             <td>${stay.requestDate}</td>
             <td>${stay.extensionDuration}</td>
             <td>${stay.reasonForExtension}</td>
-            <td><span class="status ${statusClass}">${stay.status}</span></td>
+            <td><span class="status ${statusClass}">${eligibilityStatus}</span></td>
             <td>
                 <div class="action-buttons">
                     <button class="btn btn-primary btn-sm view-stay" data-id="${stay.requestNo}> 
@@ -206,7 +244,7 @@ document.addEventListener('DOMContentLoaded', function(){
                 </div>    
             </td>
             `;
-            tableBody.appendChild(row);
-        })
-    }
-})
+      tableBody.appendChild(row);
+    });
+  }
+});
