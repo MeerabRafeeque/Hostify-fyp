@@ -45,6 +45,8 @@ document.addEventListener("DOMContentLoaded", function () {
     closeModal();
     openAddStudentModal();
     addNewStudent();
+    editStudent();
+    updateStudent();
 
     setupeventListeners();
   }
@@ -116,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // load student table
 
   function loadStudentTable() {
-    const tableBody = document.querySelector("#students-table tbody");
+    const tableBody = document.querySelectorAll("#students-table tbody");
     tableBody.innerHTML = "";
 
     appData.students.forEach((student) => {
@@ -149,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // load room table
 
   function loadRoomTable() {
-    const tableBody = document.querySelector("#room-table tbody");
+    const tableBody = document.querySelectorAll("#room-table tbody");
     tableBody.innerHTML = "";
 
     appData.rooms.forEach((room) => {
@@ -189,7 +191,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // load payment table
 
   function loadPaymentsTable() {
-    const tableBody = document.querySelector("#payments-table tbody");
+    const tableBody = document.querySelectorAll("#payments-table tbody");
     tableBody.innerHTML = "";
 
     appData.payments.forEach((payment) => {
@@ -220,7 +222,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
   function loadStayTable() {
-    const tableBody = document.querySelector("#stay-table tbody");
+    const tableBody = document.querySelectorAll("#stay-table tbody");
     tableBody.innerHTML = "";
 
     appData.stay.forEach((stay) => {
@@ -268,7 +270,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // load staff table
 
   function loadStaffTable() {
-    const tableBody = document.querySelector("#staff-table tbody");
+    const tableBody = document.querySelectorAll("#staff-table tbody");
     tableBody.innerHTML = "";
 
     appData.staff.forEach((staff) => {
@@ -411,157 +413,350 @@ document.addEventListener("DOMContentLoaded", function () {
       roomTypeList.appendChild(tag);
     });
   }
-//   student actions
-    if(e.target.closest('.view-student')) {
-        const studentId = e.target.closest('.view-student').getAttribute('data-id');
-        viewStudentDetails(studentId);
+    // student actions
+  if (e.target.closest(".view-student")) {
+    const studentId = e.target.closest(".view-student").getAttribute("data-id");
+    viewStudentDetails(studentId);
+  }
+
+  if (e.target.closest(".edit-student")) {
+    const studentId = e.target.closest(".edit-student").getAttribute("data-id");
+    editStudentDetail(studentId);
+  }
+
+  if (e.target.closest(".delete-student")) {
+    const studentId = e.target.closest(".delete-staff").getAttribute("data-id");
+    showConfirmationModal(
+      "Delete Student",
+      "Are you sure you want to delete this student?",
+      "delete-student",
+      studentId
+    );
+  }
+  //  room actions
+  if (e.target.closest(".view-room")) {
+    const roomId = e.target.closest(".view-room").getAttribute("data-id");
+    viewRoomDetails(roomId);
+  }
+
+  if (e.target.closest(".edit-room")) {
+    const roomId = e.target.closest(".edit-room").getAttribute("data-id");
+    editRoomDetails(roomId);
+  }
+
+  if (e.target.closest(".delete-room")) {
+    const roomId = e.target.closest(".delete-room").getAttribute("data-id");
+    showConfirmationModal(
+      "Delete Room",
+      "Are you sure you want to delete this room?",
+      "delete-room",
+      roomId
+    );
+  }
+
+  //   staff actions
+  if (e.target.closest(".view-staff")) {
+    const staffId = e.target.closest(".view-staff").getAttribute("data-id");
+    viewStaffDetails(staffId);
+  }
+
+  if (e.target.closest(".edit-staff")) {
+    const staffId = e.target.closest(".edit-staff").getAttribute("data-id");
+    editStaffDetail(staffId);
+  }
+
+  if (e.target.closest(".delete-staff")) {
+    const staffId = e.target.closest(".delete-staff").getAttribute("data-id");
+    showConfirmationModal(
+      "Delete Staff",
+      "Are you sure you want to delete this staff member?",
+      "delete-staff",
+      staffId
+    );
+  }
+  function setupeventListeners() {
+    // Tab navigation
+    const navItems = document.querySelectorAll(".sideBar nav ul li");
+    navItems.forEach((items) => {
+      items.addEventListener("click", function () {
+        // remove active class from all items
+        navItems.forEach((navItem) => navItem.classList.remove("active"));
+
+        // hide all tab contents
+        const tabContents = document.querySelectorAll(".tab-content");
+        tabContents.forEach((content) => content.classList.remove("active"));
+
+        // show the selected tab content
+        const tabId = this.getAttribute("datat-tab");
+        document.getElementById(tabId).classList.add("active");
+      });
+    });
+  }
+
+function openModal(modalId) {
+  const overlay = document.getElementById("modal-overlay");
+  const modal = document.getElementById(modalId);
+  overlay.style.display = "block";
+  modal.style.display = "block";
+  overlay.style.opacity = "0";
+  modal.style.opacity = "0";
+  overlay.style.visibility = "hidden";
+  modal.style.visibility = "hidden";
+  setTimeout(() => {
+    overlay.style.opacity = "1";
+    modal.style.opacity = "1";
+    overlay.style.visibility = "visible";
+    modal.style.visibility = "visible";
+  }, 10);
+}
+  function closeModal() {
+    document.getElementById("modal-overlay").style.opacity = "0";
+    const modals = document.querySelectorAll(".modal");
+    modals.forEach((modal) => {
+      modal.style.display = "none";
+    });
+  }
+  function showConfirmationModal(title, message, action, id) {
+    document.getElementById("confirmation-title").textContent = title;
+    document.getElementById("confirmation-message").textContent = message;
+    document
+      .getElementById("confirmation-action")
+      .setAttribute("data-action", action);
+    document.getElementById("confirmation-action").setAttribute("data-id", id);
+
+    openModal("confirmation-modal");
+  }
+
+  function openAddStudentModal() {
+    // clear form
+    document.getElementById("add-student-form").reset();
+
+    // populate room dropdown
+    const roomSelect = document.getElementById("student-room");
+    roomSelect.innerHTML = '<option value =" ">Select Room</option>';
+
+    appData.rooms.forEach((room) => {
+      if (room.status === "Available" && room.occupied < room.capacity) {
+        const option = document.createElement("option");
+        option.value = room.number;
+        option.textContent = `Room${room.number} (${room.type})`;
+      }
+      roomSelect.appendChild(option);
+    });
+    openModal("add-student-modal");
+  }
+
+  function addNewStudent() {
+    const name = document.getElementById("std-name").value;
+    const email = document.getElementById("std-email").value;
+    const phone = document.getElementById("std-phn").value;
+    const room = document.getElementById("std-room").value;
+    const dob = document.getElementById("std-dob").value;
+    const address = document.getElementById("student-address").value;
+    const educationLevel = document.getElementById("std-edu").value;
+
+    // generate new id
+    const newId =
+      appData.students.length > 0
+        ? Math.max(...appData.students.map((s) => s.id)) + 1
+        : 1;
+
+    // add new student
+    const addNewStudent = {
+      id: newId,
+      name,
+      email,
+      phone,
+      room,
+      dob,
+      address,
+      educationLevel,
+      status: "Active",
+    };
+
+    appData.students.push(addNewStudent);
+
+    // update room occupancy
+    const roomObj = appData.rooms.find((r) => r.number === room);
+    if (roomObj) {
+      roomObj.occupied++;
+
+      // if room is now full, update status
+      if (roomObj.occupied >= roomObj.capacity) {
+        roomObj.status = "Occupied";
+      }
     }
+    // add activity
+    addActivity("student", `${name} checked into room ${room}`);
 
-    if (e.target.closest('.edit-student')) {
-        const studentId = e.target.closest('.edit-student').getAttribute('data-id');
-        editStudentDetail(studentId);
+    // reload tables
+    loadDashboard();
+    loadStudentTable();
+    loadRoomTable();
+
+    // close modal
+    closeModal();
+
+    // show success message
+    alert("Student added successfully!");
+  }
+  function viewStudentDetails(studentId) {
+    const student = appData.students.find((s) => s.id == studentId);
+
+    if (student) {
+      document.getElementById("details-title").textContent = "Student Details";
+
+      const detailsContent = document.getElementById("details-content");
+      detailsContent.innerHTML = `
+                <div class="detail-row">
+                    <strong>ID:</strong> ${student.id}
+                </div>
+                <div class="detail-row">
+                    <strong>Name:</strong> ${student.name}
+                </div>
+                <div class="detail-row">
+                    <strong>Email:</strong> ${student.email}
+                </div>
+                <div class="detail-row">
+                    <strong>Phone:</strong> ${student.phn}
+                </div>
+                <div class="detail-row">
+                    <strong>Room:</strong> ${student.room}
+                </div>
+                <div class="detail-row">
+                    <strong>Date of Birth:</strong> ${student.dob}
+                </div>
+                <div class="detail-row">
+                    <strong>Education Level:</strong> ${student.educationLevel}
+                </div>
+                <div class="detail-row">
+                    <strong>Address:</strong> ${student.address}
+                </div>
+                <div class="detail-row">
+                    <strong>Status:</strong><span class="status status-available">${student.status}</span>
+                </div>
+            `;
+      openModal("details-modal");
     }
+  }
 
-    if(e.target.closest('.delete-student')) {
-        const studentId = e.target.closest('.delete-staff').getAttribute('data-id');
-        showConfirmationModal('Delete Student', 'Are you sure you want to delete this student?', 'delete-student', studentId);
+  function editStudent(studentId) {
+    const student = appData.students.find((s) => s.id === studentId);
+    if (student) {
+      // edit modal with student data
+      document.getElementById("edit-std-id").value = student.id;
+      document.getElementById("edit-std-name").value = student.name;
+      document.getElementById("edit-std-email").value = student.email;
+      document.getElementById("edit-std-phn").value = student.phone;
+      document.getElementById("edit-std-dob").value = student.dob;
+      document.getElementById("edit-student-address").value = student.address;
+      document.getElementById("edit-std-edu").value = student.educationLevel;
+
+      //    populate room dropdown
+      const roomSelect = document.getElementById("edit-std-room");
+      roomSelect.innerHTML = '<option value="">Select Room</option>';
+
+      appData.rooms.forEach((room) => {
+        const option = document.createElement("option");
+        option.value = room.number;
+        option.textContent = `Room ${room.number} (${room.type})`;
+        option.selected = room.number === student.room;
+        roomSelect.appendChild(option);
+      });
+      openModal("edit-student-modal");
     }
-//  room actions
-    if(e.target.closest('.view-room')) {
-        const roomId = e.target.closest('.view-room').getAttribute('data-id');
-        viewRoomDetails(roomId);
-    }
+  }
+  function updateStudent() {
+    const studentId = document.getElementById("edit-std-id").value;
+    const name = document.getElementById("edit-std-name").value;
+    const email = document.getElementById("edit-std-email").value;
+    const phone = document.getElementById("edit-std-phn").value;
+    const room = document.getElementById("edit-std-room").value;
+    const dob = document.getElementById("edit-std-dob").value;
+    const educationLevel = document.getElementById("edit-std-edu").value;
+    const address = document.getElementById("edit-student-address").value;
 
-    if (e.target.closest('.edit-room')) {
-        const roomId = e.target.closest('.edit-room').getAttribute('data-id');
-        editRoomDetails(roomId);
-    }
+    const studentIndex = appData.students.findIndex((s) => s.id === studentId);
+    if (studentIndex === -1) return;
 
-    if(e.target.closest('.delete-room')) {
-        const roomId = e.target.closest('.delete-room').getAttribute('data-id');
-        showConfirmationModal('Delete Room', 'Are you sure you want to delete this room?', 'delete-room', roomId);
-    }
+    const oldRoom = appData.students[studentIndex].room;
 
-//   staff actions
-    if(e.target.closest('.view-staff')) {
-        const staffId = e.target.closest('.view-staff').getAttribute('data-id');
-        viewStaffDetails(staffId);
-    }
+    // update student
+    appData.students[studentIndex] = {
+      id: studentId,
+      name,
+      email,
+      phone,
+      room,
+      dob,
+      educationLevel,
+      address,
+      status: "Active",
+    };
 
-    if (e.target.closest('.edit-staff')) {
-        const staffId = e.target.closest('.edit-staff').getAttribute('data-id');
-        editStaffDetail(staffId);
-    }
-
-    if(e.target.closest('.delete-staff')) {
-        const staffId = e.target.closest('.delete-staff').getAttribute('data-id');
-        showConfirmationModal('Delete Staff', 'Are you sure you want to delete this staff member?', 'delete-staff', staffId);
-    }
-    function setupeventListeners() {
-        // Tab navigation
-        const navItems = document.querySelector('.sideBar nav ul li');
-        navItems.forEach(items =>{
-            items.addEventListener('click', function() {
-                // remove active class from all items
-                navItems.forEach(navItem => navItem.classList.remove('active'));
-
-                // hide all tab contents
-                const tabContents = document.querySelector('.tab-content');
-                tabContents.forEach(content => content.classList.remove('active'));
-
-                // show the selected tab content
-                const tabId = this.getAttribute('datat-tab');
-                document.getElementById(tabId).classList.add('active');
-            });
-        });
-    }
-
-    function openModal(modalId) {
-        document.getElementById('modal-overlay').style.display = 'block';
-        document.getElementById(modalId).style.display = 'block';
-
-        setTimeout(() => {
-            document.getElementById('modal-overlay').style.opacity = '1';
-            document.getElementById(modalId).style.opacity = '1';
-
-        }, 10);
-    }
-    function closeModal() {
-        document.getElementById('modal-overlay').style.opacity = '0';
-        const modals = document.querySelectorAll('.modal');
-        modals.forEach(modal => {
-            modal.style.display = 'none';
-            modals.forEach(modal => {
-                modal.style.display = 'none';
-            })
-        }, 300);
-    }
-    function showConfirmationModal(title, message, action, id) {
-        document.getElementById('confirmation-title').textContent = title ;
-        document.getElementById('confirmation-message').textContent = message ;
-        document.getElementById('confirmation-action').setAttribute('data-action', action);
-        document.getElementById('confirmation-action').setAttribute('data-id', id);
-
-        openModal('confirmation-modal');
-
-    }
-
-    function openAddStudentModal() {
-
-        // clear form 
-        document.getElementById('add-student-form').reset();
-
-        // populate room dropdown
-        const roomSelect = document.getElementById('student-room');
-        roomSelect.innerHTML = '<option value =" ">Select Room</option>';
-
-        appData.rooms.forEach(room => {
-            if(room.status === 'Available' && room.occupied < room.capacity) {
-                const option = document.createElement('option');
-                option.value = room.number;
-                option.textContent = `Room${room.number} (${room.type})`;
-            }
-        });
-        openModal('add-student-modal');
-
-    }
-
-    function addNewStudent() {
-        const name = document.getElementById('std-name').value;
-        const email = document.getElementById('std-email').value;
-        const phone = document.getElementById('std-phn').value;
-        const room = document.getElementById('std-room').value;
-        const dob = document.getElementById('std-dub').value;
-        const address = document.getElementById('student-address').value;
-        const educationLevel = document.getElementById('std-edu').value;
-
-        // generate new id
-        const newId = appData.students.length > 0 ?
-            Math.max(...appData.students.map(s => s.id)) + 1 : 1;
-
-        // add new student
-        const addNewStudent = {
-            id: newId,
-            name,
-            email,
-            phone,
-            room,
-            dob,
-            address,
-            educationLevel,
-            status: 'Active'
-        };
-
-        appData.students.push(newStudent);
-
-        // update room occupancy
-        const roomObj = appData.rooms.find(r => r.number === room);
-        if(roomObj) {
-            roomObj.occupied++;
-
-            // if room is now full, update status
-            
+    // update room occupancy if room changed
+    if (oldRoom !== room) {
+      // decrement old room occupancy
+      const oldRoomObj = appData.rooms.find((r) => r.number === room);
+      if (oldRoomObj) {
+        oldRoomObj.occupied--;
+        if (oldRoomObj.occupied < oldRoomObj.capacity) {
+          oldRoomObj.status = "Available";
         }
+      }
+      // increment new room occupancy
+      const newRoomObj = appData.rooms.find((r) => r.number === room);
+      if (newRoomObj) {
+        newRoomObj.occupied++;
+        if (newRoomObj.occupied >= newRoomObj.capacity) {
+          newRoomObj.status = "Occupied";
+        }
+      }
     }
-    
+    // add activity
+    addActivity("student", `Student ${name} (ID: ${studentId}) was updated`);
+
+    // reload tables
+    loadDashboard();
+    loadStudentTable();
+    loadRoomTable();
+
+    // close modal
+    closeModal();
+
+    // show success message
+    alert("Student updated successfully!");
+  }
+
+  function deleteStudent(studentId) {
+    const studentIndex = appData.students.findIndex((s) => s.id === studentId);
+
+    if (studentIndex !== -1) {
+      const student = appData.students[studentIndex];
+
+      // update room occupancy
+      const roomObj = appData.rooms.find((r) => r.number === student.room);
+      if (roomObj) {
+        roomObj.occupied--;
+
+        // if room is available, update the status
+        if (roomObj.occupied < roomObj.capacity) {
+          roomObj.status = "Available";
+        }
+      }
+      // remove student
+      appData.students.splice(studentIndex, 1);
+
+      // add activity
+      addActivity('Student', `Student ${student.name} (ID: ${studentId}) was deleted`);
+      // reload tables
+      loadDashboard();
+      loadStudentTable();
+      loadRoomTable();
+
+      // show success message
+      
+      alert('Student deleted successfully!');
+    }
+  }
 });
