@@ -1,18 +1,26 @@
-ddocument.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
   // initialize empty data structure
   let appData = {
     students: [],
     rooms: [],
-    payment: [],
+    payments: [],
     stay: [],
+    staff: [],
     activities: [],
     settings: {
       hostelName: "Hostify",
       hostelAddress: "",
-      contactNumber: "",
+      hostelContact: "",
       roomTypes: ["Single", "Double", "Dormitory"],
     },
   };
+
+  //  temporary placeholders
+  let attendanceData = [];
+  let penaltyData = [];
+  let complaintsData = [];
+  let menuData = [];
+  let feedbackData = [];
 
   // initialize application
 
@@ -123,6 +131,7 @@ ddocument.addEventListener("DOMContentLoaded", function () {
                     </button>
                     <button class="btn btn-secondary btn-sm edit-student" data-id="${student.id}">
                         <i class="fa-solid fa-edit"></i>
+                    </button>
                     <button class="btn btn-danger btn-sm delete-student" data-id="${student.id}">
                         <i class="fa-solid fa-trash"></i>
                     </button>
@@ -211,21 +220,21 @@ ddocument.addEventListener("DOMContentLoaded", function () {
     tableBody.innerHTML = "";
 
     appData.stay.forEach((stay) => {
-      let statusClass = '';
-      let eligibilityStatus = '';
+      let statusClass = "";
+      let eligibilityStatus = "";
 
       if (
         stay.educationLevel === "BS" &&
         (stay.semester === 7 || stay.semester === 8)
       ) {
-        eligibilityStatus = 'Eligible';
-        statusClass = 'status-approved'
+        eligibilityStatus = "Eligible";
+        statusClass = "status-approved";
       } else {
-        eligibilityStatus = 'No Eligible';
-        statusClass = 'status-rejected';
+        eligibilityStatus = "Not Eligible";
+        statusClass = "status-rejected";
       }
 
-      const row = document.createElement('tr');
+      const row = document.createElement("tr");
       row.innerHTML = `
             <td>${stay.requestNo}</td>
             <td>${stay.studentName}</td>
@@ -251,17 +260,17 @@ ddocument.addEventListener("DOMContentLoaded", function () {
             `;
       tableBody.appendChild(row);
     });
+  }
+  // load staff table
 
-    // load staff table
+  function loadStaffTable() {
+    const tableBody = document.querySelector("#staff-table tbody");
+    tableBody.innerHTML = "";
 
-    function loadStaffTable() {
-        const tableBody = document.querySelector('#staff-table tbody');
-        tableBody.innerHTML = '';
+    appData.staff.forEach((staff) => {
+      const row = document.createElement("tr");
 
-        appData.staff.forEach(staff => {
-            const row = document.createElement('tr');
-
-            row.innerHTML = `
+      row.innerHTML = `
                 <td>${staff.id}</td>
                 <td>${staff.name}</td>
                 <td>${staff.position}</td>
@@ -269,7 +278,7 @@ ddocument.addEventListener("DOMContentLoaded", function () {
                 <td>${staff.shift}</td>
                 <td><span class="status status-available">${staff.status}</span></td>
                 <td>
-                    <div class="action-buttons>
+                    <div class="action-buttons">
                         <button class="btn btn-primary btn-sm view-staff" data-id="${staff.id}">
                             <i class="fa-solid fa-eye"></i>
                         </button>
@@ -282,16 +291,16 @@ ddocument.addEventListener("DOMContentLoaded", function () {
                     </div>
                 </td>
             `;
-            tableBody.appendChild(row);
-        });
-    }
+      tableBody.appendChild(row);
+    });
+  }
 
-    // load attendance table
+  // load attendance table
 
-    function loadAttendance() {
-        const tableBody = document.getElementById('attendance-table');
-        attendanceData.forEach(attendance => {
-            let row = `
+  function loadAttendance() {
+    const tableBody = document.getElementById("attendance-table");
+    attendanceData.forEach((attendance) => {
+      let row = `
                 <tr>
                     <td>${attendance.id}</td>
                     <td>${attendance.name}</td>
@@ -301,16 +310,16 @@ ddocument.addEventListener("DOMContentLoaded", function () {
                     <td>${attendance.status}</td>
                 </tr>    
             `;
-            tableBody.innerHTML += row;
-        });
-    }
+      tableBody.innerHTML = row;
+    });
+  }
 
-    // load penalty table
+  // load penalty table
 
-    function loadPenaltyList() {
-        const tableBody = document.getElementById("penalty-table");
-        penaltyData.forEach(penalty => {
-            let row = `
+  function loadPenaltyList() {
+    const tableBody = document.getElementById("penalty-table");
+    penaltyData.forEach((penalty) => {
+      let row = `
                 <tr>
                     <td>${penalty.id}</td>
                     <td>${penalty.name}</td>
@@ -319,15 +328,15 @@ ddocument.addEventListener("DOMContentLoaded", function () {
                     <td>${penalty.reason}</td>
                 </tr>  
             `;
-            tableBody.innerHTML += row;
-        });
-    }
+      tableBody.innerHTML = row;
+    });
+  }
 
-    // load complaints & feedback table
-    function loadComplaints() {
-        const tableBody = document.getElementById("complaints-table");
-        complaintsData.forEach(complaint => {
-            let row =`
+  // load complaints & feedback table
+  function loadComplaints() {
+    const tableBody = document.getElementById("complaints-table");
+    complaintsData.forEach((complaint) => {
+      let row = `
                 <tr>
                     <td>${complaint.id}</td>
                     <td>${complaint.student}</td>
@@ -337,16 +346,16 @@ ddocument.addEventListener("DOMContentLoaded", function () {
                     <td>${complaint.feedback}</td>
                 </tr>
             `;
-            tableBody.innerHTML += row;
-        });
-    }
+      tableBody.innerHTML = row;
+    });
+  }
 
-    // load meal menu & feedback table
+  // load meal menu & feedback table
 
-    function loadMenu() {
-        const tableBody = document.getElementById("meal-table")
-        menuData.forEach(menu => {
-            let row = `
+  function loadMenu() {
+    const tableBody = document.getElementById("meal-table");
+    menuData.forEach((menu) => {
+      let row = `
                 <tr>
                     <td>${menu.day}</td>
                     <td>${menu.meal}</td>
@@ -355,16 +364,16 @@ ddocument.addEventListener("DOMContentLoaded", function () {
                     <td>${menu.updatedDate}</td>
                 </tr>
             `;
-            tableBody.innerHTML += row;
-        });
-    }
+      tableBody.innerHTML = row;
+    });
+  }
 
-    // load feedback
+  // load feedback
 
-    function loadFeedback() {
-        const tableBody = document.getElementById("meal-feedback");
-        feedbackData.forEach(feedback => {
-            let row = `
+  function loadFeedback() {
+    const tableBody = document.getElementById("meal-feedback");
+    feedbackData.forEach((feedback) => {
+      let row = `
                 <tr>
                     <td>${feedback.day}</td>
                     <td>${feedback.meal}</td>
@@ -372,31 +381,30 @@ ddocument.addEventListener("DOMContentLoaded", function () {
                     <td>${feedback.feedback}</td>
                 </tr>
             `;
-            tableBody.innerHTML += row;
-        });
-    }
+      tableBody.innerHTML = row;
+    });
+  }
 
-    // load settings section
+  // load settings section
 
-    function loadSettings() {
-        document.getElementById("hostel-name").value = appData.settings.hostelName;
-        document.getElementById("hostel-address").value = appData.settings.hostelAddress;
-        document.getElementById("hostel-contact").value = appData.settings.hostelContact;
+  function loadSettings() {
+    document.getElementById("hostel-name").value = appData.settings.hostelName;
+    document.getElementById("hostel-address").value =
+      appData.settings.hostelAddress;
+    document.getElementById("hostel-contact").value =
+      appData.settings.hostelContact;
 
-        const roomTypeList = document.getElementById("room-types-list");
-        roomTypeList.innerHTML = '';
+    const roomTypeList = document.getElementById("room-types-list");
+    roomTypeList.innerHTML = "";
 
-        appData.settings.roomTypes.forEach(type => {
-            const tag = document.createElement('div');
-            tag.className = 'tag';
-            tag.innerHTML = `
+    appData.settings.roomTypes.forEach((type) => {
+      const tag = document.createElement("div");
+      tag.className = "tag";
+      tag.innerHTML = `
                 ${type}
                 <span class="tag-remove" data-type="${type}">&times;</span>
             `;
-            roomTypeList.appendChild(tag);
-        });
-
-        // event listener
-    }
+      roomTypeList.appendChild(tag);
+    });
   }
 });
