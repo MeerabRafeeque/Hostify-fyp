@@ -27,6 +27,11 @@ ddocument.addEventListener("DOMContentLoaded", function () {
     loadPaymentsTable();
     loadStayTable();
     loadStaffTable();
+    loadAttendance();
+    loadPenaltyList();
+    loadComplaints();
+    loadMenu();
+    loadFeedback();
     loadSettings();
 
     setupeventListeners();
@@ -279,6 +284,102 @@ ddocument.addEventListener("DOMContentLoaded", function () {
             `;
             tableBody.appendChild(row);
         });
+    }
+
+    // load attendance table
+
+    function loadAttendance() {
+        const tableBody = document.getElementById('attendance-table');
+        attendanceData.forEach(attendance => {
+            let row = `
+                <tr>
+                    <td>${attendance.id}</td>
+                    <td>${attendance.name}</td>
+                    <td>${attendance.shift}</td>
+                    <td>${attendance.markedBy}</td>
+                    <td>${attendance.date}</td>
+                    <td>${attendance.status}</td>
+                </tr>    
+            `;
+            tableBody.innerHTML += row;
+        });
+    }
+
+    // load penalty table
+
+    function loadPenaltyList() {
+        const tableBody = document.getElementById("penalty-table");
+        penaltyData.forEach(penalty => {
+            let row = `
+                <tr>
+                    <td>${penalty.id}</td>
+                    <td>${penalty.name}</td>
+                    <td>${penalty.dateLate}</td>
+                    <td>${penalty.penalty}</td>
+                    <td>${penalty.reason}</td>
+                </tr>  
+            `;
+            tableBody.innerHTML += row;
+        });
+    }
+
+    // load complaints & feedback table
+    function loadComplaints() {
+        const tableBody = document.getElementById("complaints-table");
+        complaintsData.forEach(complaint => {
+            let row =`
+                <tr>
+                    <td>${complaint.id}</td>
+                    <td>${complaint.student}</td>
+                    <td>${complaint.complaint}</td>
+                    <td>${complaint.status}</td>
+                    <td>${complaint.handledBy}</td>
+                    <td>${complaint.feedback}</td>
+                </tr>
+            `;
+            tableBody.innerHTML += row;
+        });
+    }
+
+    // load meal menu & feedback table
+
+    function loadMenu() {
+        const tableBody = document.getElementById("meal-table")
+        menuData.forEach(menu => {
+            let row = `
+                <tr>
+                    <td>${menu.day}</td>
+                    <td>${menu.meal}</td>
+                    <td>${menu.description}</td>
+                    <td>${menu.updatedBy}</td>
+                    <td>${menu.updatedDate}</td>
+                </tr>
+            `;
+            tableBody.innerHTML += row;
+        });
+    }
+
+    // load feedback
+
+    function loadFeedback() {
+        const tableBody = document.getElementById("meal-feedback");
+        feedbackData.forEach(feedback => {
+            let row = `
+                <tr>
+                    <td>${feedback.day}</td>
+                    <td>${feedback.meal}</td>
+                    <td>${feedback.student}</td>
+                    <td>${feedback.feedback}</td>
+                </tr>
+            `;
+            tableBody.innerHTML += row;
+        });
+    }
+
+    // load settings section
+
+    function loadSettings() {
+        document.getElementById("hostel-name")
     }
   }
 });
