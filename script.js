@@ -41,6 +41,10 @@ document.addEventListener("DOMContentLoaded", function () {
     loadMenu();
     loadFeedback();
     loadSettings();
+    openModal();
+    closeModal();
+    openAddStudentModal();
+    addNewStudent();
 
     setupeventListeners();
   }
@@ -407,4 +411,157 @@ document.addEventListener("DOMContentLoaded", function () {
       roomTypeList.appendChild(tag);
     });
   }
+//   student actions
+    if(e.target.closest('.view-student')) {
+        const studentId = e.target.closest('.view-student').getAttribute('data-id');
+        viewStudentDetails(studentId);
+    }
+
+    if (e.target.closest('.edit-student')) {
+        const studentId = e.target.closest('.edit-student').getAttribute('data-id');
+        editStudentDetail(studentId);
+    }
+
+    if(e.target.closest('.delete-student')) {
+        const studentId = e.target.closest('.delete-staff').getAttribute('data-id');
+        showConfirmationModal('Delete Student', 'Are you sure you want to delete this student?', 'delete-student', studentId);
+    }
+//  room actions
+    if(e.target.closest('.view-room')) {
+        const roomId = e.target.closest('.view-room').getAttribute('data-id');
+        viewRoomDetails(roomId);
+    }
+
+    if (e.target.closest('.edit-room')) {
+        const roomId = e.target.closest('.edit-room').getAttribute('data-id');
+        editRoomDetails(roomId);
+    }
+
+    if(e.target.closest('.delete-room')) {
+        const roomId = e.target.closest('.delete-room').getAttribute('data-id');
+        showConfirmationModal('Delete Room', 'Are you sure you want to delete this room?', 'delete-room', roomId);
+    }
+
+//   staff actions
+    if(e.target.closest('.view-staff')) {
+        const staffId = e.target.closest('.view-staff').getAttribute('data-id');
+        viewStaffDetails(staffId);
+    }
+
+    if (e.target.closest('.edit-staff')) {
+        const staffId = e.target.closest('.edit-staff').getAttribute('data-id');
+        editStaffDetail(staffId);
+    }
+
+    if(e.target.closest('.delete-staff')) {
+        const staffId = e.target.closest('.delete-staff').getAttribute('data-id');
+        showConfirmationModal('Delete Staff', 'Are you sure you want to delete this staff member?', 'delete-staff', staffId);
+    }
+    function setupeventListeners() {
+        // Tab navigation
+        const navItems = document.querySelector('.sideBar nav ul li');
+        navItems.forEach(items =>{
+            items.addEventListener('click', function() {
+                // remove active class from all items
+                navItems.forEach(navItem => navItem.classList.remove('active'));
+
+                // hide all tab contents
+                const tabContents = document.querySelector('.tab-content');
+                tabContents.forEach(content => content.classList.remove('active'));
+
+                // show the selected tab content
+                const tabId = this.getAttribute('datat-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+    }
+
+    function openModal(modalId) {
+        document.getElementById('modal-overlay').style.display = 'block';
+        document.getElementById(modalId).style.display = 'block';
+
+        setTimeout(() => {
+            document.getElementById('modal-overlay').style.opacity = '1';
+            document.getElementById(modalId).style.opacity = '1';
+
+        }, 10);
+    }
+    function closeModal() {
+        document.getElementById('modal-overlay').style.opacity = '0';
+        const modals = document.querySelectorAll('.modal');
+        modals.forEach(modal => {
+            modal.style.display = 'none';
+            modals.forEach(modal => {
+                modal.style.display = 'none';
+            })
+        }, 300);
+    }
+    function showConfirmationModal(title, message, action, id) {
+        document.getElementById('confirmation-title').textContent = title ;
+        document.getElementById('confirmation-message').textContent = message ;
+        document.getElementById('confirmation-action').setAttribute('data-action', action);
+        document.getElementById('confirmation-action').setAttribute('data-id', id);
+
+        openModal('confirmation-modal');
+
+    }
+
+    function openAddStudentModal() {
+
+        // clear form 
+        document.getElementById('add-student-form').reset();
+
+        // populate room dropdown
+        const roomSelect = document.getElementById('student-room');
+        roomSelect.innerHTML = '<option value =" ">Select Room</option>';
+
+        appData.rooms.forEach(room => {
+            if(room.status === 'Available' && room.occupied < room.capacity) {
+                const option = document.createElement('option');
+                option.value = room.number;
+                option.textContent = `Room${room.number} (${room.type})`;
+            }
+        });
+        openModal('add-student-modal');
+
+    }
+
+    function addNewStudent() {
+        const name = document.getElementById('std-name').value;
+        const email = document.getElementById('std-email').value;
+        const phone = document.getElementById('std-phn').value;
+        const room = document.getElementById('std-room').value;
+        const dob = document.getElementById('std-dub').value;
+        const address = document.getElementById('student-address').value;
+        const educationLevel = document.getElementById('std-edu').value;
+
+        // generate new id
+        const newId = appData.students.length > 0 ?
+            Math.max(...appData.students.map(s => s.id)) + 1 : 1;
+
+        // add new student
+        const addNewStudent = {
+            id: newId,
+            name,
+            email,
+            phone,
+            room,
+            dob,
+            address,
+            educationLevel,
+            status: 'Active'
+        };
+
+        appData.students.push(newStudent);
+
+        // update room occupancy
+        const roomObj = appData.rooms.find(r => r.number === room);
+        if(roomObj) {
+            roomObj.occupied++;
+
+            // if room is now full, update status
+            
+        }
+    }
+    
 });

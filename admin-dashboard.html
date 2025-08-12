@@ -167,7 +167,7 @@
                     </button>
                 </div>
                 <div class="table-container">
-                    <table id="students-table">
+                    <table id="room-table">
                         <thead>
                             <tr>
                                 <th>Room No.</th>
@@ -196,7 +196,7 @@
                 </div>
 
                 <div class="table-container">
-                    <table id="students-table">
+                    <table id="stay-table">
                         <thead>
                             <tr>
                                 <th>Request No.</th>
@@ -227,7 +227,7 @@
                     </button>
                 </div>
                 <div class="table-container">
-                    <table id="students-table">
+                    <table id="staff-table">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -340,7 +340,6 @@
                       <th>Meal</th>
                       <th>Student Name</th>
                       <th>Feedback</th>
-                      <th>Rating</th>
                     </tr>
                   </thead>
                   <tbody id="meal-feedback"></tbody>
@@ -378,7 +377,7 @@
       </main>
 
        <!-- Notification Panel -->
-        
+
         <div class="tab-content">
           <div class="notificationPanel">
             <h2>Notifications</h2>
@@ -416,7 +415,7 @@
 
 
        <!-- Modal overly -->
-       <div class="modalOverly" id="modal-overly"></div>
+       <div class="modalOverlay" id="modal-overlay"></div>
 
        <!-- Add Student Modal -->
 
@@ -575,7 +574,6 @@
               <label for="room-status">Status</label>
               <select id="room-status">
                 <option value="Available">Available</option>
-                <option value="Unavailable">Unavailable</option>
                 <option value="Under Maintenance">Under Maintenance</option>
               </select>
             </div>
@@ -628,7 +626,6 @@
               <label for="edit-room-status">Status</label>
               <select id="edit-room-status">
                 <option value="Available">Available</option>
-                <option value="Unavailable">Unavailable</option>
                 <option value="Under Maintenance">Under Maintenance</option>
               </select>
             </div>
@@ -719,14 +716,6 @@
               <select id="yearSemester">
                 <option value="">...Select Year/Semester...</option>
               </select>
-              <div class="form-group">
-              <label for="req-status">Status</label>
-              <select id="req-status">
-                <option value="Approve">Available</option>
-                <option value="Pending">Unavailable</option>
-                <option value="Rejected">Under Maintenance</option>
-              </select>
-            </div>
             </div>
             <div class="form-action">
               <button type="button" class="btn btn-secondary closeModal">Cancel</button>
@@ -767,10 +756,10 @@
             </div>
             <!-- pending -->
             <div class="form-group">
-              <label for="staff-shift">Assign Room</label>
+              <label for="staff-shift">Assign Shift</label>
               <select id="staff-shift" required>
-                <option value="Morning">Morning ()</option>
-                <option value="Evening">Evening ()</option>
+                <option value="Morning">Morning</option>
+                <option value="Evening">Night</option>
               </select>
             </div>
             <div class="form-group">
@@ -865,9 +854,8 @@
             <button type="button" class="btn btn-secondary closeModal">Close</button>
           </div>
         </div>
-      </div>
-
-       
+      </div>     
     </div>
   </body>
+  <script src="script.js"></script>
 </html>
