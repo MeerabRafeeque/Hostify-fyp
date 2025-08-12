@@ -379,7 +379,24 @@ ddocument.addEventListener("DOMContentLoaded", function () {
     // load settings section
 
     function loadSettings() {
-        document.getElementById("hostel-name")
+        document.getElementById("hostel-name").value = appData.settings.hostelName;
+        document.getElementById("hostel-address").value = appData.settings.hostelAddress;
+        document.getElementById("hostel-contact").value = appData.settings.hostelContact;
+
+        const roomTypeList = document.getElementById("room-types-list");
+        roomTypeList.innerHTML = '';
+
+        appData.settings.roomTypes.forEach(type => {
+            const tag = document.createElement('div');
+            tag.className = 'tag';
+            tag.innerHTML = `
+                ${type}
+                <span class="tag-remove" data-type="${type}">&times;</span>
+            `;
+            roomTypeList.appendChild(tag);
+        });
+
+        // event listener
     }
   }
 });
