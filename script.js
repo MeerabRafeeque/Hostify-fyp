@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+ddocument.addEventListener("DOMContentLoaded", function () {
   // initialize empty data structure
   let appData = {
     students: [],
@@ -113,12 +113,12 @@ document.addEventListener("DOMContentLoaded", function () {
             <td><span class="status status-available">${student.status}</span></td>
             <td>
                 <div class="action-buttons">
-                    <button class="btn btn-primary btn-sm view-student" data-id="${student.id}>
+                    <button class="btn btn-primary btn-sm view-student" data-id="${student.id}">
                         <i class="fa-solid fa-eye"></i>
                     </button>
-                    <button class="btn btn-secondary btn-sm edit-student" data-id="${student.id}>
+                    <button class="btn btn-secondary btn-sm edit-student" data-id="${student.id}">
                         <i class="fa-solid fa-edit"></i>
-                    <button class="btn btn-danger btn-sm delete-student" data-id="${student.id}>
+                    <button class="btn btn-danger btn-sm delete-student" data-id="${student.id}">
                         <i class="fa-solid fa-trash"></i>
                     </button>
                 </div>
@@ -152,13 +152,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 <td><span  class="status ${statusClass}">${room.status}</span></td>
                 <td>
                     <div class="action-buttons">
-                        <button class="btn btn-primary btn-sm view-room" data-id="${room.number}>
+                        <button class="btn btn-primary btn-sm view-room" data-id="${room.number}">
                             <i class="fa-solid fa-eye"></i>
                         </button>
-                        <button class="btn btn-secondary btn-sm edit-room" data-id="${room.number}>
+                        <button class="btn btn-secondary btn-sm edit-room" data-id="${room.number}">
                             <i class="fa-solid fa-edit"></i>
                         </button>
-                        <button class="btn btn-danger btn-sm delete-room" data-id="${room.number}>
+                        <button class="btn btn-danger btn-sm delete-room" data-id="${room.number}">
                             <i class="fa-solid fa-trash"></i>
                         </button>
                     </div>
@@ -232,13 +232,13 @@ document.addEventListener("DOMContentLoaded", function () {
             <td><span class="status ${statusClass}">${eligibilityStatus}</span></td>
             <td>
                 <div class="action-buttons">
-                    <button class="btn btn-primary btn-sm view-stay" data-id="${stay.requestNo}> 
+                    <button class="btn btn-primary btn-sm view-stay" data-id="${stay.requestNo}"> 
                         <i class="fa-solid fa-eye"></i>
                     </button>
-                    <button class="btn btn-secondary btn-sm edit-stay" data-id="${stay.requestNo}> 
+                    <button class="btn btn-secondary btn-sm edit-stay" data-id="${stay.requestNo}"> 
                         <i class="fa-solid fa-edit"></i>
                     </button>
-                    <button class="btn btn-danger btn-sm delete-stay" data-id="${stay.requestNo}> 
+                    <button class="btn btn-danger btn-sm delete-stay" data-id="${stay.requestNo}"> 
                         <i class="fa-solid fa-trash"></i>
                     </button>
                 </div>    
@@ -246,5 +246,39 @@ document.addEventListener("DOMContentLoaded", function () {
             `;
       tableBody.appendChild(row);
     });
+
+    // load staff table
+
+    function loadStaffTable() {
+        const tableBody = document.querySelector('#staff-table tbody');
+        tableBody.innerHTML = '';
+
+        appData.staff.forEach(staff => {
+            const row = document.createElement('tr');
+
+            row.innerHTML = `
+                <td>${staff.id}</td>
+                <td>${staff.name}</td>
+                <td>${staff.position}</td>
+                <td>${staff.phone}</td>
+                <td>${staff.shift}</td>
+                <td><span class="status status-available">${staff.status}</span></td>
+                <td>
+                    <div class="action-buttons>
+                        <button class="btn btn-primary btn-sm view-staff" data-id="${staff.id}">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                        <button class="btn btn-secondary btn-sm edit-staff" data-id="${staff.id}"> 
+                            <i class="fa-solid fa-edit"></i>
+                        </button>
+                        <button class="btn btn-danger btn-sm delete-staff" data-id="${staff.id}"> 
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                </td>
+            `;
+            tableBody.appendChild(row);
+        });
+    }
   }
 });
