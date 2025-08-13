@@ -47,6 +47,9 @@ document.addEventListener("DOMContentLoaded", function () {
     addNewStudent();
     editStudent();
     updateStudent();
+    editRoom();
+    updateRoom();
+    openAddPaymentModal()
 
     setupeventListeners();
   }
@@ -413,7 +416,7 @@ document.addEventListener("DOMContentLoaded", function () {
       roomTypeList.appendChild(tag);
     });
   }
-    // student actions
+  // student actions
   if (e.target.closest(".view-student")) {
     const studentId = e.target.closest(".view-student").getAttribute("data-id");
     viewStudentDetails(studentId);
@@ -493,22 +496,22 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-function openModal(modalId) {
-  const overlay = document.getElementById("modal-overlay");
-  const modal = document.getElementById(modalId);
-  overlay.style.display = "block";
-  modal.style.display = "block";
-  overlay.style.opacity = "0";
-  modal.style.opacity = "0";
-  overlay.style.visibility = "hidden";
-  modal.style.visibility = "hidden";
-  setTimeout(() => {
-    overlay.style.opacity = "1";
-    modal.style.opacity = "1";
-    overlay.style.visibility = "visible";
-    modal.style.visibility = "visible";
-  }, 10);
-}
+  function openModal(modalId) {
+    const overlay = document.getElementById("modal-overlay");
+    const modal = document.getElementById(modalId);
+    overlay.style.display = "block";
+    modal.style.display = "block";
+    overlay.style.opacity = "0";
+    modal.style.opacity = "0";
+    overlay.style.visibility = "hidden";
+    modal.style.visibility = "hidden";
+    setTimeout(() => {
+      overlay.style.opacity = "1";
+      modal.style.opacity = "1";
+      overlay.style.visibility = "visible";
+      modal.style.visibility = "visible";
+    }, 10);
+  }
   function closeModal() {
     document.getElementById("modal-overlay").style.opacity = "0";
     const modals = document.querySelectorAll(".modal");
@@ -748,15 +751,241 @@ function openModal(modalId) {
       appData.students.splice(studentIndex, 1);
 
       // add activity
-      addActivity('Student', `Student ${student.name} (ID: ${studentId}) was deleted`);
+      addActivity(
+        "Student",
+        `Student ${student.name} (ID: ${studentId}) was deleted`
+      );
       // reload tables
       loadDashboard();
       loadStudentTable();
       loadRoomTable();
 
       // show success message
-      
-      alert('Student deleted successfully!');
+
+      alert("Student deleted successfully!");
     }
+  }
+
+  function openAddRoomModal() {
+    // clear form
+    document.getElementById("add-room-form").reset();
+
+    // populate room types
+    const typeSelect = document.getElementById("room-type");
+    typeSelect.innerHTML = '<option value="">Select Type</option>';
+
+    appData.settings.roomTypes.forEach((type) => {
+      const option = document.createElement("option");
+      option.value = type;
+      option.textContent = type;
+      typeSelect.appendChild(option);
+    });
+    openModal("add-room-modal");
+  }
+
+  // adding new room
+  function addNewRoom() {
+    const number = document.getElementById("room-number").value;
+    const type = document.getElementById("room-type").value;
+    const capacity = document.getElementById("room-capacity").value;
+    const price = document.getElementById("room-price").value;
+    const status = document.getElementById("room-status").value;
+
+    // check if room num already exist
+    if (appData.room.some((r) => r.numer === room.number)) {
+      alert("Room number already exists!");
+      return;
+    }
+
+    // add new room
+    const newRoom = {
+      number,
+      type,
+      capacity,
+      occupied: 0,
+      price,
+      status,
+    };
+    appData.rooms.push(newRoom);
+
+    // add activity
+    addActivity("room", `New room ${number} (${type}) added`);
+
+    // reload tables
+    loadDashboard();
+    loadRoomTable();
+
+    // close modal
+    closeModal();
+
+    // show success message
+    alert("Room added successfully!");
+  }
+
+  function viewRoomDetails(roomNumber) {
+    const room = appData.rooms.find((r) => r.number === roomNumber);
+
+    if (room) {
+      document.getElementById("details-title").textContent = "Room Details";
+      detailsContent.innerHTML = `
+      <div class="detail-row">
+        <strong>Room Number:</strong> ${room.number}
+      </div>
+      <div class="detail-row">
+        <strong>Type:</strong> ${room.type}
+      </div>
+      <div class="detail-row">
+        <strong>Capacity:</strong> ${room.capacity}
+      </div>
+      <div class="detail-row">
+        <strong>Occupied:</strong> ${room.occupied}
+      </div>
+      <div class="detail-row">
+        <strong>Price:</strong> ${room.price} per month
+      </div>
+      <div class="detail-row">
+        <strong>Status:</strong><span class="status ${
+          room.status === "Available" ? "status-available" : "status-pending"
+        }">${room.status}</span>
+      </div>
+      <div class="detail-row">
+        <strong>Students:</strong>
+        <ul class="student-list">
+          ${
+            appData.students
+              .filter((s) => s.room === room.number)
+              .map(
+                (s) => `
+              <li>${s.name} (ID: ${s.id})</li>
+            `
+              )
+              .join("") || "<li>No students assigned</li>"
+          }
+        </ul>
+      </div>
+    `;
+      openModal("de");
+    }
+  }
+
+  function editRoom() {
+    const room = appData.rooms.find(r=> r.number === roomNumber);
+
+    if (room) {
+      // edit modal with room data
+      document.getElementById('edit-room-number').value = room.number;
+      document.getElementById('edit-room-type').value = room.type;
+      document.getElementById('edit-room-capacity').value = room.capacity;
+      document.getElementById('edit-room-price').value = room.price;
+      document.getElementById('edit-room-status').value = room.status;
+
+      // populate room types
+      const typeSelect = document.getElementById('edit-room-type');
+      typeSelect.innerHTML = '<option value=">Select Type</option>';
+
+      appData.settings.roomTypes.forEach(type => {
+        const option = document.createElement('option');
+        option.value = type;
+        option.textContent = type;
+        option.selected = type === room.type;
+        typeSelect.appendChild(option);
+      });
+      openModal('edit-room-modal');
+    }
+  }
+
+  function updateRoom() {
+    const roomNumber = document.getElementById('edit-room-number').value;
+    const type = document.getElementById('edit-room-type').value;
+    const capacity = document.getElementById('edit-room-capacity').value;
+    const price = document.getElementById('edit-room-price').value;
+    const status = document.getElementById('edit-room-status').value;
+
+    const roomIndex = appData.rooms.find(r=> r.number === roomNumber);
+    if (roomIndex === -1) return;
+
+    // check if we are reducing capacity below current occupancy
+    if(capacity < appData.rooms[roomIndex].occupied) {
+      alert('Cannot set capacity below current occupancy!');
+      return;
+    }
+
+    // update room
+    appData.rooms[roomIndex] = {
+      number: roomNumber,
+      type,
+      capacity,
+      occupied: appData.rooms[roomIndex].occupied,
+      price,
+      status
+    };
+
+    // update status based on occupancy
+    if (appData.rooms[roomIndex].occupied >= capacity) {
+      appData.rooms[roomIndex].status = 'Occupied';  
+    } else if (status !== 'Under Maintenance') {
+      appData.rooms[roomIndex].status = 'Available';      
+    }
+    // add activity
+    addActivity('room', `Room ${roomNumber} was updated`);
+
+    // reload tables
+    loadDashboard();
+    loadRoomTable();
+    loadStudentTable();
+
+    // close modal
+    closeModal();
+
+    // show success message
+    alert('Room updated successfully!');
+  }
+
+  function deleteRoom() {
+    const roomIndex = appData.rooms.find(r=> r.number === roomNumber);
+
+    if (roomIndex !== -1) {
+      const room = appData.rooms[roomIndex];
+
+      // check if room has students
+      if (room.occupied > 0) {
+        alert('Cannot delete room with students assigned');
+        return;
+      }
+
+      // remove room
+      appData.rooms.splice(roomIndex, 1);
+
+      // add activity 
+      addActivity('room', `Room ${roomNumber} was deleted`);
+
+      // reload tables
+      loadDashboard();
+      loadRoomTable();
+
+      // show success message 
+      alert('Room deleted successfully!');
+      
+    }
+  }
+
+  function openAddPaymentModal() {
+    // clear form
+    document.getElementById('add-payment-form').reset();
+
+    // set default date to today
+    document.getElementById('payment-date').valueAsDate = new Date();
+
+    // populate student dropdown
+    const studentSelect = document.getElementById('payment-student');
+    studentSelect.innerHTML = '<option value="">Select Student</option>';
+
+    appData.students.forEach(student => {
+      const option = document.createElement('option');
+      option.value = student.id;
+      option.textContent = `${student.name} (Room: ${student.room})`;
+      studentSelect.appendChild(option);
+    });
+    openModal('add-payment-modal')
   }
 });
