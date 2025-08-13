@@ -64,6 +64,7 @@ document.addEventListener("DOMContentLoaded", function () {
     deletePayment();
     openAddStaffModal();
     addNewStaff();
+    editStaff();
 
     setupeventListeners();
   }
@@ -604,7 +605,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function addNewStudent() {
     const name = document.getElementById("std-name").value;
     const email = document.getElementById("std-email").value;
-    const phone = document.getElementById("std-phn").value;
+    const phone = document.getElementById("std-phone").value;
     const room = document.getElementById("std-room").value;
     const dob = document.getElementById("std-dob").value;
     const address = document.getElementById("student-address").value;
@@ -673,7 +674,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <strong>Email:</strong> ${student.email}
                 </div>
                 <div class="detail-row">
-                    <strong>Phone:</strong> ${student.phn}
+                    <strong>Phone:</strong> ${student.phone}
                 </div>
                 <div class="detail-row">
                     <strong>Room:</strong> ${student.room}
@@ -702,7 +703,7 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("edit-std-id").value = student.id;
       document.getElementById("edit-std-name").value = student.name;
       document.getElementById("edit-std-email").value = student.email;
-      document.getElementById("edit-std-phn").value = student.phone;
+      document.getElementById("edit-std-phone").value = student.phone;
       document.getElementById("edit-std-dob").value = student.dob;
       document.getElementById("edit-student-address").value = student.address;
       document.getElementById("edit-std-edu").value = student.educationLevel;
@@ -725,7 +726,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const studentId = document.getElementById("edit-std-id").value;
     const name = document.getElementById("edit-std-name").value;
     const email = document.getElementById("edit-std-email").value;
-    const phone = document.getElementById("edit-std-phn").value;
+    const phone = document.getElementById("edit-std-phone").value;
     const room = document.getElementById("edit-std-room").value;
     const dob = document.getElementById("edit-std-dob").value;
     const educationLevel = document.getElementById("edit-std-edu").value;
@@ -1302,5 +1303,160 @@ document.addEventListener("DOMContentLoaded", function () {
     const salary = parseFloat(document.getElementById('staff-salary').value);
 
     // generate new id
+    const newId = appData.staff.length > 0 ?
+      Math.max(...appData.staff.map(s=> s.id)) + 1 : 1;
+
+    // Add new staff
+    const newStaff = {
+      id: newId, 
+      name, 
+      position,
+      phone,
+      email, 
+      shift, 
+      salary, 
+      status: 'Active' 
+    };
+
+    appData.staff.push(newStaff);
+
+    // add activity
+    addActivity('staff', `New staff member ${name} (${position}) added`);
+
+    // reload tables
+    loadDashboard();
+    loadStaffTable();
+
+    // close modal
+    closeModal();
+
+    // show success message
+    alert('Staff member added successfully!');
   }
+
+  function viewStaffDetails(staffId) {
+    const staff = appData.staff.find(s=> s.id === staffId)
+
+    if (staff) {
+      document.getElementById('details-title').textContent = 'Staff Details';
+
+      const detailsContent = document.getElementById('details-content');
+      detailsContent.innerHTML = `
+        <div class="detail-row">
+          <strong>ID:</strong> ${staff.id}
+        </div>
+        <div class="detail-row">
+          <strong>Name:</strong> ${staff.name}
+        </div>
+        <div class="detail-row">
+          <strong>Position:</strong> ${staff.position}
+        </div>
+        <div class="detail-row">
+          <strong>Phone:</strong> ${staff.phone}
+        </div>
+        <div class="detail-row">
+          <strong>Email:</strong> ${staff.email || 'N/A'}
+        </div>
+        <div class="detail-row">
+          <strong>Shift:</strong> ${staff.shift}
+        </div>
+        <div class="detail-row">
+          <strong>Salary:</strong> ${staff.salary}
+        </div>
+        <div class="detail-row">
+          <strong>Status:</strong><span class="status-available">${staff.status}</span>
+        </div>
+      `;
+        openModal('details-modal')
+    }
+  }
+  function editStaff(staffId) {
+    const staff = appData.staff.find(s=> s.id === staffId);
+
+    if (staff) {
+      document.getElementById('detail-content');
+      detailsContent.innerHTML = `
+        <div class="detail-row>
+          <strong>ID:</strong> ${staff.id}
+        </div>
+        <div class="detail-row>
+          <strong>Name:</strong> ${staff.name}
+        </div>
+        <div class="detail-row>
+          <strong>Position:</strong> ${staff.position}
+        </div>
+        <div class="detail-row>
+          <strong>Phone:</strong> ${staff.phone}
+        </div>
+        <div class="detail-row>
+          <strong>Email:</strong> ${staff.email}
+        </div>
+        <div class="detail-row>
+          <strong>Shift:</strong> ${staff.shift}
+        </div>
+        <div class="detail-row>
+          <strong>Salary:</strong> ${staff.salary}
+        </div>
+        <div class="detail-row>
+          <strong>Status:</strong><span class="status-available"> ${staff.status}</span>
+        </div>
+      `;
+      openModal('details-modal');
+    }
+  }
+
+  function editStaff(staffId) {
+    const staff = appData.staff.find(s => s.id === staffId);
+
+    if(staff) {
+      // edit modal with staff data
+      document.getElementById('edit-staff-id').value = staff.id;
+      document.getElementById('edit-staff-name').value = staff.name;
+      document.getElementById('edit-staff-position').value = staff.position;
+      document.getElementById('edit-staff-email').value = staff.email;
+      document.getElementById('edit-staff-shift').value = staff.shift;
+      document.getElementById('edit-staff-salary').value = staff.salary;
+
+      openModal('edit-staff-modal');
+    }
+  }
+
+  function updateStaff() {
+    const staffId = document.getElementById('edit-staff-id').value;
+    const name = document.getElementById('edit-staff-name').value;
+    const position = document.getElementById('edit-staff-position').value;
+    const email = document.getElementById('edit-staff-email').value;
+    const shift = document.getElementById('edit-staff-shift').value;
+    const salary = parseFloat(document.getElementById('edit-staff-salary').value);
+
+    const staffIndex = appData.staff.findIndex(s => s.id == staffId);
+    if (staffIndex === -1) return;
+
+    // update staff
+    appData.staff[staffIndex] = {
+      id: staffId, 
+      name, 
+      position, 
+      phone, 
+      email, 
+      shift, 
+      salary, 
+      status: 'Active'
+    };
+
+    // add activity
+    addActivity('staff', `Staff member ${name} (ID: ${staffId}) was updated`);
+
+    // reload tables
+    loadDashboard();
+    loadStaffTable();
+
+    // close modal
+    closeModal();
+
+    // show success message
+    alert('Staff member updated successfully!');
+  }
+  
 });
+ 
