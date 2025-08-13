@@ -37,10 +37,15 @@ document.addEventListener("DOMContentLoaded", function () {
     loadStaffTable();
     loadAttendance();
     loadPenaltyList();
-    loadComplaints();
-    loadMenu();
-    loadFeedback();
+    viewComplaintDetails();
+    viewFeedbackDetails();
+    viewAttendanceDetails();
+    viewPenaltyDetails();
+    viewStayDetails();
+    approveStay();
+    rejectStay();
     loadSettings();
+    loadFeedback();
     openModal();
     closeModal();
     openAddStudentModal();
@@ -57,6 +62,8 @@ document.addEventListener("DOMContentLoaded", function () {
     addNewPayment();
     viewPaymentDetails();
     deletePayment();
+    openAddStaffModal();
+    addNewStaff();
 
     setupeventListeners();
   }
@@ -423,67 +430,105 @@ document.addEventListener("DOMContentLoaded", function () {
       roomTypeList.appendChild(tag);
     });
   }
-  // student actions
-  if (e.target.closest(".view-student")) {
-    const studentId = e.target.closest(".view-student").getAttribute("data-id");
-    viewStudentDetails(studentId);
-  }
 
-  if (e.target.closest(".edit-student")) {
-    const studentId = e.target.closest(".edit-student").getAttribute("data-id");
-    editStudentDetail(studentId);
-  }
+  document.addEventListener("click", function (e) {
+    // student actions
+    if (e.target.closest(".view-student")) {
+      const studentId = e.target
+        .closest(".view-student")
+        .getAttribute("data-id");
+      viewStudentDetails(studentId);
+    }
 
-  if (e.target.closest(".delete-student")) {
-    const studentId = e.target.closest(".delete-staff").getAttribute("data-id");
-    showConfirmationModal(
-      "Delete Student",
-      "Are you sure you want to delete this student?",
-      "delete-student",
-      studentId
-    );
-  }
-  //  room actions
-  if (e.target.closest(".view-room")) {
-    const roomId = e.target.closest(".view-room").getAttribute("data-id");
-    viewRoomDetails(roomId);
-  }
+    if (e.target.closest(".edit-student")) {
+      const studentId = e.target
+        .closest(".edit-student")
+        .getAttribute("data-id");
+      editStudentDetail(studentId);
+    }
 
-  if (e.target.closest(".edit-room")) {
-    const roomId = e.target.closest(".edit-room").getAttribute("data-id");
-    editRoomDetails(roomId);
-  }
+    if (e.target.closest(".delete-student")) {
+      const studentId = e.target
+        .closest(".delete-staff")
+        .getAttribute("data-id");
+      showConfirmationModal(
+        "Delete Student",
+        "Are you sure you want to delete this student?",
+        "delete-student",
+        studentId
+      );
+    }
+    //  room actions
+    if (e.target.closest(".view-room")) {
+      const roomId = e.target.closest(".view-room").getAttribute("data-id");
+      viewRoomDetails(roomId);
+    }
 
-  if (e.target.closest(".delete-room")) {
-    const roomId = e.target.closest(".delete-room").getAttribute("data-id");
-    showConfirmationModal(
-      "Delete Room",
-      "Are you sure you want to delete this room?",
-      "delete-room",
-      roomId
-    );
-  }
+    if (e.target.closest(".edit-room")) {
+      const roomId = e.target.closest(".edit-room").getAttribute("data-id");
+      editRoomDetails(roomId);
+    }
 
-  //   staff actions
-  if (e.target.closest(".view-staff")) {
-    const staffId = e.target.closest(".view-staff").getAttribute("data-id");
-    viewStaffDetails(staffId);
-  }
+    if (e.target.closest(".delete-room")) {
+      const roomId = e.target.closest(".delete-room").getAttribute("data-id");
+      showConfirmationModal(
+        "Delete Room",
+        "Are you sure you want to delete this room?",
+        "delete-room",
+        roomId
+      );
+    }
 
-  if (e.target.closest(".edit-staff")) {
-    const staffId = e.target.closest(".edit-staff").getAttribute("data-id");
-    editStaffDetail(staffId);
-  }
+    //   staff actions
+    if (e.target.closest(".view-staff")) {
+      const staffId = e.target.closest(".view-staff").getAttribute("data-id");
+      viewStaffDetails(staffId);
+    }
 
-  if (e.target.closest(".delete-staff")) {
-    const staffId = e.target.closest(".delete-staff").getAttribute("data-id");
-    showConfirmationModal(
-      "Delete Staff",
-      "Are you sure you want to delete this staff member?",
-      "delete-staff",
-      staffId
-    );
-  }
+    if (e.target.closest(".edit-staff")) {
+      const staffId = e.target.closest(".edit-staff").getAttribute("data-id");
+      editStaffDetail(staffId);
+    }
+
+    if (e.target.closest(".delete-staff")) {
+      const staffId = e.target.closest(".delete-staff").getAttribute("data-id");
+      showConfirmationModal(
+        "Delete Staff",
+        "Are you sure you want to delete this staff member?",
+        "delete-staff",
+        staffId
+      );
+    }
+
+    // stay request
+    if (e.target.closest(".view-stay")) {
+      const id = e.target.closest(".view-stay").getAttribute("data-id");
+      viewStayDetails(id);
+    }
+
+    // complaint & feedback viewing
+    if (e.target.classList.contains("view-complaint")) {
+      const id = e.target.getAttribute("data-id");
+      viewComplaintDetails(id);
+    }
+    if (e.target.classList.contains("view-feedback")) {
+      const id = e.target.getAttribute("data-id");
+      viewFeedbackDetails(id);
+    }
+
+    // Attendance view
+    if (e.target.closest(".view-attendance")) {
+      const id = e.target.closest(".view-attendance").getAttribute("data-id");
+      viewAttendanceDetails(id);
+    }
+
+    // Penalty view
+    if (e.target.closest(".view-penalty")) {
+      const id = e.target.closest(".view-penalty").getAttribute("data-id");
+      viewPenaltyDetails(id);
+    }
+  });
+
   function setupeventListeners() {
     // Tab navigation
     const navItems = document.querySelectorAll(".sideBar nav ul li");
@@ -1073,13 +1118,15 @@ document.addEventListener("DOMContentLoaded", function () {
         }">${payment.status}</span>
       </div>
     `;
-        openModal('details-modal');
+      openModal("details-modal");
     }
   }
   // delete payment
   function deletePayment(receiptNo) {
-    const paymentIndex = appData.payments.find(p => p.receiptNo === receiptNo);
-    
+    const paymentIndex = appData.payments.find(
+      (p) => p.receiptNo === receiptNo
+    );
+
     if (paymentIndex !== -1) {
       const paymentIndex = appData.payments[paymentIndex];
 
@@ -1087,15 +1134,173 @@ document.addEventListener("DOMContentLoaded", function () {
       appData.payments.splice(paymentIndex, 1);
 
       // add activity
-      addActivity('payment', `Payment ${receiptNo} for ${payment.studentName} was deleted`);
+      addActivity(
+        "payment",
+        `Payment ${receiptNo} for ${payment.studentName} was deleted`
+      );
 
       // reload tables
       loadDashboard();
       loadPaymentsTable();
 
-      // show success message 
-      alert('Payment record deleted successfully!');
+      // show success message
+      alert("Payment record deleted successfully!");
     }
   }
 
+  function addActivity(type, description) {
+    const now = new Date();
+    // in real app
+    const timeAgo = "Just now";
+
+    appData.activities.unshift({
+      type,
+      description,
+      time: timeAgo,
+    });
+
+    // keep only the last 10 activities
+    if (appData.activities.length > 10) {
+      appData.activities.pop();
+    }
+  }
+
+  function viewStayDetails(requestNo) {
+    const stay = appData.stay.find((s) => s.requestNo == requestNo);
+    if (!stay) return;
+
+    document.getElementById("details-title").textContent =
+      "Stay Extension Request";
+    document.getElementById("details-content").innerHTML = `
+        <p><strong>Request No:</strong> ${stay.requestNo}</p>
+        <p><strong>Student:</strong> ${stay.studentName} (${stay.studentID})</p>
+        <p><strong>Education Level:</strong> ${stay.educationLevel}</p>
+        <p><strong>Semester:</strong> ${stay.semester}</p>
+        <p><strong>Reason:</strong> ${stay.reasonForExtension}</p>
+        <p><strong>Duration:</strong> ${stay.extensionDuration}</p>
+        <p><strong>Status:</strong> ${stay.status || "Pending"}</p>
+        <p><strong>Eligibility:</strong> ${
+          stay.educationLevel === "BS" &&
+          (stay.semester === 7 || stay.semester === 8)
+            ? "Eligible"
+            : "Not Eligible"
+        }</p>
+        <div class="modal-actions">
+            <button class="btn btn-success" onclick="approveStay(${
+              stay.requestNo
+            })">Approve</button>
+            <button class="btn btn-danger" onclick="rejectStay(${
+              stay.requestNo
+            })">Reject</button>
+        </div>
+    `;
+    openModal("details-modal");
+  }
+
+  function approveStay(requestNo) {
+    const stay = appData.stay.find((s) => s.requestNo == requestNo);
+    if (!stay) return;
+
+    // eligibility check
+    if (
+      stay.educationLevel === "BS" &&
+      (stay.semester === 7 || stay.semester === 8)
+    ) {
+      stay.status = "Approved";
+    } else {
+      alert("This student is not eligible for approval.");
+      return;
+    }
+
+    loadStayTable();
+    closeModal();
+  }
+
+  function rejectStay(requestNo) {
+    const stay = appData.stay.find((s) => s.requestNo == requestNo);
+    if (!stay) return;
+
+    stay.status = "Rejected";
+    loadStayTable();
+    closeModal();
+  }
+
+  // View Complaint Details
+  function viewComplaintDetails(id) {
+    const complaint = appData.complaints.find((c) => c.id == id);
+    if (!complaint) return;
+
+    document.getElementById("details-title").textContent = "Complaint Details";
+    document.getElementById("details-content").innerHTML = `
+          <p><strong>ID:</strong> ${complaint.id}</p>
+          <p><strong>Student:</strong> ${complaint.studentName}</p>
+          <p><strong>Complaint:</strong> ${complaint.message}</p>
+          <p><strong>Date:</strong> ${complaint.date || "N/A"}</p>
+      `;
+    openModal("details-modal");
+  }
+
+  // View Feedback Details
+  function viewFeedbackDetails(id) {
+    const feedback = appData.feedback.find((f) => f.id == id);
+    if (!feedback) return;
+
+    document.getElementById("details-title").textContent = "Feedback Details";
+    document.getElementById("details-content").innerHTML = `
+          <p><strong>ID:</strong> ${feedback.id}</p>
+          <p><strong>Student:</strong> ${feedback.studentName}</p>
+          <p><strong>Feedback:</strong> ${feedback.message}</p>
+          <p><strong>Date:</strong> ${feedback.date || "N/A"}</p>
+      `;
+    openModal("details-modal");
+  }
+  // view attendance and penalty lists
+  function viewAttendanceDetails(id) {
+    const attendance = appData.attendance.find((a) => a.id == id);
+    if (!attendance) return;
+
+    document.getElementById("details-title").textContent = "Attendance Details";
+    document.getElementById("details-content").innerHTML = `
+        <p><strong>ID:</strong> ${attendance.id}</p>
+        <p><strong>Student:</strong> ${attendance.studentName}</p>
+        <p><strong>Date:</strong> ${attendance.date}</p>
+        <p><strong>Status:</strong> ${attendance.status}</p>
+        <p><strong>Remarks:</strong> ${attendance.remarks || "N/A"}</p>
+      `;
+    openModal("details-modal");
+  }
+  function viewPenaltyDetails(id) {
+    const penalty = appData.penalties.find((p) => p.id == id);
+    if (!penalty) return;
+
+    document.getElementById("details-title").textContent = "Penalty Details";
+    document.getElementById("details-content").innerHTML = `
+          <p><strong>ID:</strong> ${penalty.id}</p>
+          <p><strong>Student:</strong> ${penalty.studentName}</p>
+          <p><strong>Reason:</strong> ${penalty.reason}</p>
+          <p><strong>Amount:</strong> ${penalty.amount}</p>
+          <p><strong>Date:</strong> ${penalty.date || "N/A"}</p>
+          <p><strong>Status:</strong> ${penalty.status}</p>
+        `;
+    openModal("details-modal");
+  }
+
+  //add staff modal
+  function openAddStaffModal() {
+    // clear form
+    document.getElementById('add-staff-form').reset();
+
+    openModal('add-staff-modal');
+  }
+
+  function addNewStaff() {
+    const name = document.getElementById('staff-name').value;
+    const position = document.getElementById('staff-position').value;
+    const phone = document.getElementById('staff-phone').value;
+    const email = document.getElementById('staff-email').value;
+    const shift = document.getElementById('staff-shift').value;
+    const salary = parseFloat(document.getElementById('staff-salary').value);
+
+    // generate new id
+  }
 });
