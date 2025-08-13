@@ -47,9 +47,16 @@ document.addEventListener("DOMContentLoaded", function () {
     addNewStudent();
     editStudent();
     updateStudent();
+    deleteStudent();
+    openAddRoomModal();
+    addNewRoom();
     editRoom();
     updateRoom();
-    openAddPaymentModal()
+    deleteRoom();
+    openAddPaymentModal();
+    addNewPayment();
+    viewPaymentDetails();
+    deletePayment();
 
     setupeventListeners();
   }
@@ -792,7 +799,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const status = document.getElementById("room-status").value;
 
     // check if room num already exist
-    if (appData.room.some((r) => r.numer === room.number)) {
+    if (appData.rooms.some((r) => r.numer === room.number)) {
       alert("Room number already exists!");
       return;
     }
@@ -869,44 +876,44 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function editRoom() {
-    const room = appData.rooms.find(r=> r.number === roomNumber);
+    const room = appData.rooms.find((r) => r.number === roomNumber);
 
     if (room) {
       // edit modal with room data
-      document.getElementById('edit-room-number').value = room.number;
-      document.getElementById('edit-room-type').value = room.type;
-      document.getElementById('edit-room-capacity').value = room.capacity;
-      document.getElementById('edit-room-price').value = room.price;
-      document.getElementById('edit-room-status').value = room.status;
+      document.getElementById("edit-room-number").value = room.number;
+      document.getElementById("edit-room-type").value = room.type;
+      document.getElementById("edit-room-capacity").value = room.capacity;
+      document.getElementById("edit-room-price").value = room.price;
+      document.getElementById("edit-room-status").value = room.status;
 
       // populate room types
-      const typeSelect = document.getElementById('edit-room-type');
+      const typeSelect = document.getElementById("edit-room-type");
       typeSelect.innerHTML = '<option value=">Select Type</option>';
 
-      appData.settings.roomTypes.forEach(type => {
-        const option = document.createElement('option');
+      appData.settings.roomTypes.forEach((type) => {
+        const option = document.createElement("option");
         option.value = type;
         option.textContent = type;
         option.selected = type === room.type;
         typeSelect.appendChild(option);
       });
-      openModal('edit-room-modal');
+      openModal("edit-room-modal");
     }
   }
 
   function updateRoom() {
-    const roomNumber = document.getElementById('edit-room-number').value;
-    const type = document.getElementById('edit-room-type').value;
-    const capacity = document.getElementById('edit-room-capacity').value;
-    const price = document.getElementById('edit-room-price').value;
-    const status = document.getElementById('edit-room-status').value;
+    const roomNumber = document.getElementById("edit-room-number").value;
+    const type = document.getElementById("edit-room-type").value;
+    const capacity = document.getElementById("edit-room-capacity").value;
+    const price = document.getElementById("edit-room-price").value;
+    const status = document.getElementById("edit-room-status").value;
 
-    const roomIndex = appData.rooms.find(r=> r.number === roomNumber);
+    const roomIndex = appData.rooms.find((r) => r.number === roomNumber);
     if (roomIndex === -1) return;
 
     // check if we are reducing capacity below current occupancy
-    if(capacity < appData.rooms[roomIndex].occupied) {
-      alert('Cannot set capacity below current occupancy!');
+    if (capacity < appData.rooms[roomIndex].occupied) {
+      alert("Cannot set capacity below current occupancy!");
       return;
     }
 
@@ -917,17 +924,17 @@ document.addEventListener("DOMContentLoaded", function () {
       capacity,
       occupied: appData.rooms[roomIndex].occupied,
       price,
-      status
+      status,
     };
 
     // update status based on occupancy
     if (appData.rooms[roomIndex].occupied >= capacity) {
-      appData.rooms[roomIndex].status = 'Occupied';  
-    } else if (status !== 'Under Maintenance') {
-      appData.rooms[roomIndex].status = 'Available';      
+      appData.rooms[roomIndex].status = "Occupied";
+    } else if (status !== "Under Maintenance") {
+      appData.rooms[roomIndex].status = "Available";
     }
     // add activity
-    addActivity('room', `Room ${roomNumber} was updated`);
+    addActivity("room", `Room ${roomNumber} was updated`);
 
     // reload tables
     loadDashboard();
@@ -938,54 +945,157 @@ document.addEventListener("DOMContentLoaded", function () {
     closeModal();
 
     // show success message
-    alert('Room updated successfully!');
+    alert("Room updated successfully!");
   }
 
   function deleteRoom() {
-    const roomIndex = appData.rooms.find(r=> r.number === roomNumber);
+    const roomIndex = appData.rooms.find((r) => r.number === roomNumber);
 
     if (roomIndex !== -1) {
       const room = appData.rooms[roomIndex];
 
       // check if room has students
       if (room.occupied > 0) {
-        alert('Cannot delete room with students assigned');
+        alert("Cannot delete room with students assigned");
         return;
       }
 
       // remove room
       appData.rooms.splice(roomIndex, 1);
 
-      // add activity 
-      addActivity('room', `Room ${roomNumber} was deleted`);
+      // add activity
+      addActivity("room", `Room ${roomNumber} was deleted`);
 
       // reload tables
       loadDashboard();
       loadRoomTable();
 
-      // show success message 
-      alert('Room deleted successfully!');
-      
+      // show success message
+      alert("Room deleted successfully!");
     }
   }
 
   function openAddPaymentModal() {
     // clear form
-    document.getElementById('add-payment-form').reset();
+    document.getElementById("add-payment-form").reset();
 
     // set default date to today
-    document.getElementById('payment-date').valueAsDate = new Date();
+    document.getElementById("payment-date").valueAsDate = new Date();
 
     // populate student dropdown
-    const studentSelect = document.getElementById('payment-student');
+    const studentSelect = document.getElementById("payment-student");
     studentSelect.innerHTML = '<option value="">Select Student</option>';
 
-    appData.students.forEach(student => {
-      const option = document.createElement('option');
+    appData.students.forEach((student) => {
+      const option = document.createElement("option");
       option.value = student.id;
       option.textContent = `${student.name} (Room: ${student.room})`;
       studentSelect.appendChild(option);
     });
-    openModal('add-payment-modal')
+    openModal("add-payment-modal");
   }
+
+  // new payment adding
+  function addNewPayment() {
+    const studentId = document.getElementById("payment-student").value;
+    const amount = parseFloat(document.getElementById("payment-amount").value);
+    const date = document.getElementById("payment-date").value;
+    const method = document.getElementById("payment-method").value;
+    const description = document.getElementById("payment-description").value;
+
+    const student = appData.students.find((s) => s.id === studentId);
+    if (!student) {
+      alert("Please select a valid student!");
+      return;
+    }
+
+    // generate receipt number
+    const receiptNo =
+      "PAY" + (appData.payments.length + 1).toString().padStart(3, "0");
+
+    // add new payment
+    const addNewPayment = {
+      receiptNo,
+      studentId,
+      amount,
+      date,
+      method,
+      description,
+      status: "Completed",
+    };
+    appData.payments.push(newPayment);
+
+    // add activity
+    addActivity("payment", `${student.name} made a payment of ${amount}`);
+
+    // reload tables
+    loadDashboard();
+    loadPaymentsTable();
+
+    // close modal
+    closeModal();
+
+    // show success message
+    alert("Payment recorded successfully!");
+  }
+
+  function viewPaymentDetails(receiptNo) {
+    const payment = appData.payments.find((p) => p.receiptNo === receiptNo);
+
+    if (payment) {
+      document.getElementById("details-title").textContent = "Payment Details";
+
+      const detailsContent = document.getElementById("details-content");
+      detailsContent.innerHTML = `
+      <div class="detail-row">
+        <strong>Receipt No:</strong> ${payment.receiptNo}
+      </div>
+      <div class="detail-row">
+        <strong>Student:</strong> ${payment.studentName} (ID: ${
+        payment.studentId
+      })
+      </div>
+      <div class="detail-row">
+        <strong>Amount:</strong> ${payment.amount}
+      </div>
+      <div class="detail-row">
+        <strong>Date:</strong> ${payment.date}
+      </div>
+      <div class="detail-row">
+        <strong>Method:</strong> ${payment.method}
+      </div>
+      <div class="detail-row">
+        <strong>Description:</strong> ${payment.description || "N/A"}
+      </div>
+      <div class="detail-row">
+        <strong>Status:</strong><span class="status ${
+          payment.status === "Completed" ? "status-available" : "status-pending"
+        }">${payment.status}</span>
+      </div>
+    `;
+        openModal('details-modal');
+    }
+  }
+  // delete payment
+  function deletePayment(receiptNo) {
+    const paymentIndex = appData.payments.find(p => p.receiptNo === receiptNo);
+    
+    if (paymentIndex !== -1) {
+      const paymentIndex = appData.payments[paymentIndex];
+
+      // remove payment
+      appData.payments.splice(paymentIndex, 1);
+
+      // add activity
+      addActivity('payment', `Payment ${receiptNo} for ${payment.studentName} was deleted`);
+
+      // reload tables
+      loadDashboard();
+      loadPaymentsTable();
+
+      // show success message 
+      alert('Payment record deleted successfully!');
+    }
+  }
+
 });
