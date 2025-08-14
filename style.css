@@ -613,3 +613,428 @@ th:hover {
         width: 95%;
     }
 }
+
+/* Warden Dashboard */
+
+/* ===== WARDEN DASHBOARD CSS ===== */
+
+/* Container layout */
+.warden-container {
+  display: flex;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+/* Sidebar */
+.warden-sideBar {
+  background-color: #1e3a8a;
+  color: white;
+  width: 290px;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.warden-sideBar .logo {
+  display: flex;
+  align-items: center;
+  padding: 0 20px 20px;
+  font-size: 22px;
+  font-weight: bold;;
+}
+
+.warden-sideBar nav ul {
+  list-style: none;
+}
+
+.warden-sideBar nav ul li {
+  padding: 12px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s;
+}
+
+.warden-sideBar nav ul li:hover,
+.warden-sideBar nav ul li:active {
+  background-color: white;
+  color: #1e3a8a;
+  border-radius: 1px;
+}
+
+.warden-sideBar nav ul li i {
+  margin-right: 10px;
+  font-size: 10px;
+}
+
+/* Main content area */
+.warden-mainContent {
+  flex: 1;
+  margin-left: 15px;
+  padding: 20px;
+  transition: all 0.3s;
+}
+
+/* Header */
+.warden-topHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.warden-searchbar {
+  display: flex;
+  align-items: center;
+  background-color: #eee;
+  padding: 8px 15px;
+  border-radius: 30px;
+  width: 300px;
+}
+
+.warden-searchbar input {
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 100%;
+}
+
+.warden-userProfile {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.warden-userProfile img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.warden-profileDropdown {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: white;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  list-style: none;
+  padding: 6px 0;
+  display: none;
+  min-width: 150px;
+  z-index: 999;
+}
+
+.warden-profileDropdown li {
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #1e3a8a;
+}
+
+.warden-profileDropdown li:hover {
+  background: #f2f2f2;
+}
+
+.warden-profileDropdown i {
+  margin-right: 8px;
+  color: #1e3a8a;
+}
+
+/* Show profile dropdown when active */
+.warden-userProfile.active .profileDropdown {
+  display: block;
+}
+
+/* Dashboard overview cards */
+.warden-tab-content {
+  display: block;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.warden-stat-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.warden-stat-card {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.warden-stat-card:hover {
+  transform: translate(-5px);
+}
+
+.warden-stat-card i {
+  font-size: 40px;
+  margin-bottom: 15px;
+  color: #1e3a8a;
+}
+
+.warden-stat-card h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #111827;
+}
+
+.warden-stat-card p {
+  font-size: 24px;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+/* Hide menu toggle on desktop */
+.menu-toggle {
+  display: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Responsive settings */
+@media (max-width: 768px) {
+  /* Show hamburger */
+  .menu-toggle {
+    display: block;
+    color: #1e3a8a;
+    margin-left: 30px;
+  }
+
+  /* Sidebar hidden by default */
+  .warden-sideBar {
+    position: fixed;
+    left: -250px;
+    top: 0;
+    height: 100%;
+    transition: left 0.3s ease;
+    z-index: 1000;
+  }
+
+  /* Sidebar visible when active */
+  .warden-sideBar.active {
+    left: 0;
+  }
+
+  /* Push content when sidebar shows */
+  .mainContent {
+    flex: 1;
+    margin-left: 0;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .warden-sideBar {
+    width: 70px;
+    overflow: hidden;
+  }
+
+  .warden-sideBar .logo span,
+  .warden-sideBar nav ul li span {
+    display: none;
+  }
+
+  .warden-sideBar nav ul li {
+    justify-content: center;
+  }
+
+  .warden-sideBar nav ul li i {
+    margin-right: 0;
+    font-size: 20px;
+  }
+
+  .mainContent {
+    margin-left: 70px;
+  }
+
+  .searchbar {
+    width: 200px;
+  }
+
+  .warden-stat-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 576px) {
+  .topHeader {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .searchbar {
+    width: 100%;
+  }
+
+  .tab-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .modal {
+    width: 95%;
+  }
+}
+
+/* warden notification panel */
+/* Notification Panel Container */
+.warden-notificationPanel {
+  padding: 20px;
+  background: #f8f9fa;
+}
+
+/* Heading */
+.warden-notificationPanel h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Each Notification Card */
+.warden-notification {
+  background: #fff;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-left: 5px solid #007bff;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.warden-notification:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* Notification Header */
+.warden-notifyHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.warden-notifyHeader span {
+  font-weight: bold;
+  color: #007bff;
+}
+
+.warden-notifyHeader small {
+  font-size: 12px;
+  color: #888;
+}
+
+/* Notification Text */
+.warden-notification p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.warden-notification strong {
+  color: #333;
+}
+
+/* Buttons */
+.warden-notification .btn {
+  margin-top: 10px;
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+}
+
+.warden-notification .btn-primary {
+  background: #1e3a8a;
+}
+
+.warden-notification .btn-warning {
+  background: #ffc107;
+}
+
+.warden-notification .btn-danger {
+  background: #dc3545;
+}
+
+.warden-notification .btn:hover {
+  opacity: 0.9;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .warden-notificationPanel {
+    padding: 15px;
+  }
+  .warden-notification {
+    font-size: 14px;
+  }
+  .warden-notifyHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+}
+
+@media (max-width: 576px) {
+  .warden-notification {
+    padding: 12px;
+  }
+  .warden-notificationPanel h2 {
+    font-size: 20px;
+  }
+}
+
+.warden-notif-sideBar {
+  background-color: #1e3a8a;
+  color: white;
+  width: 290px;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  height: 165.5%;
+}
+
+.warden-notif-sideBar nav ul {
+  list-style: none;
+}
+
+.warden-notif-sideBar nav ul li {
+  padding: 12px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s;
+}
+
+.warden-notif-sideBar nav ul li:hover,
+.warden-notif-sideBar nav ul li:active {
+  background-color: white;
+  color: #1e3a8a;
+  border-radius: 1px;
+}
+
+.warden-notif-sideBar nav ul li i {
+  margin-right: 10px;
+  font-size: 10px;
+}
+
+
