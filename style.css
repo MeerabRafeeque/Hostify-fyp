@@ -559,60 +559,6 @@ th:hover {
   justify-content: flex-end;
 }
 
-/* Responsive Styles */
-
-@media (max-width: 768px) {
-  .sideBar {
-    width: 70px;
-    overflow: hidden;
-  }
-
-  .sideBar .logo span,
-  .sideBar nav ul li span {
-    display: none;
-  }
-
-  .sideBar nav ul li {
-    justify-content: center;
-  }
-  .sideBar nav ul li i {
-    margin-right: 0;
-    font-size: 20px;
-  }
-
-  .mainContent {
-    margin-left: 70px;
-  }
-
-  .searchbar {
-    width: 200px;
-  }
-
-  .statContainer {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 576px) {
-    .topHeader {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .searchbar {
-        width: 100%;
-    }
-
-    .tab-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
-
-    .modal {
-        width: 95%;
-    }
-}
 
 /* Warden Dashboard */
 
@@ -807,91 +753,6 @@ th:hover {
   cursor: pointer;
 }
 
-/* Responsive settings */
-@media (max-width: 768px) {
-  /* Show hamburger */
-  .menu-toggle {
-    display: block;
-    color: #1e3a8a;
-    margin-left: 30px;
-  }
-
-  /* Sidebar hidden by default */
-  .warden-sideBar {
-    position: fixed;
-    left: -250px;
-    top: 0;
-    height: 100%;
-    transition: left 0.3s ease;
-    z-index: 1000;
-  }
-
-  /* Sidebar visible when active */
-  .warden-sideBar.active {
-    left: 0;
-  }
-
-  /* Push content when sidebar shows */
-  .mainContent {
-    flex: 1;
-    margin-left: 0;
-  }
-}
-
-
-@media (max-width: 768px) {
-  .warden-sideBar {
-    width: 70px;
-    overflow: hidden;
-  }
-
-  .warden-sideBar .logo span,
-  .warden-sideBar nav ul li span {
-    display: none;
-  }
-
-  .warden-sideBar nav ul li {
-    justify-content: center;
-  }
-
-  .warden-sideBar nav ul li i {
-    margin-right: 0;
-    font-size: 20px;
-  }
-
-  .mainContent {
-    margin-left: 70px;
-  }
-
-  .searchbar {
-    width: 200px;
-  }
-
-  .warden-stat-container {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 576px) {
-  .topHeader {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .searchbar {
-    width: 100%;
-  }
-
-  .tab-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .modal {
-    width: 95%;
-  }
-}
 
 /* warden notification panel */
 /* Notification Panel Container */
@@ -979,29 +840,7 @@ th:hover {
   opacity: 0.9;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .warden-notificationPanel {
-    padding: 15px;
-  }
-  .warden-notification {
-    font-size: 14px;
-  }
-  .warden-notifyHeader {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 5px;
-  }
-}
 
-@media (max-width: 576px) {
-  .warden-notification {
-    padding: 12px;
-  }
-  .warden-notificationPanel h2 {
-    font-size: 20px;
-  }
-}
 
 .warden-notif-sideBar {
   background-color: #1e3a8a;
@@ -1035,6 +874,298 @@ th:hover {
 .warden-notif-sideBar nav ul li i {
   margin-right: 10px;
   font-size: 10px;
+}
+
+
+/* complaints panel */
+
+.complaintsPanel {
+  padding: 20px;
+  background: #f8f9fa;
+}
+
+.complaintsPanel h2 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.complaintsTable {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.complaintsTable th, 
+.complaintsTable td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+  font-size: 14px;
+}
+
+.complaintsTable th {
+  background: #1e3a8a;
+  color: #fff;
+}
+
+.complaintsTable tr:hover {
+  background: #f1f1f1;
+}
+
+.complaintsTable select,
+.complaintsTable input[type="text"] {
+  padding: 6px;
+  font-size: 13px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.complaintsTable select {
+  background: #fff;
+}
+
+.btn {
+  padding: 6px 10px;
+  font-size: 13px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+}
+
+.btn-primary {
+  background: #1e3a8a;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+.attendancePanel {
+  padding: 20px;
+  background: #f8f9fa;
+}
+
+.attendancePanel h2 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.attendanceTable {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.attendanceTable th,
+.attendanceTable td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+  font-size: 14px;
+}
+
+.attendanceTable th {
+  background: #1e3a8a;
+  color: #fff;
+}
+
+.attendanceTable tr:hover {
+  background: #f1f1f1;
+}
+
+.attendanceTable input[type="date"] {
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  color: #333;
+}
+
+.status {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.status.present {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status.absent {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.status.leave {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.status.holiday {
+  background: #cce5ff;
+  color: #004085;
+}
+
+
+/* warden views room allocation */
+.roomAllocationPanel {
+  padding: 20px;
+  background: #f8f9fa;
+}
+
+.roomAllocationPanel h2 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.roomAllocationTable {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.roomAllocationTable th,
+.roomAllocationTable td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+  font-size: 14px;
+}
+
+.roomAllocationTable th {
+  background: #1e3a8a;
+  color: #fff;
+}
+
+.roomAllocationTable tr:hover {
+  background: #f1f1f1;
+}
+
+.status {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.status.active {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status.removed {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+
+/* deputy RT attendance marking */
+
+.attendancePanel {
+  background: #f8f9fa;
+  padding: 20px;
+}
+
+.attendancePanel h2, .attendancePanel h3 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.attendanceForm {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
+  margin-bottom: 25px;
+  background: #fff;
+  padding: 15px;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.formGroup label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.formGroup input,
+.formGroup select {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.btnSubmit {
+  grid-column: 1 / -1;
+  padding: 10px;
+  background: #1e3a8a;
+  color: #fff;
+  font-size: 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btnSubmit:hover {
+  background: white;
+  color: #1e3a8a;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s;
+}
+
+.attendanceTable {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.attendanceTable th,
+.attendanceTable td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.attendanceTable th {
+  background: #1e3a8a;
+  color: #fff;
+}
+
+.status {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.status.present {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status.absent {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.status.leave {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.status.holiday {
+  background: #cce5ff;
+  color: #004085;
 }
 
 

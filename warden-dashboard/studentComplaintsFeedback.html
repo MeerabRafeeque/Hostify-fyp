@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="/responsive.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -46,25 +47,104 @@
       </aside>
 
       <main class="warden-mainContent">
-        <header class="warden-topHeader">
-          <div class="warden-searchbar">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Search here..." />
-          </div>
-          <div class="warden-userProfile">
-            <img src="/assets/images/user-profile.avif" alt="Warden" />
-            <span>Warden</span>
-            <i class="fa-solid fa-chevron-down" id="profileToggle"></i>
-            <ul class="warden-profileDropdown" id="profileMenu">
-              <li id="warden-logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Logout</li>
-            </ul>
-          </div>
+        <header class="topHeader">
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            <div class="searchbar">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Search here..." />
+            </div>
+            <div class="userProfile">
+                <img src="/assets/images/user-profile.avif" alt="Warden" />
+                <span>Warden</span>
+                <i class="fa-solid fa-chevron-down" id="profileToggle"></i>
+                <ul class="profileDropdown" id="profileMenu">
+                <li id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Logout</li>
+                </ul>
+            </div>
         </header>
+        <!-- complaints -->
+        <div class="complaintsPanel">
+          <h2>Student Complaints & Feedback</h2>
+          
+          <!-- Complaints Table -->
+          <table class="complaintsTable">
+            <thead>
+              <tr>
+                <th>Complaint ID</th>
+                <th>Student Name</th>
+                <th>Student ID</th>
+                <th>Complaint</th>
+                <th>Status</th>
+                <th>Feedback</th>
+                <th>Handled By</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Example Complaint Row -->
+              <tr>
+                <td>1</td>
+                <td>Ali Raza</td>
+                <td>101</td>
+                <td>Room AC is not working</td>
+                <td>
+                  <select>
+                    <option>Pending</option>
+                    <option>Resolved</option>
+                    <option>Rejected</option>
+                  </select>
+                </td>
+                <td>
+                  <input type="text" placeholder="Write feedback..." />
+                </td>
+                <td>
+                  <select>
+                    <option>Warden 1(morning)</option>
+                    <option>Warden 2(evening)</option>
+                    <option>Warden 3(night)</option>
+                  </select>
+                </td>
+                <td>
+                  <button class="btn btn-primary">Save</button>
+                </td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Agha Khan</td>
+                <td>102</td>
+                <td>Mess food is cold</td>
+                <td>
+                  <select>
+                    <option>Pending</option>
+                    <option>Resolved</option>
+                    <option>Rejected</option>
+                  </select>
+                </td>
+                <td>
+                  <input type="text" placeholder="Write feedback..." />
+                </td>
+                <td>
+                  <select>
+                    <option>Warden 1(morning)</option>
+                    <option>Warden 2(evening)</option>
+                    <option>Warden 3(night)</option>
+                  </select>
+                </td>
+                <td>
+                  <button class="btn btn-primary">Save</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
         
       </main>
     </div>
     <script src="/assets/js/nav.js" defer></script>
     <script src="/assets/js/logout.js" defer></script>
+    <script src="/assets/js/mobileView.js" defer></script>
   </body>
 </html>

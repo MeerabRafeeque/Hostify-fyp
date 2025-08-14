@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="/responsive.css" />
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -46,19 +48,22 @@
       </aside>
 
       <main class="warden-mainContent">
-        <header class="warden-topHeader">
-          <div class="warden-searchbar">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Search here..." />
-          </div>
-          <div class="warden-userProfile">
-            <img src="/assets/images/user-profile.avif" alt="Warden" />
-            <span>Warden</span>
-            <i class="fa-solid fa-chevron-down" id="profileToggle"></i>
-            <ul class="warden-profileDropdown" id="profileMenu">
-              <li id="warden-logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Logout</li>
-            </ul>
-          </div>
+        <header class="topHeader">
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            <div class="searchbar">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Search here..." />
+            </div>
+            <div class="userProfile">
+                <img src="/assets/images/user-profile.avif" alt="Warden" />
+                <span>Warden</span>
+                <i class="fa-solid fa-chevron-down" id="profileToggle"></i>
+                <ul class="profileDropdown" id="profileMenu">
+                <li id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Logout</li>
+                </ul>
+            </div>
         </header>
 
         <!-- notification panel -->
@@ -139,5 +144,6 @@
     </div>
     <script src="/assets/js/nav.js" defer></script>
     <script src="/assets/js/logout.js" defer></script>
+    <script src="/assets/js/mobileView.js" defer></script>
   </body>
 </html>

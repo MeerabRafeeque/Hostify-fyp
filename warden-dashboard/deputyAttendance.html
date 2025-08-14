@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="/responsive.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -46,25 +47,100 @@
       </aside>
 
       <main class="warden-mainContent">
-        <header class="warden-topHeader">
-          <div class="warden-searchbar">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Search here..." />
-          </div>
-          <div class="warden-userProfile">
-            <img src="/assets/images/user-profile.avif" alt="Warden" />
-            <span>Warden</span>
-            <i class="fa-solid fa-chevron-down" id="profileToggle"></i>
-            <ul class="warden-profileDropdown" id="profileMenu">
-              <li id="warden-logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Logout</li>
-            </ul>
-          </div>
+        <header class="topHeader">
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            <div class="searchbar">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Search here..." />
+            </div>
+            <div class="userProfile">
+                <img src="/assets/images/user-profile.avif" alt="Warden" />
+                <span>Warden</span>
+                <i class="fa-solid fa-chevron-down" id="profileToggle"></i>
+                <ul class="profileDropdown" id="profileMenu">
+                <li id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Logout</li>
+                </ul>
+            </div>
         </header>
+        <!-- deputy RT attendance marking -->
+        <div class="attendancePanel">
+          <h2>Deputy RT Attendance</h2>
+          <form class="attendanceForm">
+            <div class="formGroup">
+              <label for="deputyName">Deputy Name</label>
+              <input type="text" id="deputyName" placeholder="Enter Deputy Name" required>
+            </div>
+
+            <div class="formGroup">
+              <label for="deputyId">Deputy ID</label>
+              <input type="text" id="deputyId" placeholder="Enter Deputy ID" required>
+            </div>
+
+            <div class="formGroup">
+              <label for="shift">Shift</label>
+              <select id="shift" required>
+                <option value="">Select Shift</option>
+                <option>Morning</option>
+                <option>Evening</option>
+                <option>Night</option>
+              </select>
+            </div>
+
+            <div class="formGroup">
+              <label for="attendanceDate">Date</label>
+              <input type="date" id="attendanceDate" required>
+            </div>
+
+            <div class="formGroup">
+              <label for="markedBy">Marked By</label>
+              <select id="markedBy" required>
+                <option value="">Select Warden</option>
+                <option>Warden 1 (Morning)</option>
+                <option>Warden 2 (Evening)</option>
+                <option>Warden 3 (Night)</option>
+              </select>
+            </div>
+
+            <div class="formGroup">
+              <label for="status">Status</label>
+              <select id="status" required>
+                <option value="">Select Status</option>
+                <option>Present</option>
+                <option>Absent</option>
+                <option>Leave</option>
+                <option>Holiday</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btnSubmit">Mark Attendance</button>
+          </form>
+
+          <h3>Attendance Records</h3>
+          <table class="attendanceTable">
+            <thead>
+              <tr>
+                <th>Deputy Name</th>
+                <th>Deputy ID</th>
+                <th>Shift</th>
+                <th>Date</th>
+                <th>Marked By</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- dynamic data -->
+            </tbody>
+          </table>
+        </div>
 
         
       </main>
     </div>
     <script src="/assets/js/nav.js" defer></script>
     <script src="/assets/js/logout.js" defer></script>
+    <script src="/assets/js/mobileView.js" defer></script>
+
   </body>
 </html>
