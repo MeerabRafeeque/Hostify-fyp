@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <title>Notification Panel</title>
+  </head>
+  <body>
+    <div class="warden-container">
+      <aside class="warden-notif-sideBar">
+        <div class="logo">
+          <span>Hostify</span>
+        </div>
+        <nav>
+          <ul>
+            <li class="active" data-tab="warden" data-page="warden.html">
+              <i class="fa-solid fa-house"></i><span>Warden Dashboard</span>
+            </li>
+            <li data-tab="warden-notification" data-page="warden-notification.html">
+              <i class="fa-solid fa-bell"></i>
+              <span>Notification Panel</span>
+            </li>
+            <li data-tab="room-allocation" data-page="roomAllocation.html">
+              <i class="fa-solid fa-bed"></i>
+              <span>Room Allocation</span>
+            </li>
+            <li data-tab="student-attendance" data-page="studentAttendance.html">
+              <i class="fa-solid fa-user"></i>
+              <span>Student Attendance</span>
+            </li>
+            <li data-tab="deputy-attendance" data-page="deputyAttendance.html">
+              <i class="fa-solid fa-edit"></i>
+              <span>Deputy RT Attendance</span>
+            </li>
+            <li data-tab="student-complaints-feedback" data-page="studentComplaintsFeedback.html">
+              <i class="fa-solid fa-circle-exclamation"></i>
+              <span>Student Complaints & Feedback</span>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+
+      <main class="warden-mainContent">
+        <header class="warden-topHeader">
+          <div class="warden-searchbar">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Search here..." />
+          </div>
+          <div class="warden-userProfile">
+            <img src="/assets/images/user-profile.avif" alt="Warden" />
+            <span>Warden</span>
+            <i class="fa-solid fa-chevron-down" id="profileToggle"></i>
+            <ul class="warden-profileDropdown" id="profileMenu">
+              <li id="warden-logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Logout</li>
+            </ul>
+          </div>
+        </header>
+
+        <!-- notification panel -->
+        <div class="warden-tab-content" id="warden-notification">
+          <div class="warden-notificationPanel">
+            <h2>Notifications</h2>
+
+            <!-- Room Allocated -->
+            <div class="warden-notification" data-tab="room">
+              <div class="warden-notifyHeader">
+                <span>Room Allocated</span>
+                <small>14 Aug 2025</small>
+              </div>
+              <p><strong>Student:</strong> Ahmed Khan (ID:12)</p>
+              <p><strong>Room No:</strong> F1-04</p>
+              <p><strong>Allocated By:</strong> Admin</p>
+              <button
+                onclick="alert('View room allocation details for Ahmed Khan')"
+                class="btn btn-primary"
+              >
+                View Details
+              </button>
+            </div>
+
+            <!-- Room Deallocated -->
+            <div class="warden-notification" data-tab="room">
+              <div class="warden-notifyHeader">
+                <span>Room Deallocated</span>
+                <small>13 Aug 2025</small>
+              </div>
+              <p><strong>Student:</strong> Sara Malik (ID:7)</p>
+              <p><strong>Room No:</strong> F2-05</p>
+              <p><strong>Deallocated By:</strong> Admin</p>
+              <button
+                onclick="alert('View room deallocation details for Sara Malik')"
+                class="btn btn-primary"
+              >
+                View Details
+              </button>
+            </div>
+
+            <!-- Student Complaint Submitted -->
+            <div class="warden-notification" data-tab="complaint">
+              <div class="warden-notifyHeader">
+                <span>New Student Complaint</span>
+                <small>12 Aug 2025</small>
+              </div>
+              <p><strong>Student:</strong> Bilal Ahmed (ID:4)</p>
+              <p><strong>Type:</strong> Mess Quality</p>
+              <p><strong>Details:</strong> Food served was cold during dinner.</p>
+              <button
+                onclick="alert('View complaint details for Bilal Ahmed')"
+                class="btn btn-primary"
+              >
+                View Complaint
+              </button>
+            </div>
+
+            <!-- Deputy RT Attendance Not Marked -->
+            <div class="warden-notification" data-tab="attendance">
+              <div class="warden-notifyHeader">
+                <span>Deputy RT Attendance Not Marked</span>
+                <small>11 Aug 2025</small>
+              </div>
+              <p>
+                Deputy RT attendance hasn't been marked for <strong>10 Aug 2025</strong>.
+              </p>
+              <button
+                onclick="alert('Mark Deputy RT Attendance now')"
+                class="btn btn-warning"
+              >
+                Mark Attendance
+              </button>
+            </div>
+          </div>
+        </div> 
+      </main>
+    </div>
+    <script src="/assets/js/nav.js" defer></script>
+    <script src="/assets/js/logout.js" defer></script>
+  </body>
+</html>
