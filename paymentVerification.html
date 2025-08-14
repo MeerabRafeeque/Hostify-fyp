@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <title>Payment Verification</title>
+  </head>
+  <body>
+    <div class="container">
+      <aside class="sideBar">
+        <div class="logo">
+          <span>Hostify</span>
+        </div>
+        <nav>
+          <ul>
+            <li class="active" data-tab="dashboard" data-page=" dashboard.html">
+              <i class="fa-solid fa-house"></i><span id>Dashboard</span>
+            </li>
+            <li data-tab="notification" data-page="notification.html">
+              <i class="fa-solid fa-bell"></i>
+              <span>Notification Panel</span>
+            </li>
+            <li data-tab="students" data-page="studentManagement.html">
+              <i class="fa-solid fa-users"></i>
+              <span>Student Management</span>
+            </li>
+            <li data-tab="payment" data-page="paymentVerification.html">
+              <i class="fa-solid fa-money-bill-1-wave"></i>
+              <span>Payment Verification</span>
+            </li>
+            <li data-tab="room" data-page="roomManagement.html">
+              <i class="fa-solid fa-person-booth"></i>
+              <span>Room Management</span>
+            </li>
+            <li data-tab="staff" data-page="staffManagement.html">
+              <i class="fa-solid fa-user-tie"></i>
+              <span>Staff Management</span>
+            </li>
+            <li data-tab="attendance" data-page="attendancePenalty.html">
+              <i class="fa-solid fa-pencil"></i>
+              <span>Attendance & Penalty</span>
+            </li>
+            <li data-tab="comp-feed" data-page="complaintFeedback.html">
+              <i class="fa-solid fa-circle-exclamation"></i>
+              <span>Complaints & Feedback</span>
+            </li>
+            <li data-tab="meal-feed" data-page="mealFeed.html">
+              <i class="fa-solid fa-bowl-food"></i>
+              <span>Meal Menu & Feedback</span>
+            </li>
+            <li data-tab="stay" data-page="stayExtensionRequests.html">
+              <i class="fa-solid fa-bed"></i>
+              <span>Stay Extension Requests</span>
+            </li>
+            <li data-tab="settings" data-page="settings.html">
+              <i class="fa-solid fa-cog"></i>
+              <span>Settings</span>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+
+      <main class="mainContent">
+        <header class="topHeader">
+          <div class="searchbar">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Search here..." />
+          </div>
+          <div class="userProfile">
+            <img src="./assets/images/user-profile.avif" alt="Admin" />
+            <span>Admin</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+        </header>
+
+        <!-- Payment Management Tab -->
+        <div class="tab-content active" id="payment">
+          <div class="tab-header">
+            <h2>Payment Verification</h2>
+            <button class="btn btn-primary" id="add-payment-btn">
+              <i class="fa-solid fa-plus"></i> Record Payment
+            </button>
+          </div>
+          <div class="table-container">
+            <table id="payment-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Student</th>
+                  <th>Amount</th>
+                  <th>Date</th>
+                  <th>Method</th>
+                  <th>Description</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Payment data will be populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Add Payment Modal -->
+        <div class="modal" id="add-payment-modal">
+          <div class="modalHeader">
+            <h3>Record New Payment</h3>
+            <button class="closeModal">&times;</button>
+          </div>
+          <div class="modalBody">
+            <form id="add-payment-form">
+              <div class="form-group">
+                <label for="payment-student">Student</label>
+                <select id="payment-student" required>
+                  <option value="">Select Student</option>
+                  <!-- Students will be added dynamically -->
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="payment-amount">Amount</label>
+                <input type="number" id="payment-amount" min="0" required />
+              </div>
+              <div class="form-group">
+                <label for="payment-date">Date</label>
+                <input type="date" id="payment-date" required />
+              </div>
+              <div class="form-group">
+                <label for="payment-method">Payment Method</label>
+                <select id="payment-method" required>
+                  <option value="Bank Transfer">Bank Transfer</option>
+                  <option value="Credit Card">Credit Card</option>
+                  <option value="Mobile Payment">Mobile Payment</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="payment-description">Description</label>
+                <textarea id="payment-description"></textarea>
+              </div>
+              <div class="form-action">
+                <button type="button" class="btn btn-secondary closeModal">
+                  Cancel
+                </button>
+                <button type="submit" class="btn btn-primary">
+                  Record Payment
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </main>
+    </div>
+    <script src="./assets/js/nav.js" defer></script>
+  </body>
+</html>

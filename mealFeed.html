@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <title>Meal Menu & Feedback</title>
+  </head>
+  <body>
+    <div class="container">
+      <aside class="sideBar">
+        <div class="logo">
+          <span>Hostify</span>
+        </div>
+        <nav>
+          <ul>
+            <li class="active" data-tab="dashboard" data-page=" dashboard.html">
+              <i class="fa-solid fa-house"></i><span id>Dashboard</span>
+            </li>
+            <li data-tab="notification" data-page="notification.html">
+              <i class="fa-solid fa-bell"></i>
+              <span>Notification Panel</span>
+            </li>
+            <li data-tab="students" data-page="studentManagement.html">
+              <i class="fa-solid fa-users"></i>
+              <span>Student Management</span>
+            </li>
+            <li data-tab="payment" data-page="paymentVerification.html">
+              <i class="fa-solid fa-money-bill-1-wave"></i>
+              <span>Payment Verification</span>
+            </li>
+            <li data-tab="room" data-page="roomManagement.html">
+              <i class="fa-solid fa-person-booth"></i>
+              <span>Room Management</span>
+            </li>
+            <li data-tab="staff" data-page="staffManagement.html">
+              <i class="fa-solid fa-user-tie"></i>
+              <span>Staff Management</span>
+            </li>
+            <li data-tab="attendance" data-page="attendancePenalty.html">
+              <i class="fa-solid fa-pencil"></i>
+              <span>Attendance & Penalty</span>
+            </li>
+            <li data-tab="comp-feed" data-page="complaintFeedback.html">
+              <i class="fa-solid fa-circle-exclamation"></i>
+              <span>Complaints & Feedback</span>
+            </li>
+            <li data-tab="meal-feed" data-page="mealFeed.html">
+              <i class="fa-solid fa-bowl-food"></i>
+              <span>Meal Menu & Feedback</span>
+            </li>
+            <li data-tab="stay" data-page="stayExtensionRequests.html">
+              <i class="fa-solid fa-bed"></i>
+              <span>Stay Extension Requests</span>
+            </li>
+            <li data-tab="settings" data-page="settings.html">
+              <i class="fa-solid fa-cog"></i>
+              <span>Settings</span>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+
+      <main class="mainContent">
+        <header class="topHeader">
+          <div class="searchbar">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Search here..." />
+          </div>
+          <div class="userProfile">
+            <img src="./assets/images/user-profile.avif" alt="Admin" />
+            <span>Admin</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+        </header>
+
+        <!-- Meal Menu & Feedback Tab -->
+        <div class="tab-content" id="meal-feed">
+        <!-- Weekly Mess Menu -->
+        <div class="tab-header">
+            <h2>Weekly Mess Menu</h2>
+        </div>
+        <div class="table-container">
+            <table id="meal-table">
+            <thead>
+                <tr>
+                <th>Day</th>
+                <th>Meal</th>
+                <th>Description</th>
+                <th>Updated By</th>
+                <th>Updated Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- menu -->
+            </tbody>
+            </table>
+        </div>
+
+        <!-- Student Feedback on Meals -->
+        <div class="tab-header">
+            <h2>Student Feedback on Meals</h2>
+        </div>
+        <div class="table-container">
+            <table id="meal-feedback">
+            <thead>
+                <tr>
+                <th>Day</th>
+                <th>Meal</th>
+                <th>Student Name</th>
+                <th>Feedback</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- feedbacks -->
+            </tbody>
+            </table>
+        </div>
+        </div>
+
+
+      </main>
+    </div>
+    <script src="./assets/js/nav.js" defer></script>
+  </body>
+</html>

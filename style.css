@@ -151,8 +151,6 @@ body {
 
 .notificationPanel {
   position: absolute;
-  top: 142rem;
-  left: 21.75%;
   background: #fff;
   border-radius: 10px;
   padding: 20px;
@@ -420,7 +418,7 @@ th:hover {
   border: 1px solid white;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
-  font-size: 1px;
+  font-size: 14px;
 }
 
 .form-group textarea {
@@ -486,7 +484,7 @@ th:hover {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, 50%);
+  transform: translate(-50%, -50%);
   background-color: white;
   border-radius: 8px;
   z-index: 1001;
@@ -513,7 +511,7 @@ th:hover {
 .closeModal {
   background: none;
   border: none;
-  font-size: 2px;
+  font-size: 20px;
   cursor: pointer;
   color: #777;
 }

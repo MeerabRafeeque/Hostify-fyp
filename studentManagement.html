@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <title>Student Management</title>
+  </head>
+  <body>
+    <div class="container">
+      <aside class="sideBar">
+        <div class="logo">
+          <span>Hostify</span>
+        </div>
+        <nav>
+          <ul>
+            <li class="active" data-tab="dashboard" data-page=" dashboard.html">
+              <i class="fa-solid fa-house"></i><span id>Dashboard</span>
+            </li>
+            <li data-tab="notification" data-page="notification.html">
+              <i class="fa-solid fa-bell"></i>
+              <span>Notification Panel</span>
+            </li>
+            <li data-tab="students" data-page="studentManagement.html">
+              <i class="fa-solid fa-users"></i>
+              <span>Student Management</span>
+            </li>
+            <li data-tab="payment" data-page="paymentVerification.html">
+              <i class="fa-solid fa-money-bill-1-wave"></i>
+              <span>Payment Verification</span>
+            </li>
+            <li data-tab="room" data-page="roomManagement.html">
+              <i class="fa-solid fa-person-booth"></i>
+              <span>Room Management</span>
+            </li>
+            <li data-tab="staff" data-page="staffManagement.html">
+              <i class="fa-solid fa-user-tie"></i>
+              <span>Staff Management</span>
+            </li>
+            <li data-tab="attendance" data-page="attendancePenalty.html">
+              <i class="fa-solid fa-pencil"></i>
+              <span>Attendance & Penalty</span>
+            </li>
+            <li data-tab="comp-feed" data-page="complaintFeedback.html">
+              <i class="fa-solid fa-circle-exclamation"></i>
+              <span>Complaints & Feedback</span>
+            </li>
+            <li data-tab="meal-feed" data-page="mealFeed.html">
+              <i class="fa-solid fa-bowl-food"></i>
+              <span>Meal Menu & Feedback</span>
+            </li>
+            <li data-tab="stay" data-page="stayExtensionRequests.html">
+              <i class="fa-solid fa-bed"></i>
+              <span>Stay Extension Requests</span>
+            </li>
+            <li data-tab="settings" data-page="settings.html">
+              <i class="fa-solid fa-cog"></i>
+              <span>Settings</span>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+
+      <main class="mainContent">
+        <header class="topHeader">
+          <div class="searchbar">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Search here..." />
+          </div>
+          <div class="userProfile">
+            <img src="./assets/images/user-profile.avif" alt="Admin" />
+            <span>Admin</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+        </header>
+
+        <!-- Student Management Tab -->
+        <div class="tab-content active" id="students">
+          <div class="tab-header">
+            <h2>Student Management</h2>
+            <button class="btn btn-primary" id="reg-student-btn">
+              <i class="fa-solid fa-user-plus"></i> Reg Student
+            </button>
+          </div>
+          <div class="table-container">
+            <table id="students-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Room No.</th>
+                  <th>Contact</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Student data will be populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Add Student Modal -->
+        <div class="modal" id="add-student-modal">
+          <div class="modalHeader">
+            <h3>Add New Student</h3>
+            <button class="closeModal">&times;</button>
+          </div>
+          <div class="modalBody">
+            <form id="add-student-form">
+              <div class="form-group">
+                <label for="student-name">Full Name</label>
+                <input type="text" id="student-name" required />
+              </div>
+              <div class="form-group">
+                <label for="student-email">Email</label>
+                <input type="email" id="student-email" required />
+              </div>
+              <div class="form-group">
+                <label for="student-phone">Contact</label>
+                <input type="tel" id="student-phone" required />
+              </div>
+              <div class="form-group">
+                <label for="student-room">Assign Room</label>
+                <select id="student-room" required>
+                  <option value="">Select Room</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="student-dob">Date of Birth</label>
+                <input type="date" id="student-dob" required />
+              </div>
+              <div class="form-group">
+                <label for="student-address">Address</label>
+                <textarea id="student-address" required></textarea>
+              </div>
+              <div class="form-group">
+                <label for="student-edu">Education Level</label>
+                <select id="student-edu" required>
+                  <option value="">...Select Education Level...</option>
+                  <option value="BS">BS</option>
+                  <option value="Intermediate">Intermediate</option>
+                </select>
+                <select id="yearSemester">
+                  <option value="">...Select Year/Semester...</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="student-regDate">Registration Date</label>
+                <input type="date" id="student-regDate" required />
+              </div>
+              <div class="form-action">
+                <button type="button" class="btn btn-secondary closeModal">
+                  Cancel
+                </button>
+                <button type="submit" class="btn btn-primary">Add Student</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Edit Student Modal -->
+        <div class="modal" id="edit-student-modal">
+          <div class="modalHeader">
+            <h3>Edit Student</h3>
+            <button class="closeModal">&times;</button>
+          </div>
+          <div class="modalBody">
+            <form id="edit-student-form">
+              <input type="hidden" id="edit-student-id" required />
+              <div class="form-group">
+                <label for="edit-student-name">Full Name</label>
+                <input type="text" id="edit-student-name" required />
+              </div>
+              <div class="form-group">
+                <label for="edit-student-email">Email</label>
+                <input type="email" id="edit-student-email" required />
+              </div>
+              <div class="form-group">
+                <label for="edit-student-phone">Contact</label>
+                <input type="tel" id="edit-student-phone" required />
+              </div>
+              <div class="form-group">
+                <label for="edit-student-room">Assign Room</label>
+                <select id="edit-student-room" required>
+                  <option value="">Select Room</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="edit-student-dob">Date of Birth</label>
+                <input type="date" id="edit-student-dob" required />
+              </div>
+              <div class="form-group">
+                <label for="edit-student-address">Address</label>
+                <textarea id="edit-student-address" required></textarea>
+              </div>
+              <div class="form-group">
+                <label for="edit-student-edu">Education Level</label>
+                <select id="edit-student-edu" required>
+                  <option value="">...Select Education Level...</option>
+                  <option value="BS">BS</option>
+                  <option value="Intermediate">Intermediate</option>
+                </select>
+                <select id="edit-yearSemester">
+                  <option value="">...Select Year/Semester...</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="edit-student-regDate">Registration Date</label>
+                <input type="date" id="edit-student-regDate" required />
+              </div>
+              <div class="form-action">
+                <button type="button" class="btn btn-secondary closeModal">
+                  Cancel
+                </button>
+                <button type="submit" class="btn btn-primary">Update Student</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </main>
+    </div>
+    <script src="./assets/js/nav.js" defer></script>
+  </body>
+</html>

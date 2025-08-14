@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <title>Room Management</title>
+  </head>
+  <body>
+    <div class="container">
+      <aside class="sideBar">
+        <div class="logo">
+          <span>Hostify</span>
+        </div>
+        <nav>
+          <ul>
+            <li class="active" data-tab="dashboard" data-page=" dashboard.html">
+              <i class="fa-solid fa-house"></i><span id>Dashboard</span>
+            </li>
+            <li data-tab="notification" data-page="notification.html">
+              <i class="fa-solid fa-bell"></i>
+              <span>Notification Panel</span>
+            </li>
+            <li data-tab="students" data-page="studentManagement.html">
+              <i class="fa-solid fa-users"></i>
+              <span>Student Management</span>
+            </li>
+            <li data-tab="payment" data-page="paymentVerification.html">
+              <i class="fa-solid fa-money-bill-1-wave"></i>
+              <span>Payment Verification</span>
+            </li>
+            <li data-tab="room" data-page="roomManagement.html">
+              <i class="fa-solid fa-person-booth"></i>
+              <span>Room Management</span>
+            </li>
+            <li data-tab="staff" data-page="staffManagement.html">
+              <i class="fa-solid fa-user-tie"></i>
+              <span>Staff Management</span>
+            </li>
+            <li data-tab="attendance" data-page="attendancePenalty.html">
+              <i class="fa-solid fa-pencil"></i>
+              <span>Attendance & Penalty</span>
+            </li>
+            <li data-tab="comp-feed" data-page="complaintFeedback.html">
+              <i class="fa-solid fa-circle-exclamation"></i>
+              <span>Complaints & Feedback</span>
+            </li>
+            <li data-tab="meal-feed" data-page="mealFeed.html">
+              <i class="fa-solid fa-bowl-food"></i>
+              <span>Meal Menu & Feedback</span>
+            </li>
+            <li data-tab="stay" data-page="stayExtensionRequests.html">
+              <i class="fa-solid fa-bed"></i>
+              <span>Stay Extension Requests</span>
+            </li>
+            <li data-tab="settings" data-page="settings.html">
+              <i class="fa-solid fa-cog"></i>
+              <span>Settings</span>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+
+      <main class="mainContent">
+        <header class="topHeader">
+          <div class="searchbar">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Search here..." />
+          </div>
+          <div class="userProfile">
+            <img src="./assets/images/user-profile.avif" alt="Admin" />
+            <span>Admin</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+        </header>
+
+        <!-- Room Management Tab -->
+        <div class="tab-content active" id="room">
+          <div class="tab-header">
+            <h2>Room Management</h2>
+            <button class="btn btn-primary" id="add-room-btn">
+              <i class="fa-solid fa-plus"></i> Add Room
+            </button>
+          </div>
+          <div class="table-container">
+            <table id="room-table">
+              <thead>
+                <tr>
+                  <th>Room No.</th>
+                  <th>Type</th>
+                  <th>Capacity</th>
+                  <th>Occupied</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Room data will be populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Add Room Modal -->
+        <div class="modal" id="add-room-modal">
+          <div class="modalHeader">
+            <h3>Add New Room</h3>
+            <button class="closeModal">&times;</button>
+          </div>
+          <div class="modalBody">
+            <form id="add-room-form">
+              <div class="form-group">
+                <label for="room-number">Room Number</label>
+                <input type="text" id="room-number" required />
+              </div>
+              <div class="form-group">
+                <label for="floor-number">Floor Number</label>
+                <input type="number" id="floor-number" required />
+              </div>
+              <div class="form-group">
+                <label for="allocate-date">Allocation Date</label>
+                <input type="date" id="allocate-date" required />
+              </div>
+              <div class="form-group">
+                <label for="room-type">Room Type</label>
+                <select id="room-type" required>
+                  <option value="">Select Type</option>
+                  <!-- Room types will be added dynamically -->
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="room-capacity">Capacity</label>
+                <input type="number" id="room-capacity" min="1" required />
+              </div>
+              <div class="form-group">
+                <label for="room-price">Price (per month)</label>
+                <input type="number" id="room-price" min="0" required />
+              </div>
+              <div class="form-group">
+                <label for="room-status">Status</label>
+                <select id="room-status">
+                  <option value="Available">Available</option>
+                  <option value="Under Maintenance">Under Maintenance</option>
+                </select>
+              </div>
+              <div class="form-action">
+                <button type="button" class="btn btn-secondary closeModal">
+                  Cancel
+                </button>
+                <button type="submit" class="btn btn-primary">Add Room</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Edit Room Modal -->
+        <div class="modal" id="edit-room-modal">
+          <div class="modalHeader">
+            <h3>Edit Room</h3>
+            <button class="closeModal">&times;</button>
+          </div>
+          <div class="modalBody">
+            <form id="edit-room-form">
+              <div class="form-group">
+                <input type="hidden" id="edit-room-id" />
+                <label for="edit-room-number">Room Number</label>
+                <input type="text" id="edit-room-number" required />
+              </div>
+              <div class="form-group">
+                <label for="edit-floor-number">Floor Number</label>
+                <input type="number" id="edit-floor-number" required />
+              </div>
+              <div class="form-group">
+                <label for="edit-allocate-date">Allocation Date</label>
+                <input type="date" id="edit-allocate-date" required />
+              </div>
+              <div class="form-group">
+                <label for="edit-room-type">Room Type</label>
+                <select id="edit-room-type" required>
+                  <option value="">Select Type</option>
+                  <!-- Room types will be added dynamically -->
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="edit-room-capacity">Capacity</label>
+                <input type="number" id="edit-room-capacity" min="1" required />
+              </div>
+              <div class="form-group">
+                <label for="edit-room-price">Price (per month)</label>
+                <input type="number" id="edit-room-price" min="0" required />
+              </div>
+              <div class="form-group">
+                <label for="edit-room-status">Status</label>
+                <select id="edit-room-status">
+                  <option value="Available">Available</option>
+                  <option value="Under Maintenance">Under Maintenance</option>
+                </select>
+              </div>
+              <div class="form-action">
+                <button type="button" class="btn btn-secondary closeModal">
+                  Cancel
+                </button>
+                <button type="submit" class="btn btn-primary">Update Room</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </main>
+    </div>
+    <script src="./assets/js/nav.js" defer></script>
+  </body>
+</html>
