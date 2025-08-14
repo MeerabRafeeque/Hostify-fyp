@@ -3,12 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="/style.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     />
-    <title>Meal Menu & Feedback</title>
+    <title>Stay Extension Requests</title>
   </head>
   <body>
     <div class="container">
@@ -72,59 +72,95 @@
             <input type="text" placeholder="Search here..." />
           </div>
           <div class="userProfile">
-            <img src="./assets/images/user-profile.avif" alt="Admin" />
+            <img src="/assets/images/user-profile.avif" alt="Admin" />
             <span>Admin</span>
-            <i class="fa-solid fa-chevron-down"></i>
+            <i class="fa-solid fa-chevron-down" id="profileToggle"></i>
+            <ul class="profileDropdown" id="profileMenu">
+              <li id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Logout</li>
+            </ul>
           </div>
         </header>
-
-        <!-- Meal Menu & Feedback Tab -->
-        <div class="tab-content" id="meal-feed">
-        <!-- Weekly Mess Menu -->
+        <!-- Stay Extension Requests Tab -->
+        <div class="tab-content" id="stay">
         <div class="tab-header">
-            <h2>Weekly Mess Menu</h2>
-        </div>
-        <div class="table-container">
-            <table id="meal-table">
-            <thead>
-                <tr>
-                <th>Day</th>
-                <th>Meal</th>
-                <th>Description</th>
-                <th>Updated By</th>
-                <th>Updated Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- menu -->
-            </tbody>
-            </table>
+            <h2>Stay Extension Requests</h2>
+            <button class="btn btn-primary" id="view-req-btn">
+            <i class="fa-solid fa-bed"></i> Stay Extension Requests
+            </button>
         </div>
 
-        <!-- Student Feedback on Meals -->
-        <div class="tab-header">
-            <h2>Student Feedback on Meals</h2>
-        </div>
         <div class="table-container">
-            <table id="meal-feedback">
+            <table id="stay-table">
             <thead>
                 <tr>
-                <th>Day</th>
-                <th>Meal</th>
+                <th>Request No.</th>
                 <th>Student Name</th>
-                <th>Feedback</th>
+                <th>Student ID</th>
+                <th>Education Level</th>
+                <th>Request Date</th>
+                <th>Extension Duration</th>
+                <th>Reason for Extension</th>
+                <th>Status</th>
+                <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- feedbacks -->
+                <!-- Requests -->
             </tbody>
             </table>
+        </div>
+        </div>
+
+        <!-- Add Stay Extension Request Modal -->
+        <div class="modal" id="add-request-modal">
+        <div class="modalHeader">
+            <h3>Add Stay Extension Request</h3>
+            <button class="closeModal">&times;</button>
+        </div>
+        <div class="modalBody">
+            <form id="add-request-form">
+            <div class="form-group">
+                <label for="request-number">Request No.</label>
+                <input type="number" id="request-number" required />
+            </div>
+            <div class="form-group">
+                <label for="student-request">Student</label>
+                <input type="text" id="student-request" required />
+            </div>
+            <div class="form-group">
+                <label for="stay-reason">Reason for Stay Request</label>
+                <textarea id="stay-reason" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="extension-duration">Extension Duration</label>
+                <textarea id="extension-duration" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="student-education">Education Level</label>
+                <select id="student-education" required>
+                <option value="">...Select Education Level...</option>
+                <option value="BS">BS</option>
+                <option value="Intermediate">Intermediate</option>
+                </select>
+                <select id="edit-yearSemester">
+                <option value="">...Select Year/Semester...</option>
+                </select>
+            </div>
+            <div class="form-action">
+                <button type="button" class="btn btn-secondary closeModal">
+                Cancel
+                </button>
+                <button type="Submit" class="btn btn-primary">Add Request</button>
+            </div>
+            </form>
         </div>
         </div>
 
 
       </main>
     </div>
-    <script src="./assets/js/nav.js" defer></script>
+    <script src="/assets/js/nav.js" defer></script>
+    <script src="/assets/js/logout.js" defer></script>
+
   </body>
 </html>

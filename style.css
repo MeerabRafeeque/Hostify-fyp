@@ -109,22 +109,54 @@ body {
 }
 
 .userProfile {
+  position: relative;
   display: flex;
   align-items: center;
+  gap: 8px;
   cursor: pointer;
 }
 
 .userProfile img {
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
-  margin-right: 10px;
+  object-fit: cover;
 }
 
-.userProfile i {
-  margin-left: 5px;
-  font-size: 12px;
+.userProfile span {
+  font-weight: 500;
 }
+
+.profileDropdown {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: white;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  list-style: none;
+  padding: 6px 0;
+  display: none;
+  min-width: 150px;
+  z-index: 999;
+}
+
+.profileDropdown li {
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #1e3a8a;
+}
+
+.profileDropdown li:hover {
+  background: #f2f2f2;
+}
+
+.profileDropdown i {
+  margin-right: 8px;
+  color: #1e3a8a;
+}
+
 
 /* Table Content */
 

@@ -3,12 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="/style.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     />
-    <title>Attendance & Penalty</title>
+    <title>Meal Menu & Feedback</title>
   </head>
   <body>
     <div class="container">
@@ -19,7 +19,7 @@
         <nav>
           <ul>
             <li class="active" data-tab="dashboard" data-page=" dashboard.html">
-              <i class="fa-solid fa-house"></i><span>Dashboard</span>
+              <i class="fa-solid fa-house"></i><span id>Dashboard</span>
             </li>
             <li data-tab="notification" data-page="notification.html">
               <i class="fa-solid fa-bell"></i>
@@ -64,6 +64,7 @@
           </ul>
         </nav>
       </aside>
+
       <main class="mainContent">
         <header class="topHeader">
           <div class="searchbar">
@@ -71,58 +72,63 @@
             <input type="text" placeholder="Search here..." />
           </div>
           <div class="userProfile">
-            <img src="./assets/images/user-profile.avif" alt="Admin" /><span
-              >Admin</span
-            >
-            <i class="fa-solid fa-chevron-down"></i>
+            <img src="/assets/images/user-profile.avif" alt="Admin" />
+            <span>Admin</span>
+            <i class="fa-solid fa-chevron-down" id="profileToggle"></i>
+            <ul class="profileDropdown" id="profileMenu">
+              <li id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Logout</li>
+            </ul>
           </div>
         </header>
-         <!-- Attendance & Penalty Tab -->
-        <div class="tab-content" id="attendance">
-        <!-- Student Attendance -->
-        <div class="tab-header">
-            <h2>Student Attendance</h2>
-        </div>
-        <div class="table-container">
-            <table id="attendance-table">
-            <thead>
-                <tr>
-                <th>Student ID</th>
-                <th>Student Name</th>
-                <th>Shift</th>
-                <th>Marked By</th>
-                <th>Date</th>
-                <th>Status</th>
-                </tr>
-            </thead>
-            <tbody id="attendanceTable">
-                <!-- attendance list -->
-            </tbody>
-            </table>
-        </div>
 
-        <!-- Penalty List -->
+        <!-- Meal Menu & Feedback Tab -->
+        <div class="tab-content" id="meal-feed">
+        <!-- Weekly Mess Menu -->
         <div class="tab-header">
-            <h2>Penalty List - Late Entry</h2>
+            <h2>Weekly Mess Menu</h2>
         </div>
         <div class="table-container">
-            <table id="penalty-table">
+            <table id="meal-table">
             <thead>
                 <tr>
-                <th>Student ID</th>
-                <th>Student Name</th>
-                <th>Date of Late Entry</th>
-                <th>Penalty</th>
-                <th>Reason</th>
+                <th>Day</th>
+                <th>Meal</th>
+                <th>Description</th>
+                <th>Updated By</th>
+                <th>Updated Date</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- penalty requests -->
+                <!-- menu -->
+            </tbody>
+            </table>
+        </div>
+
+        <!-- Student Feedback on Meals -->
+        <div class="tab-header">
+            <h2>Student Feedback on Meals</h2>
+        </div>
+        <div class="table-container">
+            <table id="meal-feedback">
+            <thead>
+                <tr>
+                <th>Day</th>
+                <th>Meal</th>
+                <th>Student Name</th>
+                <th>Feedback</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- feedbacks -->
             </tbody>
             </table>
         </div>
         </div>
 
-    <script src="./assets/js/nav.js" defer></script>
+
+      </main>
+    </div>
+    <script src="/assets/js/nav.js" defer></script>
+    <script src="/assets/js/logout.js" defer></script>
   </body>
 </html>
