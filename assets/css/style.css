@@ -1884,6 +1884,12 @@ a:focus {
   transition: all 0.3s;
 }
 
+.deputy-container {
+  display: flex;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
 /* Header */
 .deputy-topHeader {
   display: flex;
