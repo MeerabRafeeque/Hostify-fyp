@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Deputy RT Dashboard</title>
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/responsive.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="deputy-container">
+      <!-- sidebar -->
+      <aside class="deputy-sideBar">
+        <div class="logo"><span>Hostify</span></div>
+        <nav>
+          <ul>
+            <li
+              class="active"
+              data-tab="deputy-dashboard"
+              data-page="deputy-dashboard.html"
+            >
+              <i class="fa-solid fa-house"></i><span>Dashboard</span>
+            </li>
+            <li
+              data-tab="deputy-notification"
+              data-page="deputy-notification.html"
+            >
+              <i class="fa-solid fa-bell"></i><span>Notifications</span>
+            </li>
+            <li data-tab="mark-attendance" data-page="mark-std-att.html">
+              <i class="fa-solid fa-user-edit"></i
+              ><span>Mark Student Attendance</span>
+            </li>
+            <li data-tab="weekly-meal" data-page="weekly-meal.html">
+              <i class="fa-solid fa-spoon"></i><span>Meal Menu Report</span>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+
+      <!-- main content -->
+      <main class="deputy-mainContent">
+        <header class="deputy-topHeader">
+          <div class="deputy-searchbar">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Search here..." />
+          </div>
+          <div class="deputy-userProfile">
+            <img src="/assets/images/user-profile.avif" alt="Deputy RT" />
+            <span>Deputy RT</span>
+            <i class="fa-solid fa-chevron-down" id="profileToggle"></i>
+            <ul class="profileDropdown" id="profileMenu">
+              <li>
+                <a href="/admin-dashboard/profile.html"
+                  ><i class="fa-solid fa-user"></i>Profile</a
+                >
+              </li>
+              <li id="logoutBtn">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+              </li>
+            </ul>
+          </div>
+        </header>
+        <!-- Deputy Notification Panel -->
+        <div class="deputy-notifications">
+          <h2>Notifications</h2>
+
+          <table class="deputy-notification-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Notification</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <!-- example notification 1 -->
+              <tr>
+                <td>2025-08-15</td>
+                <td>
+                  New student Ali Khan added. Please update attendance sheet.
+                </td>
+                <td><button class="deputy-btn">Mark as Read</button></td>
+              </tr>
+
+              <!-- example notification 2 -->
+              <tr>
+                <td>2025-08-14</td>
+                <td>
+                  Meal feedback received from student Agha Khan.
+                </td>
+                <td><button class="deputy-btn">Mark as Read</button></td>
+              </tr>
+
+              <!-- example notification 3 -->
+              <tr>
+                <td>2025-08-13</td>
+                <td>Meal menu updated by mess committee.</td>
+                <td><button class="deputy-btn">Mark as Read</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+
+    <script src="/assets/js/nav.js" defer></script>
+    <script src="/assets/js/logout.js" defer></script>
+    <script src="/assets/js/mobileView.js" defer></script>
+    <script src="/assets/js/profile.js" defer></script>
+  </body>
+</html>

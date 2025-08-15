@@ -1441,7 +1441,6 @@ a:focus {
   font-family: Arial, sans-serif;
 }
 
-/* Sidebar */
 .mess-sideBar {
   background-color: #1e3a8a;
   color: white;
@@ -1565,19 +1564,19 @@ a:focus {
   color: #1e3a8a;
 }
 
-/* Show profile dropdown when active */
+/* show profile dropdown when active */
 .mess-userProfile.active .profileDropdown {
   display: block;
 }
 
-/* Dashboard overview cards */
-.mess-tab-content {
+/* dashboard overview cards */
+/* .mess-tab-content {
   display: block;
   background-color: white;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
+} */
 
 .mess-stat-container {
   display: grid;
@@ -1619,7 +1618,6 @@ a:focus {
 
 /* food-shortage */
 
-/* Form Container */
 .mess-form-container {
   background: #fff;
   padding: 20px;
@@ -1832,5 +1830,352 @@ a:focus {
 .mess-notification-time {
   font-size: 12px;
   color: #6b7280;
+}
+
+/* deputy RT dashoard */
+
+.deputy-sideBar {
+  background-color: #1e3a8a;
+  color: white;
+  overflow-y: auto;
+  width: 290px;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.deputy-sideBar .logo {
+  display: flex;
+  align-items: center;
+  padding: 0 20px 20px;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.deputy-sideBar nav ul {
+  list-style: none;
+}
+
+.deputy-sideBar nav ul li {
+  padding: 12px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s;
+}
+
+.deputy-sideBar nav ul li:hover,
+.deputy-sideBar nav ul li:active {
+  background-color: white;
+  color: #1e3a8a;
+  border-radius: 1px;
+}
+
+.deputy-sideBar nav ul li i {
+  margin-right: 10px;
+  font-size: 10px;
+}
+
+/* Main content area */
+.deputy-mainContent {
+  flex: 1;
+  margin-left: 15px;
+  padding: 20px;
+  transition: all 0.3s;
+}
+
+/* Header */
+.deputy-topHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.deputy-searchbar {
+  display: flex;
+  align-items: center;
+  background-color: #eee;
+  padding: 8px 15px;
+  border-radius: 30px;
+  width: 300px;
+}
+
+.deputy-searchbar input {
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 100%;
+}
+
+.deputy-userProfile {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.deputy-userProfile img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.deputy-profileDropdown {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: white;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  list-style: none;
+  padding: 6px 0;
+  display: none;
+  min-width: 150px;
+  z-index: 999;
+}
+
+.deputy-profileDropdown li {
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #1e3a8a;
+}
+
+.deputy-profileDropdown li:hover {
+  background: #f2f2f2;
+}
+
+.deputy-profileDropdown i {
+  margin-right: 8px;
+  color: #1e3a8a;
+}
+
+/* deputy dashboard layout */
+.deputy-dashboard {
+  padding: 20px;
+}
+
+.deputy-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.deputy-card {
+  flex: 1 1 250px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.deputy-card:hover {
+  transform: translate(-5px)
+}
+
+.deputy-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.deputy-value {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #1e3a8a;
+}
+
+.deputy-note {
+  font-size: 0.9rem;
+  color: #777;
+}
+
+/* deputy-notification */
+.deputy-notifications {
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.deputy-notifications h2 {
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.deputy-notification-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.deputy-notification-table th,
+.deputy-notification-table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.deputy-notification-table th {
+  background: #1e3a8a;
+  font-weight: bold;
+  color: white;
+}
+
+.deputy-notification-table tr:hover {
+  background: #f9f9f9;
+}
+
+.deputy-btn {
+  padding: 6px 12px;
+  background: #1e3a8a;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.deputy-btn:hover {
+  background: white;
+  color: #1e3a8a;
+  transition: all 0.3;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* mark student attendance */
+.deputy-attendance-container {
+  padding-bottom: 2px;
+  background: #f8f9fa;
+}
+
+.deputy-attendance-section,
+.deputy-penalty-section {
+  margin-bottom: 40px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.deputy-attendance-section h2,
+.deputy-penalty-section h2 {
+  margin-bottom: 15px;
+  color: #333;
+  font-size: 20px;
+}
+
+.deputy-attendance-table,
+.deputy-penalty-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.deputy-attendance-table th,
+.deputy-attendance-table td,
+.deputy-penalty-table th,
+.deputy-penalty-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.deputy-attendance-table th,
+.deputy-penalty-table th {
+  background-color: #1e3a8a;
+  color: #fff;
+}
+
+.deputy-attendance-table select,
+.deputy-penalty-table input,
+.deputy-attendance-table input {
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.deputy-attendance-table tr:nth-child(even),
+.deputy-penalty-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* weekly meal & feedback report */
+
+.deputy-meal-feedback-container {
+  background: #f8f9fa;
+}
+
+.deputy-meal-menu,
+.deputy-feedback-section {
+  margin-bottom: 40px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.deputy-meal-menu h2,
+.deputy-feedback-section h2 {
+  margin-bottom: 15px;
+  color: #333;
+  font-size: 20px;
+}
+
+.deputy-filters {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.deputy-filters label {
+  font-weight: bold;
+}
+
+.deputy-meal-table,
+.deputy-feedback-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.deputy-meal-table th,
+.deputy-meal-table td,
+.deputy-feedback-table th,
+.deputy-feedback-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.deputy-meal-table th,
+.deputy-feedback-table th {
+  background-color: #1e3a8a;
+  color: #fff;
+}
+
+.deputy-meal-table tr:nth-child(even),
+.deputy-feedback-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.deputy-meal-table select,
+.deputy-feedback-table select,
+.deputy-meal-table input,
+.deputy-feedback-table input {
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
 }
 
