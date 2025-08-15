@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Food Shortage</title>
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/responsive.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="mess-container">
+      <!-- Sidebar -->
+      <aside class="mess-sideBar">
+        <div class="logo"><span>Hostify</span></div>
+        <nav>
+          <ul>
+            <li
+              class="active"
+              data-tab="mess-dashboard"
+              data-page="mess-dashboard.html"
+            >
+              <i class="fa-solid fa-house"></i><span>Dashboard</span>
+            </li>
+            <li data-tab="meal-plan" data-page="meal-plan.html">
+              <i class="fa-solid fa-calendar-days"></i
+              ><span>Weekly Meal Plan</span>
+            </li>
+            <li data-tab="food-shortage" data-page="food-shortage.html">
+              <i class="fa-solid fa-triangle-exclamation"></i
+              ><span>Food Shortage</span>
+            </li>
+            <li data-tab="student-feedback" data-page="meal-feedback.html">
+              <i class="fa-solid fa-comment-dots"></i
+              ><span>Student Feedback</span>
+            </li>
+            <li data-tab="notifications" data-page="mess-notification.html">
+              <i class="fa-solid fa-bell"></i><span>Notifications</span>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+      <main class="mess-mainContent">
+        <header class="mess-topHeader">
+          <div class="mess-searchbar">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Search here..." />
+          </div>
+          <div class="mess-userProfile">
+            <img src="/assets/images/user-profile.avif" alt="Mess Staff" />
+            <span>Mess</span>
+            <i class="fa-solid fa-chevron-down" id="profileToggle"></i>
+            <ul class="profileDropdown" id="profileMenu">
+              <li>
+                <a href="/admin-dashboard/profile.html"
+                  ><i class="fa-solid fa-user"></i>Profile</a
+                >
+              </li>
+              <li id="logoutBtn">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+              </li>
+            </ul>
+          </div>
+        </header>
+        <!-- food shortage tab -->
+        <div class="mess-tab-content" id="food-shortage">
+          <h2>Food Shortage Reports</h2>
+          <div class="mess-form-container">
+            <h3>Report Food Shortage</h3>
+            <form id="mess-shortage-form">
+              <div class="mess-form-group">
+                <label for="mess-item">Item Name</label>
+                <input
+                  type="text"
+                  id="mess-item"
+                  name="item"
+                  placeholder="e.g. Rice, Cooking Oil"
+                  required
+                />
+              </div>
+
+              <div class="mess-form-group">
+                <label for="mess-description">Description</label>
+                <textarea
+                  id="mess-description"
+                  name="description"
+                  rows="3"
+                  placeholder="Details about the shortage..."
+                  required
+                ></textarea>
+              </div>
+              <button type="submit" class="mess-btn">Submit Report</button>
+            </form>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="/assets/js/nav.js" defer></script>
+    <script src="/assets/js/logout.js" defer></script>
+    <script src="/assets/js/mobileView.js" defer></script>
+    <script src="/assets/js/profile.js" defer></script>
+  </body>
+</html>
