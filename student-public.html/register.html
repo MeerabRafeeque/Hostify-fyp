@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Registration</title>
+    <link rel="stylesheet" href="/assets/css/responsive.css" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <style>
+      body {
+        background: url("/assets/images/dorm.webp") center/cover no-repeat;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      .register-container {
+        background: #fff;
+        padding: 25px;
+        width: 700px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        clear: right;
+      }
+
+      .register-container h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #1e3a8a;
+      }
+
+      .register-form-group {
+        margin-bottom: 15px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .register-form-group label {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .register-form-group input,
+      .register-form-group select,
+      .register-form-group textarea {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+      }
+      .password-wrapper {
+        position: relative;
+      }
+
+      .register-toggle-password {
+        position: absolute;
+        right: 10px;
+        top: 36px;
+        cursor: pointer;
+      }
+
+      .register-btn {
+        width: 100%;
+        padding: 12px;
+        background: #1e3a8a;
+        color: white;
+        font-weight: bold;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .register-btn:hover {
+        background: white;
+        color: #1e3a8a;
+        transition: all 0.3s;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+      }
+
+      .page-container {
+        display: flex;
+        gap: 10rem;
+      }
+
+      .hostify-card {
+        background: #1e3a8a;
+        margin-top: 8rem;
+        color: white;
+        height: fit-content;
+        padding: 25px;
+        width: 300px;
+        text-align: center;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .hostify-card .hostify-logo {
+        width: 80px;
+        margin-bottom: 15px;
+      }
+
+      .hostify-card h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+
+      .hostify-card .welcome {
+        font-size: 16px;
+        margin-bottom: 8px;
+      }
+
+      .hostify-card .punchline {
+        font-style: italic;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body class="beds">
+    <div class="page-container">
+      <!-- Student Registration Form -->
+      <div class="register-container">
+        <h1>Student Registration</h1>
+        <form id="register-form">
+          <!-- full name -->
+          <div class="register-form-group">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" name="fullName" required />
+          </div>
+
+          <!-- email -->
+          <div class="register-form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+
+          <!-- password -->
+          <div class="register-form-group password-wrapper">
+            <label for="password">Set Password</label>
+            <input type="password" id="password" name="password" required />
+            <span class="register-toggle-password" onclick="togglePassword()">
+              <i class="fa-solid fa-eye" style="color: blue"></i>
+            </span>
+          </div>
+
+          <!-- contact -->
+          <div class="register-form-group">
+            <label for="contact">Contact</label>
+            <input type="tel" id="contact" name="contact" required />
+          </div>
+
+          <!-- address -->
+          <div class="register-form-group">
+            <label for="address">Address</label>
+            <textarea id="address" name="address" rows="3" required></textarea>
+          </div>
+
+          <!-- dob -->
+          <div class="register-form-group">
+            <label for="dob">Date of Birth</label>
+            <input type="date" id="dob" name="dob" required />
+          </div>
+
+          <!-- edu level -->
+          <div class="register-form-group">
+            <label for="education">Education Level</label>
+            <select
+              id="education"
+              name="education"
+              required
+              onchange="updateYearSemesterOptions()"
+            >
+              <option value="">--Select--</option>
+              <option value="Intermediate">Intermediate</option>
+              <option value="BS">BS</option>
+            </select>
+          </div>
+
+          <!-- year / semester -->
+          <div class="register-form-group">
+            <label for="yearSemester">Year / Semester</label>
+            <select id="yearSemester" required>
+              <option value="">Select</option>
+              <optgroup label="Intermediate">
+                <option>1st Year</option>
+                <option>2nd Year</option>
+              </optgroup>
+              <optgroup label="BS">
+                <option>1st Semester</option>
+                <option>2nd Semester</option>
+                <option>3rd Semester</option>
+                <option>4th Semester</option>
+                <option>5th Semester</option>
+                <option>6th Semester</option>
+                <option>7th Semester</option>
+                <option>8th Semester</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <!-- registration date -->
+          <div class="register-form-group">
+            <label for="registrationDate">Registration Date</label>
+            <input
+              type="date"
+              id="registrationDate"
+              name="registrationDate"
+              required
+            />
+          </div>
+
+          <!-- submit -->
+          <button type="submit" class="register-btn">Register</button>
+        </form>
+      </div>
+
+      <!-- hostify card -->
+      <div class="hostify-card" data-aos="zoom-in-up">
+        <img
+          src="/assets/images/colored-logo.png"
+          alt="Hostify Logo"
+          class="hostify-logo"
+        />
+        <h2>Hostify</h2>
+        <p class="welcome">Welcome to our Hostify</p>
+        <p class="punchline">Where heritage meets hospitality</p>
+      </div>
+    </div>
+    <script>
+      // password show/hide toggle
+      function togglePassword() {
+        const passField = document.getElementById("password");
+        passField.type = passField.type === "password" ? "text" : "password";
+      }
+
+      // dynamic year/semester dropdown
+      function updateYearSemesterOptions() {
+        const education = document.getElementById("education").value;
+        const yearSemester = document.getElementById("yearSemester");
+        yearSemester.innerHTML = "";
+
+        if (education === "Intermediate") {
+          yearSemester.innerHTML += "<option>1st Year</option>";
+          yearSemester.innerHTML += "<option>2nd Year</option>";
+        } else if (education === "BS") {
+          for (let i = 1; i <= 8; i++) {
+            yearSemester.innerHTML += `<option>${i} Semester</option>`;
+          }
+        } else {
+          yearSemester.innerHTML =
+            "<option>--Select Education First--</option>";
+        }
+      }
+
+      // default registration date = today
+      document.addEventListener("DOMContentLoaded", () => {
+        const today = new Date().toISOString().split("T")[0];
+        document.getElementById("registrationDate").value = today;
+      });
+    </script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+  </body>
+</html>
