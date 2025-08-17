@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Dashboard (Post-Room)</title>
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body class="post-body">
+    <!-- Sidebar -->
+    <aside class="post-sidebar">
+      <h2>Hostify</h2>
+      <ul>
+        <li>
+          <a href="dashboard-post.html"
+            ><i class="fa-solid fa-house"></i> Dashboard</a
+          >
+        </li>
+        <li>
+          <a href="/admin-dashboard/profile.html"
+            ><i class="fa-solid fa-user"></i> Profile</a
+          >
+        </li>
+        <li>
+          <a href="notifications-post.html"
+            ><i class="fa-solid fa-bell"></i> Notifications</a
+          >
+        </li>
+        <li>
+          <a href="view-attendance.html"
+            ><i class="fa-solid fa-edit"></i> Attendance</a
+          >
+        </li>
+        <li>
+          <a href="submit-complaint.html"
+            ><i class="fa-solid fa-circle-exclamation"></i> Complaints</a
+          >
+        </li>
+        <li>
+          <a href="submit-meal-feed.html"
+            ><i class="fa-solid fa-bowl-food"></i> Meal Feedback</a
+          >
+        </li>
+        <li>
+          <a href="stay-extension-request.html"
+            ><i class="fa-solid fa-clock-rotate-left"></i> Stay Extension</a
+          >
+        </li>
+        <li id="logoutBtn">
+          <a href="/student-public.html/login.html"
+            ><i class="fa-solid fa-right-from-bracket"></i> Logout</a
+          >
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="post-content">
+      <!-- Top Bar -->
+      <header class="post-topbar">
+        <h1>Welcome, Student</h1>
+        <span
+          class="post-pill"
+          style="
+            border: 1px dashed #16a34a;
+            background: #ecfdf5;
+            color: #047857;
+          "
+        >
+          <i class="fa-solid fa-unlock"></i> Full Access
+        </span>
+      </header>
+
+      <!-- status section -->
+      <section class="post-status">
+        <span class="chip ok"
+          ><i class="fa-solid fa-bed"></i> Room: Assigned (A-203)</span
+        >
+        <span class="chip ok"
+          ><i class="fa-solid fa-credit-card"></i> Payment: Complete</span
+        >
+      </section>
+
+      <!-- notifications -->
+      <section class="post-card">
+        <h3>Recent Notifications</h3>
+        <div class="post-note">
+          <span class="post-badge success"
+            ><i class="fa-solid fa-check-circle"></i> Success</span
+          >
+          <span
+            >Your room has been allocated successfully. Welcome to
+            Hostify!</span
+          >
+        </div>
+        <div class="post-note">
+          <span class="post-badge info"
+            ><i class="fa-solid fa-bell"></i> Reminder</span
+          >
+          <span>Monthly hostel dues are payable by the 5th of each month.</span>
+        </div>
+        <div class="post-note">
+          <span class="post-badge warn"
+            ><i class="fa-solid fa-utensils"></i> Meal Update</span
+          >
+          <span
+            >New weekly meal menu has been posted. Don’t forget to give your
+            feedback.</span
+          >
+        </div>
+      </section>
+
+      <!-- Quick Links -->
+      <section class="post-card">
+        <h3>Quick Links</h3>
+        <div class="locked-grid">
+          <a class="locked" href="view-attendance.html"
+            ><i class="fa-solid fa-calendar-check"></i> Attendance</a
+          >
+          <a class="locked" href="submit-complaint.html"
+            ><i class="fa-solid fa-message"></i> Complaints</a
+          >
+          <a class="locked" href="submit-meal-feed.html"
+            ><i class="fa-solid fa-bowl-food"></i> Meal Feedback</a
+          >
+          <a class="locked" href="stay-extension-request.html"
+            ><i class="fa-solid fa-clock-rotate-left"></i> Stay Extension</a
+          >
+        </div>
+      </section>
+    </main>
+
+    <script>
+      document
+        .getElementById("logoutBtn")
+        .addEventListener("click", function () {
+          alert("You have been logged out.");
+          window.location.href = "login.html"; // redirect to login page
+        });
+    </script>
+  </body>
+</html>

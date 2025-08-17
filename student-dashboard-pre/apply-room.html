@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/responsive.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+  </head>
+  <body class="pre-body">
+    <header class="topbar">
+      <div class="brand">
+        <i class="fa-solid fa-building-user"></i>
+        <span>Student Dashboard (Pre-Room)</span>
+      </div>
+      <span class="pill"><i class="fa-solid fa-lock"></i> Limited Access</span>
+    </header>
+
+    <!-- main layout -->
+    <div class="layout">
+      <!-- sidebar -->
+      <aside class="sidebar">
+        <div class="nav-title">Hostify</div>
+        <ul class="nav">
+          <li>
+            <a href="dashboard-pre.html">
+              <i class="fa-solid fa-gauge"></i> Pre-Dashboard
+            </a>
+          </li>
+          <li>
+            <a href="/admin-dashboard/profile.html"
+              ><i class="fa-solid fa-user"></i> Profile</a
+            >
+          </li>
+          <li>
+            <a href="apply-room.html"
+              ><i class="fa-solid fa-door-open"></i> Apply for Room</a
+            >
+          </li>
+          <li id="logoutBtn">
+            <a href="/student-public.html/login.html">
+              <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </a>
+          </li>
+          <li class="item disabled" title="Available after room allocation">
+            <i class="fa-solid fa-edit"></i> Attendance
+          </li>
+          <li class="item disabled" title="Available after room allocation">
+            <i class="fa-solid fa-circle-exclamation"></i> Complaints
+          </li>
+          <li class="item disabled" title="Available after room allocation">
+            <i class="fa-solid fa-bowl-food"></i> Meal Feedback
+          </li>
+          <li class="item disabled" title="Available after room allocation">
+            <i class="fa-solid fa-clock-rotate-left"></i> Stay Extension
+          </li>
+        </ul>
+      </aside>
+
+      <!-- applying for room -->
+      <section class="apply-room">
+        <h2>Apply for Room</h2>
+        <form id="roomApplicationForm">
+          <div class="form-group">
+            <label for="roomType">Select Room Type</label>
+            <select id="roomType" required>
+              <option value="">Select your room type</option>
+              <option value="single">Single Room - Rs. 15,000</option>
+              <option value="shared">Dormitory - Rs. 7,000</option>
+            </select>
+          </div>
+
+          <!--payment methods-->
+          <div class="form-group">
+            <label for="paymentMethod">Payment Method</label>
+            <select id="paymentMethod" required>
+              <option value="">Select Payment Method</option>
+              <option value="easypaisa">Easypaisa</option>
+              <option value="jazzcash">JazzCash</option>
+              <option value="ubl">UBL Bank Transfer</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="transactionId">Transaction ID</label>
+            <input
+              type="text"
+              id="transactionId"
+              placeholder="Enter Transaction ID from your receipt"
+              required
+            />
+            <small style="color: gray">
+              *Transaction ID is written on your payment receipt
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="screenshot">Upload Payment Screenshot</label>
+            <input type="file" id="screenshot" accept="image/*" required />
+          </div>
+
+          <button type="submit">Submit Application</button>
+        </form>
+
+        <!-- Confirmation Message -->
+        <p
+          id="confirmationMsg"
+          style="display: none; color: green; margin-top: 15px"
+        ></p>
+      </section>
+    </div>
+    <script>
+      const form = document.getElementById("roomApplicationForm");
+      const confirmationMsg = document.getElementById("confirmationMsg");
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        // Normally this would send data to server
+        confirmationMsg.textContent =
+          " Your application has been submitted. Payment will be verified by admin.";
+        confirmationMsg.style.display = "block";
+
+        // Optionally clear form
+        form.reset();
+      });
+    </script>
+    <script src="/assets/js/nav.js" defer></script>
+    <script src="/assets/js/logout.js" defer></script>
+    <script src="/assets/js/mobileView.js" defer></script>
+    <script src="/assets/js/profile.js" defer></script>
+  </body>
+</html>

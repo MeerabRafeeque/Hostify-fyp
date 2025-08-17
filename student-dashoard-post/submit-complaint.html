@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notifications</title>
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body class="post-body">
+    <!-- sidebar -->
+    <aside class="post-sidebar">
+      <h2>Hostify</h2>
+      <ul>
+        <li>
+          <a href="dashboard-post.html"
+            ><i class="fa-solid fa-house"></i> Dashboard</a
+          >
+        </li>
+        <li>
+          <a href="/admin-dashboard/profile.html"
+            ><i class="fa-solid fa-user"></i> Profile</a
+          >
+        </li>
+        <li>
+          <a href="notifications-post.html"
+            ><i class="fa-solid fa-bell"></i> Notifications</a
+          >
+        </li>
+        <li>
+          <a href="view-attendance.html"
+            ><i class="fa-solid fa-edit"></i> Attendance</a
+          >
+        </li>
+        <li>
+          <a href="submit-complaint.html"
+            ><i class="fa-solid fa-circle-exclamation"></i> Complaints</a
+          >
+        </li>
+        <li>
+          <a href="submit-meal-feed.html"
+            ><i class="fa-solid fa-bowl-food"></i> Meal Feedback</a
+          >
+        </li>
+        <li>
+          <a href="stay-extension-request.html"
+            ><i class="fa-solid fa-clock-rotate-left"></i> Stay Extension</a
+          >
+        </li>
+        <li id="logoutBtn">
+          <a href="/student-public.html/login.html"
+            ><i class="fa-solid fa-right-from-bracket"></i> Logout</a
+          >
+        </li>
+      </ul>
+    </aside>
+
+    <!-- main content -->
+    
+        <main class="post-content">
+          <div class="post-topbar">
+            <h1>Submit Complaint</h1>
+            <span class="post-pill"
+              ><i class="fa-solid fa-circle-exclamation"></i> Complaint
+              Panel</span
+            >
+          </div>
+
+          <div class="post-card">
+            <h3>Complaint Form</h3>
+            <form class="complaint-form" id="complaintForm">
+              <div class="form-group">
+                <label for="complaintType">Complaint Type</label>
+                <select id="complaintType" required>
+                  <option value="">Select Type</option>
+                  <option value="Room">Room</option>
+                  <option value="Mess">Mess</option>
+                  <option value="Cleanliness">Cleanliness</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+
+              <div class="form-group" id="otherTypeGroup" style="display: none">
+                <label for="otherType">Other Issue</label>
+                <input
+                  type="text"
+                  id="otherType"
+                  placeholder="Specify your issue"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="complaintDesc">Complaint Description</label>
+                <textarea
+                  id="complaintDesc"
+                  rows="4"
+                  placeholder="Write your complaint here..."
+                  required
+                ></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="submitDate">Submit Date</label>
+                <input type="text" id="submitDate" readonly />
+              </div>
+
+              <div class="form-group">
+                <label for="status">Status</label>
+                <input type="text" id="status" value="Pending" readonly />
+              </div>
+
+              <button type="submit" class="btn-submit">Submit Complaint</button>
+            </form>
+          </div>
+
+          <!-- Complaint History -->
+          <div class="post-card">
+            <h3>Your Complaints</h3>
+            <table class="complaint-table">
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>Description</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                  <th>Warden Response</th>
+                </tr>
+              </thead>
+              <tbody id="complaintHistory">
+                <!-- Complaints will appear here -->
+              </tbody>
+            </table>
+          </div>
+        </main>
+
+        <script>
+          // auto-fill date
+          document.getElementById("submitDate").value =
+            new Date().toLocaleDateString();
+
+          // show "Other" input box
+          document
+            .getElementById("complaintType")
+            .addEventListener("change", function () {
+              document.getElementById("otherTypeGroup").style.display =
+                this.value === "Other" ? "block" : "none";
+            });
+
+          // handle form submit
+          document
+            .getElementById("complaintForm")
+            .addEventListener("submit", function (e) {
+              e.preventDefault();
+
+              let type = document.getElementById("complaintType").value;
+              if (type === "Other") {
+                type = document.getElementById("otherType").value || "Other";
+              }
+              const desc = document.getElementById("complaintDesc").value;
+              const date = document.getElementById("submitDate").value;
+              const status = "Pending";
+              const wardenResponse = "Awaiting response";
+
+              // add row to table
+              const row = `
+                    <tr>
+                    <td>${type}</td>
+                    <td>${desc}</td>
+                    <td>${date}</td>
+                    <td>${status}</td>
+                    <td>${wardenResponse}</td>
+                    </tr>`;
+              document
+                .getElementById("complaintHistory")
+                .insertAdjacentHTML("beforeend", row);
+
+              // reset form
+              document.getElementById("complaintForm").reset();
+              document.getElementById("otherTypeGroup").style.display = "none";
+              document.getElementById("submitDate").value =
+                new Date().toLocaleDateString();
+              document.getElementById("status").value = "Pending";
+            });
+        </script>
+      </body>
+    </html>
+  </body>
+</html>

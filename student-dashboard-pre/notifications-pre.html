@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Notifications</title>
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/responsive.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+  </head>
+  <body class="pre-body">
+    <header class="topbar">
+      <div class="brand">
+        <i class="fa-solid fa-building-user"></i>
+        <span>Student Dashboard (Pre-Room)</span>
+      </div>
+      <span class="pill"><i class="fa-solid fa-lock"></i> Limited Access</span>
+    </header>
+
+    <!-- main layout -->
+    <div class="layout">
+      <!-- sidebar -->
+      <aside class="sidebar">
+        <div class="nav-title">Hostify</div>
+        <ul class="nav">
+          <li class="item active">
+            <a href="dashboard-pre.html">
+              <i class="fa-solid fa-gauge"></i> Pre-Dashboard
+            </a>
+          </li>
+          <li>
+            <a href="/admin-dashboard/profile.html"
+              ><i class="fa-solid fa-user"></i> Profile</a
+            >
+          </li>
+          <li>
+            <a href="apply-room.html"
+              ><i class="fa-solid fa-door-open"></i> Apply for Room</a
+            >
+          </li>
+          <li id="logoutBtn">
+            <a href="/student-public.html/login.html">
+              <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </a>
+          </li>
+          <li class="item disabled" title="Available after room allocation">
+            <i class="fa-solid fa-edit"></i> Attendance
+          </li>
+          <li class="item disabled" title="Available after room allocation">
+            <i class="fa-solid fa-circle-exclamation"></i> Complaints
+          </li>
+          <li class="item disabled" title="Available after room allocation">
+            <i class="fa-solid fa-bowl-food"></i> Meal Feedback
+          </li>
+          <li class="item disabled" title="Available after room allocation">
+            <i class="fa-solid fa-clock-rotate-left"></i> Stay Extension
+          </li>
+        </ul>
+      </aside>
+
+      <!-- notifications -->
+      <div id="notifications" class="tab-content">
+        <h2>Notifications</h2>
+        <ul class="notifications-list">
+          <li>
+            <i class="fa-solid fa-circle-info"></i>
+            Your registration is successful. Please apply for a room within 7
+            days.
+            <span class="notif-date">2025-08-17</span>
+          </li>
+          <li>
+            <i class="fa-solid fa-clock"></i>
+            Reminder: Only <strong>3 days left</strong> to apply for your room!
+            <span class="notif-date">2025-08-20</span>
+          </li>
+          <li>
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            If you fail to apply before deadline, your account will be removed.
+            <span class="notif-date">2025-08-24</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <script src="/assets/js/nav.js" defer></script>
+    <script src="/assets/js/logout.js" defer></script>
+    <script src="/assets/js/mobileView.js" defer></script>
+    <script src="/assets/js/profile.js" defer></script>
+  </body>
+</html>

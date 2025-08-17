@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/responsive.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+  </head>
+  <body class="pre-body">
+    <header class="topbar">
+      <div class="brand">
+        <i class="fa-solid fa-building-user"></i>
+        <span>Student Dashboard (Pre-Room)</span>
+      </div>
+      <span class="pill"><i class="fa-solid fa-lock"></i> Limited Access</span>
+    </header>
+
+    <!-- main layout -->
+    <div class="layout">
+      <!-- sidebar -->
+      <aside class="sidebar">
+        <div class="nav-title">Hostify</div>
+        <ul class="nav">
+          <li>
+            <a href="dashboard-pre.html">
+              <i class="fa-solid fa-gauge"></i> Pre-Dashboard
+            </a>
+          </li>
+          <li>
+            <a href="/admin-dashboard/profile.html"
+              ><i class="fa-solid fa-user"></i> Profile</a
+            >
+          </li>
+          <li>
+            <a href="apply-room.html"
+              ><i class="fa-solid fa-door-open"></i> Apply for Room</a
+            >
+          </li>
+          <li id="logoutBtn">
+            <a href="/student-public.html/login.html">
+              <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </a>
+          </li>
+          <li class="item disabled" title="Available after room allocation">
+            <i class="fa-solid fa-edit"></i> Attendance
+          </li>
+          <li class="item disabled" title="Available after room allocation">
+            <i class="fa-solid fa-circle-exclamation"></i> Complaints
+          </li>
+          <li class="item disabled" title="Available after room allocation">
+            <i class="fa-solid fa-bowl-food"></i> Meal Feedback
+          </li>
+          <li class="item disabled" title="Available after room allocation">
+            <i class="fa-solid fa-clock-rotate-left"></i> Stay Extension
+          </li>
+        </ul>
+      </aside>
+
+      <!-- content -->
+      <main class="content">
+        <!-- status + spply / payments -->
+        <div class="grid-2">
+          <!-- status & countdown -->
+          <section class="card">
+            <h3>Status</h3>
+            <div class="row">
+              <span class="chip bad"
+                ><i class="fa-solid fa-bed"></i> Room: Not Assigned</span
+              >
+              <span class="chip warn"
+                ><i class="fa-solid fa-credit-card"></i> Payment: Pending</span
+              >
+            </div>
+
+            <div class="countdown">
+              <div class="count-box">
+                <small class="muted">Days Left</small>
+                <b id="daysLeft">7</b>
+              </div>
+              <div class="progress" aria-label="7-day deadline">
+                <span id="progressBar"></span>
+              </div>
+            </div>
+
+            <p class="muted" style="margin-top: 10px">
+              Apply within <b>7 days</b> of registration or your account may be
+              removed automatically.
+            </p>
+
+            <div class="row">
+              <a class="btn" href="notifications-pre.html"
+                ><i class="fa-solid fa-bell" style="color: #1e3a8a"></i>
+                Notifications</a
+              >
+              <a class="btn" href="apply-room.html"
+                ><i class="fa-solid fa-door-open" style="color: #1e3a8a"></i> Go
+                to Application</a
+              >
+            </div>
+          </section>
+
+          <!-- payments & payment-methods that are allowed in hostify -->
+          <section class="card">
+            <h3>Apply & Pay</h3>
+            <p class="muted">
+              Choose an allowed method after submitting your room application:
+            </p>
+            <div class="pay-list">
+              <span class="pay-tag"
+                ><i class="fa-brands fa-cc-visa"></i> Visa</span
+              >
+              <span class="pay-tag"
+                ><i class="fa-brands fa-cc-mastercard"></i> MasterCard</span
+              >
+              <span class="pay-tag"
+                ><i class="fa-brands fa-cc-amex"></i> American Express</span
+              >
+              <span class="pay-tag"
+                ><i class="fa-brands fa-cc-discover"></i> Discover</span
+              >
+              <span class="pay-tag"
+                ><i class="fa-solid fa-building-columns"></i> Bank
+                Transfer</span
+              >
+              <span class="pay-tag"
+                ><i class="fa-solid fa-mobile-screen"></i> JazzCash</span
+              >
+              <span class="pay-tag"
+                ><i class="fa-solid fa-mobile-screen"></i> Easypaisa</span
+              >
+            </div>
+            <p class="muted" style="margin-top: 8px">
+              Other cards are <b>not</b> accepted.
+            </p>
+          </section>
+        </div>
+
+        <!-- notifications -->
+        <section class="card">
+          <h3>Recent Notifications</h3>
+          <div class="notif">
+            <div class="note">
+              <span class="badge info"
+                ><i class="fa-solid fa-info-circle"></i> Info</span
+              >
+              <span
+                >Your registration is complete. Please apply for a room to
+                continue.</span
+              >
+            </div>
+            <div class="note">
+              <span class="badge alert"
+                ><i class="fa-solid fa-triangle-exclamation"></i> Alert</span
+              >
+              <span
+                >Reminder: Apply within 7 days to avoid automatic removal.</span
+              >
+            </div>
+          </div>
+        </section>
+
+        <!-- Locked Features Preview -->
+        <section class="card">
+          <h3>Locked until Room Allocation</h3>
+          <div class="locked-grid">
+            <div class="locked" title="Available after room allocation">
+              <i class="fa-solid fa-calendar-check"></i> Attendance
+            </div>
+            <div class="locked" title="Available after room allocation">
+              <i class="fa-solid fa-message"></i> Complaints
+            </div>
+            <div class="locked" title="Available after room allocation">
+              <i class="fa-solid fa-bowl-food"></i> Meal Feedback
+            </div>
+            <div class="locked" title="Available after room allocation">
+              <i class="fa-solid fa-clock-rotate-left"></i> Stay Extension
+            </div>
+          </div>
+        </section>
+
+        <!-- Help -->
+        <section class="card">
+          <h3>Need Help?</h3>
+          <p class="muted">
+            If you have questions about application or payment, contact Admin
+            from the Profile page or email support@hostel.example
+          </p>
+          <div class="row">
+            <a class="btn" href="/admin-dashboard/profile.html"
+              ><i class="fa-solid fa-user"></i> Go to Profile</a
+            >
+            <a class="btn" href="apply-room.html"
+              ><i class="fa-solid fa-door-open"></i> Apply Now</a
+            >
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="/assets/js/nav.js" defer></script>
+    <script src="/assets/js/logout.js" defer></script>
+    <script src="/assets/js/mobileView.js" defer></script>
+    <script src="/assets/js/profile.js" defer></script>
+  </body>
+</html>
