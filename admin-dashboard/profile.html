@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Profile</title>
+  <link rel="stylesheet" href="/assets/css/responsive.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+  <body class="all">
+    <div class="profile-wrapper">
+      <div class="profile-header">
+        <div class="avatar">
+          <img src="/assets/images/user-profile.avif" alt="User Avatar">
+        </div>
+        <div class="user-info">
+          <h2 id="fullName">John Doe</h2>
+          <p class="subtitle" id="userRole">Warden</p>
+        </div>
+      </div>
+      <div class="profile-content">
+        <div class="info-group">
+          <label>Full Name</label>
+          <input type="text" id="fullNameInput" readonly>
+        </div>
+        <div class="info-group">
+          <label>User ID</label>
+          <input type="text" id="userIdInput" readonly>
+        </div>
+        <div class="info-group">
+          <label>Contact</label>
+          <input type="text" id="contactInput">
+        </div>
+        <div class="info-group" id="positionGroup">
+          <label>Position</label>
+          <input type="text" id="positionInput" readonly>
+        </div>
+        <div class="info-group">
+          <label>Password</label>
+          <div class="password-wrapper">
+            <input type="password" id="passwordInput">
+            <button id="togglePassword">Show</button>
+          </div>
+        </div>
+        <div class="actions">
+          <button id="saveProfile">Save Changes</button>
+        </div>
+      </div>
+    </div>
+    <script src="/assets/js/profile.js"></script>
+  </body>
+</html>

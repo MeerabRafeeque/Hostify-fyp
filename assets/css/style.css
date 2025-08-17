@@ -1293,12 +1293,9 @@ a {
   color: inherit;
 }
 
-a:hover,
-a:visited,
-a:active,
-a:focus {
+a:hover {
   text-decoration: none;
-  color: inherit;
+  color: blue;
 }
 /* view & update profile */
 .all {
@@ -1431,7 +1428,10 @@ a:focus {
 
 /* mess dashboard section */
 #mess-dashboard h2,
-#food-shortage h2 {
+#food-shortage h2,
+.login-container h2,
+.forgot-container h2,
+.reset-container h2 {
   color: #1e3a8a;
 }
 
@@ -1810,17 +1810,17 @@ a:focus {
   border-radius: 6px;
   background: white;
   border-left: 5px solid transparent;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 /* unread */
 .mess-notification.unread {
-  border-left-color: green; 
+  border-left-color: green;
   background: rgb(147, 241, 147);
 }
 /* read */
 .mess-notification.read {
-  border-left-color: rgba(0, 195, 255, 0.836); 
-  background: rgba(108, 216, 248, 0.836);;
+  border-left-color: rgba(0, 195, 255, 0.836);
+  background: rgba(108, 216, 248, 0.836);
 }
 
 .mess-notification p {
@@ -1980,13 +1980,13 @@ a:focus {
   background: #fff;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
   text-align: center;
   transition: transform 0.3s;
 }
 
 .deputy-card:hover {
-  transform: translate(-5px)
+  transform: translate(-5px);
 }
 
 .deputy-card h3 {
@@ -2012,7 +2012,7 @@ a:focus {
   padding: 20px;
   background: #fff;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
 .deputy-notifications h2 {
@@ -2072,7 +2072,7 @@ a:focus {
   background: #fff;
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .deputy-attendance-section h2,
@@ -2128,7 +2128,7 @@ a:focus {
   background: #fff;
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .deputy-meal-menu h2,
@@ -2185,3 +2185,377 @@ a:focus {
   border: 1px solid #ccc;
 }
 
+/* student registeration/sign-up form */
+
+
+/*std login  pg*/
+.login-body {
+  background: url("/assets/images/dorm.webp") center/cover no-repeat;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  height: 100vh;
+}
+.login-container {
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+  width: 350px;
+}
+.login-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.login-container .form-group {
+  margin-bottom: 15px;
+  position: relative;
+}
+.login-container label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+.login-container input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+}
+.login-container .toggle-password {
+  position: absolute;
+  right: 12px;
+  top: 38px;
+  cursor: pointer;
+  font-size: 18px;
+  user-select: none;
+}
+.login-container button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background: #1e3a8a;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+.login-container button:hover {
+  background: white;
+  color: #1e3a8a;
+  transition: all 0.3s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.login-container .forgot-password {
+  display: flex;
+  text-decoration: none;
+  justify-content: center;
+  padding-top: 3rem;
+}
+
+.login-container .forgot-password:hover {
+  color: red;
+}
+
+.login-container .login-container p {
+  padding-top: 3rem;
+  padding-left: 1rem;
+}
+
+/* forgot password */
+.forgot-body {
+  font-family: Arial, sans-serif;
+  background: url('/assets/images/single.webp');
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+/* bg img opacity */
+
+/* .forgot-body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+} */
+
+.forgot-container {
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+  width: 350px;
+}
+
+.forgot-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.forgot-container .form-group {
+  margin-bottom: 15px;
+}
+
+.forgot-container label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #444;
+}
+
+.forgot-container input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.forgot-container button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background: #1e3a8a;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.forgot-container button:hover {
+  background: white;
+  color: #1e3a8a;
+  transition: all 0.3s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.forgot-container .back-link {
+  display: block;
+  text-align: center;
+  margin-top: 15px;
+}
+
+.forgot-container .back-link a {
+  text-decoration: none;
+  color: #1e3a8a;
+  font-size: 14px;
+}
+
+.forgot-container .back-link a:hover {
+  text-decoration: underline;
+}
+
+/* reset pwd */
+
+.reset-body {
+  font-family: Arial, sans-serif;
+  background: url('/assets/images/beds-182965.jpg') center/cover no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.reset-container {
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+  width: 350px;
+}
+
+.reset-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.reset-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.reset-container label {
+  margin: 10px 0 5px;
+  font-weight: bold;
+  color: #444;
+}
+
+.reset-container .input-wrapper {
+  position: relative;
+}
+
+.reset-container input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.reset-container .toggle-reset-eye {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #1e3a8a;
+  font-size: 16px;
+}
+
+.reset-container button {
+  margin-top: 15px;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background: #1e3a8a;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.reset-container button:hover {
+  background: white;
+  color: #1e3a8a;
+  transition: all 0.3s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* student dashboard pre-room application */ 
+
+.pre-sideBar {
+  background-color: #1e3a8a;
+  color: white;
+  overflow-y: auto;
+  width: 290px;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.pre-sideBar .logo {
+  display: flex;
+  align-items: center;
+  padding: 0 20px 20px;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.pre-sideBar nav ul {
+  list-style: none;
+}
+
+.pre-sideBar nav ul li {
+  padding: 12px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s;
+}
+
+.pre-sideBar nav ul li:hover,
+.pre-sideBar nav ul li:active {
+  background-color: white;
+  color: #1e3a8a;
+  border-radius: 1px;
+}
+
+.pre-sideBar nav ul li i {
+  margin-right: 10px;
+  font-size: 10px;
+}
+
+/* Main content area */
+.pre-mainContent {
+  flex: 1;
+  margin-left: 15px;
+  padding: 20px;
+  transition: all 0.3s;
+}
+
+.pre-container {
+  display: flex;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+/* Header */
+.pre-topHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.pre-searchbar {
+  display: flex;
+  align-items: center;
+  background-color: #eee;
+  padding: 8px 15px;
+  border-radius: 30px;
+  width: 300px;
+}
+
+.pre-searchbar input {
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 100%;
+}
+
+.pre-userProfile {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.pre-userProfile img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.pre-profileDropdown {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: white;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  list-style: none;
+  padding: 6px 0;
+  display: none;
+  min-width: 150px;
+  z-index: 999;
+}
+
+.pre-profileDropdown li {
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #1e3a8a;
+}
+
+.pre-profileDropdown li:hover {
+  background: #f2f2f2;
+}
+
+.pre-profileDropdown i {
+  margin-right: 8px;
+  color: #1e3a8a;
+}

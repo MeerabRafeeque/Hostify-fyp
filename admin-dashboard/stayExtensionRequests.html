@@ -77,8 +77,12 @@
             <span>Admin</span>
             <i class="fa-solid fa-chevron-down" id="profileToggle"></i>
             <ul class="profileDropdown" id="profileMenu">
-              <li id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Logout</li>
-            </ul>
+              <li>
+                <a href="profile.html"><i class="fa-solid fa-user"></i>Profile</a>
+              </li>
+              <li id="logoutBtn">
+                <a href="/student-public.html/login-all.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</li></a>
+              </ul>
           </div>
         </header>
         <!-- Stay Extension Requests Tab -->
@@ -93,7 +97,7 @@
         <div class="table-container">
             <table id="stay-table">
             <thead>
-                <tr>
+              <tr>
                 <th>Request No.</th>
                 <th>Student Name</th>
                 <th>Student ID</th>
@@ -103,7 +107,7 @@
                 <th>Reason for Extension</th>
                 <th>Status</th>
                 <th>Actions</th>
-                </tr>
+              </tr>
             </thead>
             <tbody>
                 <!-- Requests -->
@@ -163,6 +167,7 @@
     <script src="/assets/js/nav.js" defer></script>
     <script src="/assets/js/logout.js" defer></script>
     <script src="/assets/js/mobileView.js" defer></script>
+    <script src="/assets/js/profile.js" defer></script>
 
   </body>
 </html>

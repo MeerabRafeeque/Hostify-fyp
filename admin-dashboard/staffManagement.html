@@ -77,6 +77,9 @@
             <span>Admin</span>
             <i class="fa-solid fa-chevron-down" id="profileToggle"></i>
             <ul class="profileDropdown" id="profileMenu">
+              <li>
+                <a href="profile.html"><i class="fa-solid fa-user"></i>Profile</a>
+              </li>
               <li id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Logout</li>
             </ul>
           </div>
@@ -115,45 +118,45 @@
             <button class="closeModal">&times;</button>
         </div>
         <div class="modalBody">
-            <form id="add-staff-form">
+          <form id="add-staff-form">
             <div class="form-group">
-                <label for="staff-name">Full Name</label>
-                <input type="text" id="staff-name" required />
+              <label for="staff-name">Full Name</label>
+              <input type="text" id="staff-name" required />
             </div>
             <div class="form-group">
-                <label for="staff-email">Email</label>
-                <input type="email" id="staff-email" required />
+              <label for="staff-email">Email</label>
+              <input type="email" id="staff-email" required />
             </div>
             <div class="form-group">
-                <label for="staff-position">Position</label>
-                <select id="staff-position">
-                <option value="Warden">Warden</option>
-                <option value="Mess Committee">Mess Committee</option>
-                <option value="Deputy RT">Deputy RT</option>
-                </select>
+              <label for="staff-position">Position</label>
+              <select id="staff-position">
+              <option value="Warden">Warden</option>
+              <option value="Mess Committee">Mess Committee</option>
+              <option value="Deputy RT">Deputy RT</option>
+              </select>
             </div>
             <div class="form-group">
-                <label for="staff-phone">Contact</label>
-                <input type="tel" id="staff-phone" required />
+              <label for="staff-phone">Contact</label>
+              <input type="tel" id="staff-phone" required />
             </div>
             <div class="form-group">
-                <label for="staff-shift">Assign Shift</label>
-                <select id="staff-shift" required>
-                <option value="Morning">Morning</option>
-                <option value="Evening">Evening</option>
-                </select>
+              <label for="staff-shift">Assign Shift</label>
+              <select id="staff-shift" required>
+              <option value="Morning">Morning</option>
+              <option value="Evening">Evening</option>
+              </select>
             </div>
             <div class="form-group">
-                <label for="staff-salary">Salary</label>
-                <input type="number" id="staff-salary" min="0" required />
+              <label for="staff-salary">Salary</label>
+              <input type="number" id="staff-salary" min="0" required />
             </div>
             <div class="form-action">
-                <button type="button" class="btn btn-secondary closeModal">
-                Cancel
-                </button>
-                <button type="submit" class="btn btn-primary">Add Staff</button>
+              <button type="button" class="btn btn-secondary closeModal">
+              Cancel
+              </button>
+              <button type="submit" class="btn btn-primary">Add Staff</button>
             </div>
-            </form>
+          </form>
         </div>
         </div>
 
@@ -212,6 +215,7 @@
     <script src="/assets/js/nav.js" defer></script>
     <script src="/assets/js/logout.js" defer></script>
     <script src="/assets/js/mobileView.js" defer></script>
+    <script src="/assets/js/profile.js" defer></script>
 
   </body>
 </html>
