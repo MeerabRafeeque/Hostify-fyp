@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Student Dashboard</title>
+    <title>Room Application</title>
     <link rel="stylesheet" href="/assets/css/style.css" />
     <link rel="stylesheet" href="/assets/css/responsive.css" />
     <link
@@ -106,7 +106,7 @@
           <button type="submit">Submit Application</button>
         </form>
 
-        <!-- Confirmation Message -->
+        <!-- confirmation Message -->
         <p
           id="confirmationMsg"
           style="display: none; color: green; margin-top: 15px"
@@ -120,12 +120,12 @@
       form.addEventListener("submit", function (e) {
         e.preventDefault();
 
-        // Normally this would send data to server
+        // would send data to server
         confirmationMsg.textContent =
           " Your application has been submitted. Payment will be verified by admin.";
         confirmationMsg.style.display = "block";
 
-        // Optionally clear form
+        // clear form
         form.reset();
       });
     </script>

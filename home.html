@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hostify</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/css/responsive.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+  </head>
+  <style>
+    /* colors */
+    :root {
+      --primary: #1e3a8a;
+      --secondary: #14b8a6;
+      --accent: #f59e0b;
+      --background: #f3f4f6;
+      --text: #111827;
+      --success: #22c55e;
+      --error: #dc2626;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+      font-size: 20px;
+    }
+
+    #contact,
+    #about,
+    #services {
+      scroll-margin-top: 300px;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: var(--background);
+      color: var(--text);
+    }
+
+    /* header / navbar */
+    header {
+      position: fixed;
+      z-index: 1000;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 50px;
+      background-color: var(--primary);
+      color: white;
+    }
+
+    header .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    header .logo img {
+      width: 60px;
+      height: 60px;
+      margin-right: 10px;
+    }
+
+    header nav ul {
+      display: flex;
+      list-style: none;
+    }
+
+    header nav ul li {
+      margin-left: 20px;
+      background-color: white;
+      color: #1e3a8a;
+      padding: 9px;
+      border-radius: 20px;
+    }
+
+    header nav ul li a {
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    header nav ul li:hover {
+      border-radius: 3px;
+      transition: all 0.3s;
+    }
+
+    header nav ul li a:hover {
+      color: teal;
+    }
+    /* hero section */
+    .hero {
+      position: relative;
+      text-align: center;
+      padding-top: 90px;
+    }
+
+    .slider img {
+      width: 100%;
+      height: 450px;
+      object-fit: cover;
+      display: none;
+    }
+
+    .slider img:first-child {
+      display: block;
+    }
+
+    .hero-text {
+      position: absolute;
+      top: 50%;
+      left: 35%;
+      background: rgba(30, 58, 138, 0.7);
+      padding: 20px 40px;
+      border-radius: 10px;
+      color: white;
+    }
+
+    .hero-text h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .hero-text p {
+      font-style: italic;
+    }
+
+    /* hidden hamburger */
+    .hamburger {
+      display: none;
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    /* mobile responsive */
+    @media (max-width: 768px) {
+      header {
+        padding: 15px 20px;
+      }
+
+      nav {
+        position: absolute;
+        top: 70px;
+        right: 0;
+        background: var(--primary);
+        width: 100%;
+        display: none;
+        flex-direction: column;
+        text-align: center;
+        padding: 20px 0;
+      }
+
+      nav ul {
+        flex-direction: column;
+      }
+
+      nav ul li {
+        margin: 15px 0;
+      }
+
+      .hamburger {
+        display: block;
+        color: white;
+      }
+
+      nav.show {
+        display: flex;
+      }
+    }
+
+    /* about sec */
+    .about {
+      margin-top: 30px;
+      background-color: var(--background);
+      padding: 60px 50px;
+    }
+
+    .about-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 40px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .about-text {
+      flex: 1;
+    }
+
+    .about-text h2 {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+
+    .about-text p {
+      margin-bottom: 15px;
+      line-height: 1.6;
+      color: var(--text);
+    }
+
+    .about-image {
+      flex: 1;
+      text-align: center;
+    }
+
+    .about-image img {
+      max-width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    /* service sec */
+
+    .services {
+      padding: 70px 50px;
+      background: #eee;
+      text-align: center;
+    }
+
+    .services h2 {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    .services-subtitle {
+      font-size: 1.1rem;
+      margin-bottom: 40px;
+      color: var(--text);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+    }
+
+    .service-card {
+      background: #1e3a8a;
+      border-radius: 15px;
+      padding: 30px 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .service-card i {
+      font-size: 2.5rem;
+      color: white;
+      margin-bottom: 15px;
+    }
+
+    .service-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      color: white;
+    }
+
+    .service-card p {
+      font-size: 1rem;
+      color: white;
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    /* contact sec */
+
+    .contact {
+      color: #1e3a8a;
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .contact h2 {
+      padding-bottom: 10px;
+      font-size: 2rem;
+    }
+
+    .contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .form-group {
+      position: relative;
+      width: 100%;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px 12px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      outline: none;
+      background: none;
+    }
+
+    .form-group label {
+      position: absolute;
+      left: 12px;
+      top: 14px;
+      color: black;
+      pointer-events: none;
+      transition: 0.3s ease;
+    }
+
+    .form-group input:focus + label,
+    .form-group input:not(:placeholder-shown) + label,
+    .form-group textarea:focus + label,
+    .form-group textarea:not(:placeholder-shown) + label {
+      top: -10px;
+      left: 10px;
+      font-size: 0.85rem;
+      color: #1e3a8a;
+      background: #f9f9f9;
+      padding: 0 4px;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: #1e3a8a;
+      box-shadow: 0 0 6px rgba(30, 58, 138, 0.3);
+    }
+
+    .contact-form button {
+      background: #1e3a8a;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .contact-form button:hover {
+      background: white;
+      color: #1e3a8a;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+      transition: all 0.3s;
+    }
+
+    /* footer */
+    .footer {
+      margin-top: 30px;
+      background-color: #1e3a8a;
+      color: #fff;
+      padding: 40px 20px 20px;
+    }
+
+    .footer-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .footer-section h3,
+    .footer-section h4 {
+      margin-bottom: 15px;
+      color: #f59e0b;
+    }
+
+    .footer-section p,
+    .footer-section a {
+      line-height: 1.6;
+      color: #ddd;
+      text-decoration: none;
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-section ul li a:hover {
+      color: #1e3a8a;
+      padding: 5px;
+      border-radius: 5px;
+      background-color: white;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    }
+
+    .social-links a {
+      margin-right: 10px;
+      font-size: 18px;
+      color: #ddd;
+      transition: color 0.3s;
+    }
+
+    .social-links a:hover {
+      color: #1e3a8a;
+      padding: 5px;
+      border-radius: 5px;
+      background-color: white;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 13px;
+      color: #ccc;
+    }
+  </style>
+  <body>
+    <!-- header / navbar -->
+    <header>
+      <div class="logo">
+        <img src="/assets/images/colored-logo.png" alt="Hostify Logo" />
+        <h2>Hostify</h2>
+      </div>
+      <div class="hamburger" id="hamburger">
+        <i class="fa-solid fa-bars"></i>
+      </div>
+      <nav id="nav-menu">
+        <ul>
+          <li><a href="#hero-sec">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#contact">Contact Us</a></li>
+          <li>
+            <a href="/student-public.html/register.html">Register</a>
+          </li>
+          <li><a href="/student-public.html/login-all.html">Login</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- hero sec with slider -->
+    <section class="hero" id="hero-sec">
+      <div class="slider">
+        <div class="slides">
+          <img src="/assets/images/dorm.webp" alt="Dorm" />
+          <img src="/assets/images/double.webp" alt="Dormitory" />
+          <img src="/assets/images/beds-182965.jpg" alt="Beds" />
+        </div>
+      </div>
+      <div class="hero-text" data-aos="zoom-in-up">
+        <h1>Welcome to Hostify</h1>
+        <p>Where Heritage Meets Hospitality</p>
+      </div>
+    </section>
+    <!-- about sec -->
+    <section class="about" id="about" data-aos="zoom-in-up">
+      <div class="about-container">
+        <div class="about-text">
+          <h2>About Hostify</h2>
+          <p>
+            Hostify is your trusted hostel management platform that blends
+            <strong>heritage with modern hospitality</strong>. We provide
+            students with safe, affordable, and comfortable living spaces. With
+            our digital system, everything from room allocation to payments,
+            attendance, and feedback is streamlined for convenience.
+          </p>
+          <p>
+            Our mission is to create a
+            <strong>home away from home</strong> where students can focus on
+            their studies while we take care of their comfort and needs.
+          </p>
+        </div>
+        <div class="about-image">
+          <img src="/assets/images/hostify.jpg" alt="About Hostify" />
+        </div>
+      </div>
+    </section>
+    <!-- services sec -->
+
+    <section class="services" id="services" data-aos="zoom-in-up">
+      <div class="services">
+        <h2>Our Services</h2>
+        <p class="services-subtitle">
+          Hostify makes hostel management simple and efficient
+        </p>
+
+        <div class="services-grid">
+          <div class="service-card">
+            <i class="fa-solid fa-bed"></i>
+            <h3>Room Allocation</h3>
+            <p>Easy and transparent room booking and allocation process.</p>
+          </div>
+
+          <div class="service-card">
+            <i class="fa-solid fa-utensils"></i>
+            <h3>Meal Management</h3>
+            <p>Check menus and share your feedback to improve meals.</p>
+          </div>
+
+          <div class="service-card">
+            <i class="fa-solid fa-user-check"></i>
+            <h3>Attendance</h3>
+            <p>Track student attendance digitally with accuracy.</p>
+          </div>
+
+          <div class="service-card">
+            <i class="fa-solid fa-comment-dots"></i>
+            <h3>Complaints</h3>
+            <p>Submit complaints and get quick resolution from wardens.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- contact sec -->
+    <section class="contact" id="contact" data-aos="zoom-in-up">
+      <div class="contact-container">
+        <h2>Contact Us</h2>
+        <p>Have questions? Get in touch with us!</p>
+
+        <form class="contact-form">
+          <div class="form-group">
+            <input type="text" id="name" placeholder=" " required />
+            <label for="name">Your Name</label>
+          </div>
+
+          <div class="form-group">
+            <input type="email" id="email" placeholder=" " required />
+            <label for="email">Your Email</label>
+          </div>
+
+          <div class="form-group">
+            <textarea id="message" rows="5" placeholder=" "></textarea>
+            <label for="message">Your Message</label>
+          </div>
+
+          <button type="submit">Send Message</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- footer -->
+    <footer class="footer" data-aos="zoom-in-up">
+      <div class="footer-container">
+        <!-- Logo / About -->
+        <div class="footer-section">
+          <h3>Hostify</h3>
+          <p>
+            Your trusted hostel management platform. Safe, reliable, and
+            digital.
+          </p>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#hero-sec">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="/student-public.html/register.html">Register</a></li>
+            <li><a href="/student-public.html/login-all.html">Login</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="footer-section">
+          <h4>Contact Us</h4>
+          <p>123 Hostel Street, City</p>
+          <p>Email: support@hostify.com</p>
+          <p>Phone: +92-300-1234567</p>
+        </div>
+
+        <!-- Social Media -->
+        <div class="footer-section">
+          <h4>Follow Us</h4>
+          <div class="social-links">
+            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2025 Hostify. All Rights Reserved.</p>
+      </div>
+    </footer>
+    <script>
+      let currentIndex = 0;
+      const slides = document.querySelectorAll(".slider img");
+
+      function showSlide(index) {
+        slides.forEach((slide, i) => {
+          slide.style.display = i === index ? "block" : "none";
+        });
+      }
+
+      function nextSlide() {
+        currentIndex = (currentIndex + 1) % slides.length;
+        showSlide(currentIndex);
+      }
+
+      // First show
+      showSlide(currentIndex);
+
+      // Change slide every 3 seconds
+      setInterval(nextSlide, 3000);
+    </script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+    <script src="/assets/js/mob.js"></script>
+  </body>
+</html>

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Student Login</title>
+    <title>User Login</title>
     <link rel="stylesheet" href="/assets/css/responsive.css" />
     <link rel="stylesheet" href="/assets/css/style.css" />
     <link
@@ -101,6 +101,17 @@
           />
         </div>
         <div class="form-group">
+          <label for="role">Select your role</label>
+          <select>
+            <option value="Role">--Role--</option>
+            <option value="Studet">Student</option>
+            <option value="Admin">Admin</option>
+            <option value="Warden">Warden</option>
+            <option value="Deputy RT">Deputy RT</option>
+            <option value="Mess Staff">Mess Staff</option>
+          </select>
+        </div>
+        <div class="form-group">
           <label for="password">Password</label>
           <input
             type="password"
@@ -114,7 +125,7 @@
         </div>
         <button type="submit">Login</button>
       </form>
-      
+
       <a href="forgot-password.html" class="forgot-password"
         >Forgot password!</a
       >
