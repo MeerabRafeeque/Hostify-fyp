@@ -47,7 +47,7 @@
         <header class="mess-topHeader">
           <div class="mess-searchbar">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Search here..." />
+            <input type="text" id="globalSearch" placeholder="Search here..." />
           </div>
           <div class="mess-userProfile">
             <img src="/assets/images/user-profile.avif" alt="Mess Staff" />
@@ -78,22 +78,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Ali Khan</td>
-                <td>STU001</td>
-                <td>Monday</td>
-                <td>Lunch</td>
-                <td>The curry was delicious but the rice were undercooked.</td>
-              </tr>
-              <tr>
-                <td>Hasan Raza</td>
-                <td>STU002</td>
-                <td>Tuesday</td>
-                <td>Dinner</td>
-                <td>
-                  Very good quality. Please keep the same menu for next week.
-                </td>
-              </tr>
+             <!-- dynamic -->
             </tbody>
           </table>
         </div>
@@ -104,5 +89,10 @@
     <script src="/assets/js/logout.js" defer></script>
     <script src="/assets/js/mobileView.js" defer></script>
     <script src="/assets/js/profile.js" defer></script>
+    <script src="/assets/js/searchbar.js" defer></script>
+    
+    <script src="/assets/js/deputy-meal-view.js"></script>
+    <script src="/assets/js/mess-receive-meal-feed.js"></script>
+
   </body>
 </html>

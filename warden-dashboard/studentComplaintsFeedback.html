@@ -62,7 +62,7 @@
           </div>
           <div class="searchbar">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Search here..." />
+            <input type="text" id="globalSearch" placeholder="Search here..." />
           </div>
           <div class="userProfile">
             <img src="/assets/images/user-profile.avif" alt="Warden" />
@@ -83,7 +83,7 @@
         <div class="complaintsPanel">
           <h2>Student Complaints & Feedback</h2>
 
-          <!-- Complaints Table -->
+          <!-- complaints tab -->
           <table class="complaintsTable">
             <thead>
               <tr>
@@ -160,5 +160,83 @@
     <script src="/assets/js/logout.js" defer></script>
     <script src="/assets/js/mobileView.js" defer></script>
     <script src="/assets/js/profile.js" defer></script>
+    <script src="/assets/js/searchbar.js" defer></script>
+    <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const tableBody = document.querySelector(".complaintsTable tbody");
+
+  // load complaints from localStorage
+  function loadComplaints() {
+    const all = JSON.parse(localStorage.getItem("complaints") || "[]");
+    tableBody.innerHTML = "";
+
+    if (all.length === 0) {
+      tableBody.innerHTML = `<tr><td colspan="8">No complaints yet</td></tr>`;
+      return;
+    }
+
+    all.forEach((c, index) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${index + 1}</td>
+        <td>${c.studentName || "Unknown"}</td>
+        <td>${c.studentId || "N/A"}</td>
+        <td>${c.desc}</td>
+        <td>
+          <select data-index="${index}" class="statusSelect">
+            <option ${c.status==="Pending"?"selected":""}>Pending</option>
+            <option ${c.status==="Resolved"?"selected":""}>Resolved</option>
+            <option ${c.status==="Rejected"?"selected":""}>Rejected</option>
+          </select>
+        </td>
+        <td>
+          <input type="text" data-index="${index}" class="feedbackInput" placeholder="Write feedback..." value="${c.wardenResponse || ""}">
+        </td>
+        <td>
+          <select data-index="${index}" class="handledBySelect">
+            <option ${c.handledBy==="Warden 1(morning)"?"selected":""}>Warden 1(morning)</option>
+            <option ${c.handledBy==="Warden 2(evening)"?"selected":""}>Warden 2(evening)</option>
+            <option ${c.handledBy==="Warden 3(night)"?"selected":""}>Warden 3(night)</option>
+          </select>
+        </td>
+        <td>
+          <button class="saveBtn btn btn-primary" data-index="${index}">Save</button>
+        </td>
+      `;
+      tableBody.appendChild(tr);
+    });
+
+    attachSaveEvents();
+  }
+
+  // save updates
+  function attachSaveEvents() {
+    document.querySelectorAll(".saveBtn").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        const i = e.target.getAttribute("data-index");
+        let all = JSON.parse(localStorage.getItem("complaints") || "[]");
+
+        const status = document.querySelector(`.statusSelect[data-index="${i}"]`).value;
+        const feedback = document.querySelector(`.feedbackInput[data-index="${i}"]`).value;
+        const handledBy = document.querySelector(`.handledBySelect[data-index="${i}"]`).value;
+
+        // update the complaint
+        all[i].status = status;
+        all[i].wardenResponse = feedback;
+        all[i].handledBy = handledBy;
+
+        localStorage.setItem("complaints", JSON.stringify(all));
+
+        alert("Complaint updated successfully!");
+        loadComplaints();
+      });
+    });
+  }
+
+  // initial load
+  loadComplaints();
+});
+</script>
+
   </body>
 </html>

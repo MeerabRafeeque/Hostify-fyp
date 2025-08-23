@@ -70,7 +70,7 @@
         <header class="topHeader">
           <div class="searchbar">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Search here..." />
+            <input type="text" id="globalSearch" placeholder="Search here..." />
           </div>
           <div class="userProfile">
             <img src="/assets/images/user-profile.avif" alt="Admin" />
@@ -78,144 +78,155 @@
             <i class="fa-solid fa-chevron-down" id="profileToggle"></i>
             <ul class="profileDropdown" id="profileMenu">
               <li>
-                <a href="profile.html"><i class="fa-solid fa-user"></i>Profile</a>
+                <a href="profile.html"
+                  ><i class="fa-solid fa-user"></i>Profile</a
+                >
               </li>
-              <li id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Logout</li>
+              <li id="logoutBtn">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+              </li>
             </ul>
           </div>
         </header>
         <!-- Staff Management Tab -->
         <div class="tab-content active" id="staff">
-        <div class="tab-header">
+          <div class="tab-header">
             <h2>Staff Management</h2>
             <button class="btn btn-primary" id="add-staff-btn">
-            <i class="fa-solid fa-plus"></i> Add Staff
+              <i class="fa-solid fa-plus"></i> Add Staff
             </button>
-        </div>
-        <div class="table-container">
+          </div>
+          <div class="table-container">
             <table id="staff-table">
-            <thead>
+              <thead>
                 <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Position</th>
-                <th>Shift</th>
-                <th>Salary</th>
-                <th>Actions</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Position</th>
+                  <th>Shift</th>
+                  <th>Actions</th>
                 </tr>
-            </thead>
-            <tbody>
+              </thead>
+              <tbody>
                 <!-- Staff data will be populated dynamically -->
-            </tbody>
+              </tbody>
             </table>
-        </div>
+          </div>
         </div>
 
         <!-- Add Staff Modal -->
         <div class="modal" id="add-staff-modal">
-        <div class="modalHeader">
+          <div class="modalHeader">
             <h3>Add New Staff Member</h3>
             <button class="closeModal">&times;</button>
-        </div>
-        <div class="modalBody">
-          <form id="add-staff-form">
-            <div class="form-group">
-              <label for="staff-name">Full Name</label>
-              <input type="text" id="staff-name" required />
-            </div>
-            <div class="form-group">
-              <label for="staff-email">Email</label>
-              <input type="email" id="staff-email" required />
-            </div>
-            <div class="form-group">
-              <label for="staff-position">Position</label>
-              <select id="staff-position">
-              <option value="Warden">Warden</option>
-              <option value="Mess Committee">Mess Committee</option>
-              <option value="Deputy RT">Deputy RT</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="staff-phone">Contact</label>
-              <input type="tel" id="staff-phone" required />
-            </div>
-            <div class="form-group">
-              <label for="staff-shift">Assign Shift</label>
-              <select id="staff-shift" required>
-              <option value="Morning">Morning</option>
-              <option value="Evening">Evening</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="staff-salary">Salary</label>
-              <input type="number" id="staff-salary" min="0" required />
-            </div>
-            <div class="form-action">
-              <button type="button" class="btn btn-secondary closeModal">
-              Cancel
-              </button>
-              <button type="submit" class="btn btn-primary">Add Staff</button>
-            </div>
-          </form>
-        </div>
+          </div>
+          <div class="modalBody">
+            <form id="add-staff-form">
+              <div class="form-group">
+                <label for="staff-name">Full Name</label>
+                <input type="text" id="staff-name" required />
+              </div>
+              <div class="form-group">
+                <label for="staff-email">Email</label>
+                <input type="email" id="staff-email" required />
+              </div>
+              <div class="form-group">
+                <label for="staff-position">Position</label>
+                <select id="staff-position">
+                  <option value="Warden">Warden</option>
+                  <option value="Mess Committee">Mess Committee</option>
+                  <option value="Deputy RT">Deputy RT</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="staff-phone">Contact</label>
+                <input type="tel" id="staff-phone" required />
+              </div>
+              <div class="form-group">
+                <label for="staff-shift">Assign Shift</label>
+                <select id="staff-shift" required>
+                  <option value="Morning">Morning</option>
+                  <option value="Evening">Evening</option>
+                </select>
+              </div>
+              <div class="form-action">
+                <button type="button" class="btn btn-secondary closeModal">
+                  Cancel
+                </button>
+                <button type="submit" class="btn btn-primary">Add Staff</button>
+              </div>
+            </form>
+          </div>
         </div>
 
         <!-- Edit Staff Modal -->
         <div class="modal" id="edit-staff-modal">
-        <div class="modalHeader">
+          <div class="modalHeader">
             <h3>Edit Staff Member</h3>
             <button class="closeModal">&times;</button>
-        </div>
-        <div class="modalBody">
+          </div>
+          <div class="modalBody">
             <form id="edit-staff-form">
-            <input type="hidden" id="edit-staff-id" />
-            <div class="form-group">
+              <input type="hidden" id="edit-staff-id" />
+              <div class="form-group">
                 <label for="edit-staff-name">Full Name</label>
                 <input type="text" id="edit-staff-name" required />
-            </div>
-            <div class="form-group">
+              </div>
+              <div class="form-group">
                 <label for="edit-staff-email">Email</label>
                 <input type="email" id="edit-staff-email" required />
-            </div>
-            <div class="form-group">
+              </div>
+              <div class="form-group">
                 <label for="edit-staff-position">Position</label>
                 <select id="edit-staff-position">
-                <option value="Warden">Warden</option>
-                <option value="Mess Committee">Mess Committee</option>
-                <option value="Deputy RT">Deputy RT</option>
+                  <option value="Warden">Warden</option>
+                  <option value="Mess Committee">Mess Committee</option>
+                  <option value="Deputy RT">Deputy RT</option>
                 </select>
-            </div>
-            <div class="form-group">
+              </div>
+              <div class="form-group">
                 <label for="edit-staff-phone">Contact</label>
                 <input type="tel" id="edit-staff-phone" required />
-            </div>
-            <div class="form-group">
+              </div>
+              <div class="form-group">
                 <label for="edit-staff-shift">Assign Shift</label>
                 <select id="edit-staff-shift" required>
-                <option value="Morning">Morning</option>
-                <option value="Evening">Evening</option>
+                  <option value="Morning">Morning</option>
+                  <option value="Evening">Evening</option>
                 </select>
-            </div>
-            <div class="form-group">
-                <label for="edit-staff-salary">Salary</label>
-                <input type="number" id="edit-staff-salary" min="0" required />
-            </div>
-            <div class="form-action">
+              </div>
+              <div class="form-action">
                 <button type="button" class="btn btn-secondary closeModal">
-                Cancel
+                  Cancel
                 </button>
-                <button type="submit" class="btn btn-primary">Update Staff</button>
-            </div>
+                <button type="submit" class="btn btn-primary">
+                  Update Staff
+                </button>
+              </div>
             </form>
+          </div>
         </div>
+        <div class="modalOverlay" id="modal-overlay"></div>
+        <div class="modal" id="details-modal">
+          <div class="modalHeader">
+            <h3 id="details-title">Details</h3>
+            <button class="closeModal">&times;</button>
+          </div>
+          <div class="modalBody" id="details-content">
+            <!-- Details content will be added dynamically -->
+          </div>
+          <div class="modalFooter">
+            <button type="button" class="btn btn-secondary closeModal">
+              Close
+            </button>
+          </div>
         </div>
-
       </main>
     </div>
     <script src="/assets/js/nav.js" defer></script>
     <script src="/assets/js/logout.js" defer></script>
     <script src="/assets/js/mobileView.js" defer></script>
     <script src="/assets/js/profile.js" defer></script>
-
+    <script src="/assets/js/searchbar.js" defer></script>
   </body>
 </html>

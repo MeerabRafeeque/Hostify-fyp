@@ -70,7 +70,7 @@
         <header class="topHeader">
           <div class="searchbar">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Search here..." />
+            <input type="text" id="globalSearch" placeholder="Search here..." />
           </div>
           <div class="userProfile">
             <img src="/assets/images/user-profile.avif" alt="Admin" />
@@ -150,7 +150,37 @@
     <script src="/assets/js/logout.js" defer></script>
     <script src="/assets/js/mobileView.js" defer></script>
     <script src="/assets/js/profile.js" defer></script>
+    <script src="/assets/js/searchbar.js" defer></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+  const complaintTableBody = document.querySelector("#complaint-table tbody");
 
+  // LocalStorage se complaints load karo
+  let complaints = JSON.parse(localStorage.getItem("complaints")) || [];
+
+  // Table fill karo
+  function renderComplaints() {
+    complaintTableBody.innerHTML = "";
+    complaints.forEach((comp, index) => {
+      const row = document.createElement("tr");
+
+      row.innerHTML = `
+        <td>CMP${index + 1}</td>
+        <td>${comp.studentName || "N/A"}</td>
+        <td>${comp.desc || "N/A"}</td>
+        <td>${comp.status || "Pending"}</td>
+        <td>${comp.handledBy || "Warden"}</td>
+        <td>${comp.wardenResponse || "No Feedback Yet"}</td>
+      `;
+
+      complaintTableBody.appendChild(row);
+    });
+  }
+
+  renderComplaints();
+});
+
+    </script>
 
   </body>
 </html>

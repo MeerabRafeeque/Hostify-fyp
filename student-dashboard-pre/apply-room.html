@@ -84,7 +84,13 @@
               <option value="ubl">UBL Bank Transfer</option>
             </select>
           </div>
-
+          <div
+            class="form-group"
+            id="paymentInfo"
+            style="display: none; color: gray"
+          >
+            <!-- JS will populate this -->
+          </div>
           <div class="form-group">
             <label for="transactionId">Transaction ID</label>
             <input
@@ -106,7 +112,7 @@
           <button type="submit">Submit Application</button>
         </form>
 
-        <!-- confirmation Message -->
+        <!-- Confirmation Message -->
         <p
           id="confirmationMsg"
           style="display: none; color: green; margin-top: 15px"
@@ -116,22 +122,70 @@
     <script>
       const form = document.getElementById("roomApplicationForm");
       const confirmationMsg = document.getElementById("confirmationMsg");
+      const paymentMethod = document.getElementById("paymentMethod");
+      const paymentInfo = document.getElementById("paymentInfo");
 
+      // Dummy payment numbers
+      const paymentNumbers = {
+        easypaisa: "0300-1234567",
+        jazzcash: "0311-7654321",
+        ubl: "UBL Account: 0123456789",
+      };
+
+      // Show payment info when method selected
+      paymentMethod.addEventListener("change", function () {
+        const method = this.value;
+        if (method) {
+          paymentInfo.style.display = "block";
+          paymentInfo.textContent = `Send your payment on this account: ${paymentNumbers[method]}`;
+        } else {
+          paymentInfo.style.display = "none";
+          paymentInfo.textContent = "";
+        }
+      });
+
+      // Submit application & save to localStorage
       form.addEventListener("submit", function (e) {
         e.preventDefault();
 
-        // would send data to server
-        confirmationMsg.textContent =
-          " Your application has been submitted. Payment will be verified by admin.";
-        confirmationMsg.style.display = "block";
+        const roomType = document.getElementById("roomType").value;
+        const method = paymentMethod.value;
+        const transactionId = document.getElementById("transactionId").value;
+        const screenshot = document.getElementById("screenshot").files[0];
 
-        // clear form
-        form.reset();
+        if (!roomType || !method || !transactionId || !screenshot) return;
+
+        // Convert screenshot to Base64 for storage
+        const reader = new FileReader();
+        reader.onload = function () {
+          const payments =
+            JSON.parse(localStorage.getItem("roomPayments")) || [];
+          payments.push({
+            id: Date.now(), // unique ID
+            studentName: "John Doe", // Replace with actual student name from login/session
+            roomType,
+            method,
+            transactionId,
+            screenshot: reader.result,
+            status: "Pending",
+            date: new Date().toLocaleDateString(),
+          });
+          localStorage.setItem("roomPayments", JSON.stringify(payments));
+
+          confirmationMsg.textContent =
+            "Your application has been submitted. Payment will be verified by admin.";
+          confirmationMsg.style.display = "block";
+
+          form.reset();
+          paymentInfo.style.display = "none";
+        };
+        reader.readAsDataURL(screenshot);
       });
     </script>
     <script src="/assets/js/nav.js" defer></script>
     <script src="/assets/js/logout.js" defer></script>
     <script src="/assets/js/mobileView.js" defer></script>
     <script src="/assets/js/profile.js" defer></script>
+    <script src="/assets/js/room-application.js" defer></script>
   </body>
 </html>

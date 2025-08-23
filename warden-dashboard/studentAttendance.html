@@ -53,7 +53,7 @@
             </div>
             <div class="searchbar">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Search here..." />
+                <input type="text" id="globalSearch" placeholder="Search here..." />
             </div>
             <div class="userProfile">
                 <img src="/assets/images/user-profile.avif" alt="Warden" />
@@ -117,5 +117,45 @@
     <script src="/assets/js/logout.js" defer></script>
     <script src="/assets/js/mobileView.js" defer></script>
     <script src="/assets/js/profile.js" defer></script>
+    <script src="/assets/js/searchbar.js" defer></script>
+    <script>
+  // warden attendance table body
+  const attendanceTableBody = document.querySelector(".attendanceTable tbody");
+
+  // get attendance records from localStorage (Deputy RT side se save hote hain)
+  let attendanceRecords = JSON.parse(localStorage.getItem("attendanceRecords")) || [];
+
+  // render attendance records
+  function renderAttendanceRecords() {
+    attendanceTableBody.innerHTML = ""; 
+
+    attendanceRecords.forEach(record => {
+      const tr = document.createElement("tr");
+
+      // class nased on status
+      let statusClass = "";
+      if (record.status === "Present") statusClass = "present";
+      else if (record.status === "Absent") statusClass = "absent";
+      else if (record.status === "Leave") statusClass = "leave";
+      else if (record.status === "Holiday") statusClass = "holiday";
+      else statusClass = "null";
+
+      tr.innerHTML = `
+        <td>${record.student_name}</td>
+        <td>${record.student_id}</td>
+        <td>${record.shift}</td>
+        <td>${record.marked_by}</td>
+        <td><input type="date" value="${record.date}" disabled></td>
+        <td><span class="status ${statusClass}">${record.status}</span></td>
+      `;
+
+      attendanceTableBody.appendChild(tr);
+    });
+  }
+
+  // page load pe render
+  renderAttendanceRecords();
+</script>
+
   </body>
 </html>

@@ -47,7 +47,7 @@
         <header class="mess-topHeader">
           <div class="mess-searchbar">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Search here..." />
+            <input type="text" id="globalSearch" placeholder="Search here..." />
           </div>
           <div class="mess-userProfile">
             <img src="/assets/images/user-profile.avif" alt="Mess Staff" />
@@ -102,5 +102,59 @@
     <script src="/assets/js/logout.js" defer></script>
     <script src="/assets/js/mobileView.js" defer></script>
     <script src="/assets/js/profile.js" defer></script>
+    <script src="/assets/js/searchbar.js" defer></script>
+    <script>
+      // --- Select form & table ---
+const shortageForm = document.getElementById("mess-shortage-form");
+
+// LocalStorage key
+const STORAGE_KEY = "messFoodReports";
+
+// --- Helper: Save report ---
+function saveReport(report) {
+  let allReports = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+  allReports.push(report);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(allReports));
+}
+
+// --- Helper: Load reports (for admin or Mess dashboard) ---
+function loadReports() {
+  let allReports = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+  return allReports;
+}
+
+// --- Handle form submit ---
+shortageForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  // Get input values
+  const item = document.getElementById("mess-item").value.trim();
+  const desc = document.getElementById("mess-description").value.trim();
+  const time = new Date().toLocaleString();
+
+  if (!item || !desc) {
+    alert("Please fill all fields.");
+    return;
+  }
+
+  // Create report object
+  const report = {
+    item,
+    description: desc,
+    time,
+    status: "unseen" // admin has not seen yet
+  };
+
+  // Save report
+  saveReport(report);
+
+  // Show confirmation
+  alert("Report submitted successfully!");
+
+  // Reset form
+  shortageForm.reset();
+});
+
+    </script>
   </body>
 </html>

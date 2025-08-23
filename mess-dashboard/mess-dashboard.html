@@ -39,7 +39,7 @@
       <header class="mess-topHeader">
         <div class="mess-searchbar">
           <i class="fa-solid fa-magnifying-glass"></i>
-          <input type="text" placeholder="Search here..." />
+          <input type="text" id="globalSearch" placeholder="Search here..." />
         </div>
         <div class="mess-userProfile">
           <img src="/assets/images/user-profile.avif" alt="Mess Staff">
@@ -59,8 +59,8 @@
         <h2>Dashboard Overview</h2>
         <div class="mess-stat-container">
           <div class="mess-stat-card" id="pending-feed">
-            <i class="fa-solid fa-circle-exclamation"></i>
-            <h3>Pending Feedback</h3>
+            <i class="fa-solid fa-edit"></i>
+            <h3>Total Feedback</h3>
             <p id="total-feedback">0</p>
           </div>
           <div class="mess-stat-card">
@@ -82,5 +82,8 @@
   <script src="/assets/js/logout.js" defer></script>
   <script src="/assets/js/mobileView.js" defer></script>
   <script src="/assets/js/profile.js" defer></script>
+  <script src="/assets/js/searchbar.js" defer></script>
+  <script src="/assets/js/mess-dashboard.js" defer></script>
+  <script src="/assets/js/localstorage-mess-dashboard.js" defer></script>
 </body>
 </html>

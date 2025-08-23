@@ -2,45 +2,48 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/assets/css/responsive.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Deputy Attendance</title>
     <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/responsive.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     />
-    <title>Deputy RT Attendance</title>
   </head>
   <body>
-    <div class="warden-container">
+    <div class="deputy-container">
       <aside class="warden-sideBar">
-        <div class="logo">
-          <span>Hostify</span>
-        </div>
+        <div class="logo"><span>Hostify</span></div>
         <nav>
           <ul>
             <li class="active" data-tab="warden" data-page="warden.html">
               <i class="fa-solid fa-house"></i><span>Warden Dashboard</span>
             </li>
-            <li data-tab="warden-notification" data-page="warden-notification.html">
-              <i class="fa-solid fa-bell"></i>
-              <span>Notification Panel</span>
+            <li
+              data-tab="warden-notification"
+              data-page="warden-notification.html"
+            >
+              <i class="fa-solid fa-bell"></i><span>Notification Panel</span>
             </li>
             <li data-tab="room-allocation" data-page="roomAllocation.html">
-              <i class="fa-solid fa-bed"></i>
-              <span>Room Allocation</span>
+              <i class="fa-solid fa-bed"></i><span>Room Allocation</span>
             </li>
-            <li data-tab="student-attendance" data-page="studentAttendance.html">
-              <i class="fa-solid fa-user"></i>
-              <span>Student Attendance</span>
+            <li
+              data-tab="student-attendance"
+              data-page="studentAttendance.html"
+            >
+              <i class="fa-solid fa-user"></i><span>Student Attendance</span>
             </li>
             <li data-tab="deputy-attendance" data-page="deputyAttendance.html">
-              <i class="fa-solid fa-edit"></i>
-              <span>Deputy RT Attendance</span>
+              <i class="fa-solid fa-edit"></i><span>Deputy RT Attendance</span>
             </li>
-            <li data-tab="student-complaints-feedback" data-page="studentComplaintsFeedback.html">
-              <i class="fa-solid fa-circle-exclamation"></i>
-              <span>Student Complaints & Feedback</span>
+            <li
+              data-tab="student-complaints-feedback"
+              data-page="studentComplaintsFeedback.html"
+            >
+              <i class="fa-solid fa-circle-exclamation"></i
+              ><span>Complaints & Feedback</span>
             </li>
           </ul>
         </nav>
@@ -48,104 +51,361 @@
 
       <main class="warden-mainContent">
         <header class="topHeader">
-            <div class="menu-toggle" id="menuToggle">
-                <i class="fa-solid fa-bars"></i>
-            </div>
-            <div class="searchbar">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Search here..." />
-            </div>
-            <div class="userProfile">
-                <img src="/assets/images/user-profile.avif" alt="Warden" />
-                <span>Warden</span>
-                <i class="fa-solid fa-chevron-down" id="profileToggle"></i>
-                <ul class="profileDropdown" id="profileMenu">
-                  <li>
-                    <a href="/admin-dashboard/profile.html"><i class="fa-solid fa-user"></i>Profile</a>
-                  </li>
-                  <li id="logoutBtn">
-                    <a href="/student-public.html/login-all.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</li></a>
-                </ul>
-            </div>
+          <div class="menu-toggle" id="menuToggle">
+            <i class="fa-solid fa-bars"></i>
+          </div>
+          <div class="searchbar">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="globalSearch" placeholder="Search here..." />
+          </div>
+          <div class="userProfile">
+            <img src="/assets/images/user-profile.avif" alt="Warden" />
+            <span>Warden</span>
+            <i class="fa-solid fa-chevron-down" id="profileToggle"></i>
+            <ul class="profileDropdown" id="profileMenu">
+              <li>
+                <a href="/admin-dashboard/profile.html"
+                  ><i class="fa-solid fa-user"></i> Profile</a
+                >
+              </li>
+              <li id="logoutBtn">
+                <a href="/student-public.html/login-all.html"
+                  ><i class="fa-solid fa-right-from-bracket"></i> Logout</a
+                >
+              </li>
+            </ul>
+          </div>
         </header>
-        <!-- deputy RT attendance marking -->
-        <div class="attendancePanel">
-          <h2>Deputy RT Attendance</h2>
-          <form class="attendanceForm">
-            <div class="formGroup">
-              <label for="deputyName">Deputy Name</label>
-              <input type="text" id="deputyName" placeholder="Enter Deputy Name" required>
-            </div>
 
-            <div class="formGroup">
-              <label for="deputyId">Deputy ID</label>
-              <input type="text" id="deputyId" placeholder="Enter Deputy ID" required>
-            </div>
-
-            <div class="formGroup">
-              <label for="shift">Shift</label>
-              <select id="shift" required>
-                <option value="">Select Shift</option>
-                <option>Morning</option>
-                <option>Evening</option>
-                <option>Night</option>
-              </select>
-            </div>
-
-            <div class="formGroup">
-              <label for="attendanceDate">Date</label>
-              <input type="date" id="attendanceDate" required>
-            </div>
-
-            <div class="formGroup">
-              <label for="markedBy">Marked By</label>
-              <select id="markedBy" required>
-                <option value="">Select Warden</option>
-                <option>Warden 1 (Morning)</option>
-                <option>Warden 2 (Evening)</option>
-                <option>Warden 3 (Night)</option>
-              </select>
-            </div>
-
-            <div class="formGroup">
-              <label for="status">Status</label>
-              <select id="status" required>
-                <option value="">Select Status</option>
-                <option>Present</option>
-                <option>Absent</option>
-                <option>Leave</option>
-                <option>Holiday</option>
-              </select>
-            </div>
-
-            <button type="submit" class="btnSubmit">Mark Attendance</button>
+        <!-- Add New Deputy -->
+        <section class="warden-add-deputy-section">
+          <h2>Add New Deputy</h2>
+          <form id="add-deputy-form">
+            <input
+              type="text"
+              id="deputy-name"
+              placeholder="Deputy Name"
+              required
+            />
+            <input
+              type="text"
+              id="deputy-id"
+              placeholder="Deputy ID"
+              required
+            />
+            <button type="submit">Add Deputy</button>
           </form>
+        </section>
 
-          <h3>Attendance Records</h3>
-          <table class="attendanceTable">
-            <thead>
-              <tr>
-                <th>Deputy Name</th>
-                <th>Deputy ID</th>
-                <th>Shift</th>
-                <th>Date</th>
-                <th>Marked By</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- dynamic data -->
-            </tbody>
-          </table>
+        <!-- Attendance Table -->
+        <div class="warden-attendance-container">
+          <section class="warden-attendance-section">
+            <h2>Mark Attendance</h2>
+            <table class="warden-attendance-table">
+              <thead>
+                <tr>
+                  <th>Deputy ID</th>
+                  <th>Deputy Name</th>
+                  <th>Morning</th>
+                  <th>Evening</th>
+                  <th>Night</th>
+                  <th>Marked By</th>
+                  <th>Date</th>
+                  <th>Monthly Summary</th>
+                </tr>
+              </thead>
+              <tbody id="attendance-tbody"></tbody>
+            </table>
+          </section>
+
+          <!-- Penalty Table -->
+          <section class="warden-penalty-section">
+            <h2>Penalty List (Night Shift)</h2>
+            <table class="warden-penalty-table">
+              <thead>
+                <tr>
+                  <th>Deputy ID</th>
+                  <th>Deputy Name</th>
+                  <th>Date of Night Present</th>
+                  <th>Penalty (Rs)</th>
+                  <th>Marked By</th>
+                  <th>Monthly Total Penalty</th>
+                </tr>
+              </thead>
+              <tbody id="penalty-tbody"></tbody>
+            </table>
+          </section>
         </div>
-
-        
       </main>
     </div>
+
+    <script>
+      let deputy = JSON.parse(localStorage.getItem("deputy")) || [
+        { id: "DEP001", name: "Ali Khan" },
+        { id: "DEP002", name: "Fatima Noor" },
+        { id: "DEP003", name: "Hamza Ali" },
+      ];
+
+      let attendanceRecords =
+        JSON.parse(localStorage.getItem("attendanceRecords")) || [];
+      let penalties = JSON.parse(localStorage.getItem("penalties")) || [];
+
+      const attendanceTbody = document.getElementById("attendance-tbody");
+      const penaltyTbody = document.getElementById("penalty-tbody");
+
+      // Render Penalty Table
+      function renderPenaltyTable() {
+        penaltyTbody.innerHTML = "";
+        deputy.forEach((dep) => {
+          const depPenalties = penalties.filter((p) => p.deputy_id === dep.id);
+          depPenalties.forEach((p) => {
+            const monthlyTotal = depPenalties.reduce(
+              (sum, r) => sum + r.penalty_amount,
+              0
+            );
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+            <td>${dep.id}</td>
+            <td>${dep.name}</td>
+            <td>${p.date}</td>
+            <td>${p.penalty_amount}</td>
+            <td>${p.marked_by}</td>
+            <td>${monthlyTotal}</td>
+          `;
+            penaltyTbody.appendChild(tr);
+          });
+        });
+      }
+
+      // Remove Night Penalty (match deputy_id + date)
+      function removeNightPenalty(deputy_id, date) {
+        penalties = penalties.filter(
+          (p) => !(p.deputy_id === deputy_id && p.date === date)
+        );
+        localStorage.setItem("penalties", JSON.stringify(penalties));
+        renderPenaltyTable();
+      }
+
+      function addAttendanceRow(dep) {
+        const tr = document.createElement("tr");
+        const today = new Date().toISOString().split("T")[0];
+
+        tr.innerHTML = `
+    <td>${dep.id}</td>
+    <td>${dep.name}</td>
+    <td>
+      <select data-shift="Morning">
+        <option>Present</option>
+        <option>Absent</option>
+        <option>Leave</option>
+        <option>Holiday</option>
+        <option selected>Null</option>
+      </select>
+    </td>
+    <td>
+      <select data-shift="Evening">
+        <option>Present</option>
+        <option>Absent</option>
+        <option>Leave</option>
+        <option>Holiday</option>
+        <option selected>Null</option>
+      </select>
+    </td>
+    <td>
+      <select data-shift="Night">
+        <option>Present</option>
+        <option>Absent</option>
+        <option>Leave</option>
+        <option>Holiday</option>
+        <option selected>Null</option>
+      </select>
+    </td>
+    <td>
+      <select>
+        <option>Warden 1</option>
+        <option>Warden 2</option>
+        <option>Warden 3</option>
+      </select>
+    </td>
+    <td><input type="date" value="${today}"></td>
+    <td class="summary-cell">Present:0, Absent:0, Leave:0, Holiday:0</td>
+  `;
+
+        const nightSelect = tr.querySelector("select[data-shift='Night']");
+        const eveningSelect = tr.querySelector("select[data-shift='Evening']");
+        const markedBySelect = tr.querySelector("td:nth-child(6) select");
+        const dateInput = tr.querySelector("td:nth-child(7) input");
+        const summaryCell = tr.querySelector(".summary-cell");
+
+        // ✅ Function to update summary counts
+        function updateSummary() {
+          const morning = tr.querySelector(
+            "select[data-shift='Morning']"
+          ).value;
+          const evening = tr.querySelector(
+            "select[data-shift='Evening']"
+          ).value;
+          const night = tr.querySelector("select[data-shift='Night']").value;
+
+          let present = 0,
+            absent = 0,
+            leave = 0,
+            holiday = 0;
+
+          // ✅ Rule 1 & 2: Morning + Evening OR Morning + Night → 1 Present
+          if (
+            (morning === "Present" && evening === "Present") ||
+            (morning === "Present" && night === "Present")
+          ) {
+            present = 1;
+          }
+          // ✅ Rule 3 & 4: Morning + Evening OR Morning + Night → 1 Absent
+          else if (
+            (morning === "Absent" && evening === "Absent") ||
+            (morning === "Absent" && night === "Absent")
+          ) {
+            absent = 1;
+          }
+          // ✅ Rule 5: At least 2 shifts Leave → 1 Leave
+          else if (
+            [morning, evening, night].filter((v) => v === "Leave").length >= 2
+          ) {
+            leave = 1;
+          }
+          // ✅ Rule 6: At least 2 shifts Holiday → 1 Holiday
+          else if (
+            [morning, evening, night].filter((v) => v === "Holiday").length >= 2
+          ) {
+            holiday = 1;
+          }
+
+          summaryCell.textContent = `Present:${present}, Absent:${absent}, Leave:${leave}, Holiday:${holiday}`;
+        }
+
+        // Disable night if evening present
+        function updateNightDisabled() {
+          if (eveningSelect.value === "Present") {
+            nightSelect.disabled = true;
+            nightSelect.value = "Null";
+            removeNightPenalty(dep.id, dateInput.value);
+          } else {
+            nightSelect.disabled = false;
+          }
+          updateSummary(); // summary bhi update hoga
+        }
+
+        eveningSelect.addEventListener("change", updateNightDisabled);
+
+        // Night shift penalty
+        nightSelect.addEventListener("change", () => {
+          const status = nightSelect.value;
+          const markedBy = markedBySelect.value;
+          const date = dateInput.value;
+
+          if (status === "Present") {
+            if (
+              !penalties.some((p) => p.deputy_id === dep.id && p.date === date)
+            ) {
+              penalties.push({
+                deputy_id: dep.id,
+                date: date,
+                penalty_amount: 500,
+                marked_by: markedBy,
+              });
+              localStorage.setItem("penalties", JSON.stringify(penalties));
+              renderPenaltyTable();
+            }
+          }
+
+          if (status === "Null") {
+            removeNightPenalty(dep.id, date);
+          }
+
+          updateSummary();
+        });
+
+        // ✅ Add listeners to all selects for summary
+        tr.querySelectorAll("select[data-shift]").forEach((sel) => {
+          sel.addEventListener("change", updateSummary);
+        });
+
+        // Initial state
+        updateNightDisabled();
+        updateSummary();
+
+        attendanceTbody.appendChild(tr);
+      }
+      function updateSummary() {
+        const morning = tr.querySelector("select[data-shift='Morning']").value;
+        const evening = tr.querySelector("select[data-shift='Evening']").value;
+        const night = tr.querySelector("select[data-shift='Night']").value;
+
+        let result = "Mixed/Null"; // default
+
+        // ✅ Rule 1 & 2 → Present
+        if (
+          (morning === "Present" && evening === "Present") ||
+          (morning === "Present" && night === "Present")
+        ) {
+          result = "Present:1";
+        }
+
+        // ✅ Rule 3 & 4 → Absent
+        else if (
+          (morning === "Absent" && evening === "Absent") ||
+          (morning === "Absent" && night === "Absent")
+        ) {
+          result = "Absent:1";
+        }
+
+        // ✅ Rule 5 → Leave
+        else if (
+          [morning, evening, night].filter((v) => v === "Leave").length >= 2
+        ) {
+          result = "Leave:1";
+        }
+
+        // ✅ Rule 6 → Holiday
+        else if (
+          [morning, evening, night].filter((v) => v === "Holiday").length >= 2
+        ) {
+          result = "Holiday:1";
+        }
+
+        summaryCell.textContent = result;
+      }
+
+      // add deputy form submit
+      const addDeputyForm = document.getElementById("add-deputy-form");
+      addDeputyForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const newName = document.getElementById("deputy-name").value.trim();
+        const newId = document.getElementById("deputy-id").value.trim();
+        if (!newId || !newName) return;
+
+        if (deputy.some((d) => d.id === newId)) {
+          alert("Deputy ID already exists!");
+          return;
+        }
+
+        const newDeputy = { id: newId, name: newName };
+        deputy.push(newDeputy);
+        localStorage.setItem("deputy", JSON.stringify(deputy));
+
+        addAttendanceRow(newDeputy);
+        addDeputyForm.reset();
+      });
+
+      // initial render
+      deputy.forEach((d) => addAttendanceRow(d));
+      renderPenaltyTable();
+    </script>
+
     <script src="/assets/js/nav.js" defer></script>
     <script src="/assets/js/logout.js" defer></script>
     <script src="/assets/js/mobileView.js" defer></script>
     <script src="/assets/js/profile.js" defer></script>
-
+    <script src="/assets/js/searchbar.js" defer></script>
   </body>
 </html>

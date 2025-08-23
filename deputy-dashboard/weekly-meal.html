@@ -47,7 +47,7 @@
         <header class="deputy-topHeader">
           <div class="deputy-searchbar">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Search here..." />
+            <input type="text" id="globalSearch" placeholder="Search here..." />
           </div>
           <div class="mess-userProfile">
             <img src="/assets/images/user-profile.avif" alt="Deputy RT" />
@@ -70,24 +70,6 @@
           <!-- section 1: meal menu -->
           <section class="deputy-meal-menu">
             <h2>Meal Menu (View Only)</h2>
-
-            <div class="deputy-filters">
-              <label for="deputy-day-filter">Filter by Day:</label>
-              <select id="deputy-day-filter">
-                <option value="">All Days</option>
-                <option>Monday</option>
-                <option>Tuesday</option>
-                <option>Wednesday</option>
-                <option>Thursday</option>
-                <option>Friday</option>
-                <option>Saturday</option>
-                <option>Sunday</option>
-              </select>
-
-              <label for="deputy-week-filter">Filter by Week:</label>
-              <input type="week" id="deputy-week-filter" />
-            </div>
-
             <table class="deputy-meal-table">
               <thead>
                 <tr>
@@ -99,13 +81,6 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Monday</td>
-                  <td>Lunch</td>
-                  <td>Chicken Biryani with Salad</td>
-                  <td>Mess Manager</td>
-                  <td>2025-08-14</td>
-                </tr>
                 <!-- repeat dynamically -->
               </tbody>
             </table>
@@ -114,20 +89,6 @@
           <!-- section 2: student feedback -->
           <section class="deputy-feedback-section">
             <h2>Student Feedback on Meals</h2>
-
-            <div class="deputy-filters">
-              <label for="deputy-meal-filter">Filter by Meal:</label>
-              <select id="deputy-meal-filter">
-                <option value="">All Meals</option>
-                <option>Breakfast</option>
-                <option>Lunch</option>
-                <option>Dinner</option>
-              </select>
-
-              <label for="deputy-date-filter">Filter by Date:</label>
-              <input type="date" id="deputy-date-filter" />
-            </div>
-
             <table class="deputy-feedback-table">
               <thead>
                 <tr>
@@ -139,13 +100,6 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Ali Khan</td>
-                  <td>S001</td>
-                  <td>Monday</td>
-                  <td>Lunch</td>
-                  <td>Very tasty and fresh.</td>
-                </tr>
                 <!-- repeat dynamically -->
               </tbody>
             </table>
@@ -158,5 +112,8 @@
     <script src="/assets/js/logout.js" defer></script>
     <script src="/assets/js/mobileView.js" defer></script>
     <script src="/assets/js/profile.js" defer></script>
+    
+    <script src="/assets/js/searchbar.js"></script>
+    <script src="/assets/js/deputy-meal-view.js"></script>
   </body>
 </html>

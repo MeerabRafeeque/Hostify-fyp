@@ -22,7 +22,7 @@
       .register-container {
         background: #fff;
         padding: 25px;
-        width: 700px;
+        width: 800px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         clear: right;
       }
@@ -97,6 +97,8 @@
       }
 
       .hostify-card {
+        position: absolute;
+        left: 60%;
         background: #1e3a8a;
         margin-top: 8rem;
         color: white;
@@ -256,24 +258,122 @@
         yearSemester.innerHTML = "";
 
         if (education === "Intermediate") {
+          yearSemester.innerHTML += "<option value=''>--Select--</option>";
           yearSemester.innerHTML += "<option>1st Year</option>";
           yearSemester.innerHTML += "<option>2nd Year</option>";
         } else if (education === "BS") {
+          yearSemester.innerHTML += "<option value=''>--Select--</option>";
           for (let i = 1; i <= 8; i++) {
             yearSemester.innerHTML += `<option>${i} Semester</option>`;
           }
         } else {
           yearSemester.innerHTML =
-            "<option>--Select Education First--</option>";
+            "<option value=''>--Select Education First--</option>";
         }
       }
 
-      // default registration date = today
+      // default registration date = today & make it readonly
       document.addEventListener("DOMContentLoaded", () => {
         const today = new Date().toISOString().split("T")[0];
-        document.getElementById("registrationDate").value = today;
+        const regDateField = document.getElementById("registrationDate");
+        regDateField.value = today;
+        regDateField.setAttribute("readonly", true); // disable editing
       });
+
+      //  form validation
+      document
+        .getElementById("register-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault(); // prevent actual submit
+
+          let fullName = document.getElementById("fullName").value.trim();
+          let email = document.getElementById("email").value.trim();
+          let password = document.getElementById("password").value.trim();
+          let contact = document.getElementById("contact").value.trim();
+          let address = document.getElementById("address").value.trim();
+          let dob = document.getElementById("dob").value;
+          let education = document.getElementById("education").value;
+          let yearSemester = document.getElementById("yearSemester").value;
+          let regDate = document.getElementById("registrationDate").value;
+
+          // regex
+          let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+          let passPattern = /^(?=.*[A-Z])(?=.*\d).{6,}$/;
+          let contactPattern = /^[0-9+\-]{10,15}$/;
+          let namePattern = /[A-Za-z]/;
+
+          // validation
+          if (fullName === "" || !namePattern.test(fullName)) {
+            alert(
+              "Full name must contain letters. Only symbols/numbers are not allowed."
+            );
+            return;
+          }
+          if (!email.match(emailPattern)) {
+            alert("Please enter a valid email address.");
+            return;
+          }
+          if (!password.match(passPattern)) {
+            alert(
+              "Password must be at least 6 characters, include one capital letter and one number."
+            );
+            return;
+          }
+          if (!contact.match(contactPattern)) {
+            alert("Contact must be 10-15 characters (digits, +, - allowed).");
+            return;
+          }
+          if (address === "") {
+            alert("Please enter your address.");
+            return;
+          }
+          if (dob === "") {
+            alert("Please select your date of birth.");
+            return;
+          }
+
+          // age validation (must be >= 16 years)
+          const birthDate = new Date(dob);
+          const today = new Date();
+          let age = today.getFullYear() - birthDate.getFullYear();
+          const monthDiff = today.getMonth() - birthDate.getMonth();
+          if (
+            monthDiff < 0 ||
+            (monthDiff === 0 && today.getDate() < birthDate.getDate())
+          ) {
+            age--;
+          }
+
+          if (age < 16) {
+            alert(
+              "Age is less than 16 years. You are not eligible to enter the system."
+            );
+            return;
+          }
+
+          if (education === "") {
+            alert("Please select your education level.");
+            return;
+          }
+          if (yearSemester === "" || yearSemester.includes("Select")) {
+            alert("Please select your year/semester.");
+            return;
+          }
+          if (regDate === "") {
+            alert("Registration date missing.");
+            return;
+          }
+
+          // all good
+          alert("🎉 Registration successful!");
+          window.location.href = "/student-dashboard-pre/dashboard-pre.html";
+          this.reset();
+          document.getElementById("registrationDate").value = new Date()
+            .toISOString()
+            .split("T")[0];
+        });
     </script>
+
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
       AOS.init();

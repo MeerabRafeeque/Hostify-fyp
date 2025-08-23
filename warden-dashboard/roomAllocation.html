@@ -48,26 +48,28 @@
 
       <main class="warden-mainContent">
         <header class="topHeader">
-            <div class="menu-toggle" id="menuToggle">
-                <i class="fa-solid fa-bars"></i>
-            </div>
-            <div class="searchbar">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Search here..." />
-            </div>
-            <div class="userProfile">
-                <img src="/assets/images/user-profile.avif" alt="Warden" />
-                <span>Warden</span>
-                <i class="fa-solid fa-chevron-down" id="profileToggle"></i>
-                <ul class="profileDropdown" id="profileMenu">
-                  <li>
-                    <a href="/admin-dashboard/profile.html"><i class="fa-solid fa-user"></i>Profile</a>
-                  </li>
-                    <li id="logoutBtn">
-                    <a href="/student-public.html/login-all.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</li></a>
-                </ul>
-            </div>
+          <div class="menu-toggle" id="menuToggle">
+            <i class="fa-solid fa-bars"></i>
+          </div>
+          <div class="searchbar">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="globalSearch" placeholder="Search here..." />
+          </div>
+          <div class="userProfile">
+            <img src="/assets/images/user-profile.avif" alt="Warden" />
+            <span>Warden</span>
+            <i class="fa-solid fa-chevron-down" id="profileToggle"></i>
+            <ul class="profileDropdown" id="profileMenu">
+              <li>
+                <a href="/admin-dashboard/profile.html"><i class="fa-solid fa-user"></i>Profile</a>
+              </li>
+              <li id="logoutBtn">
+                <a href="/student-public.html/login-all.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+              </li>
+            </ul>
+          </div>
         </header>
+
         <!-- room allocation -->
         <div class="roomAllocationPanel">
           <h2>Room Allocation Records</h2>
@@ -75,7 +77,6 @@
             <thead>
               <tr>
                 <th>Student</th>
-                <th>Student ID</th>
                 <th>Room No.</th>
                 <th>Room Type</th>
                 <th>Capacity</th>
@@ -83,40 +84,45 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Ali Raza</td>
-                <td>101</td>
-                <td>R-12</td>
-                <td>Single</td>
-                <td>1 / 1</td>
-                <td><span class="status active">Active</span></td>
-              </tr>
-              <tr>
-                <td>Agha Khan</td>
-                <td>102</td>
-                <td>D-05</td>
-                <td>Dormitory</td>
-                <td>4 / 6</td>
-                <td><span class="status active">Active</span></td>
-              </tr>
-              <tr>
-                <td>Ahmed Ali</td>
-                <td>103</td>
-                <td>R-15</td>
-                <td>Single</td>
-                <td>0 / 1</td>
-                <td><span class="status removed">Removed</span></td>
-              </tr>
+              <!-- data will come dynamically -->
             </tbody>
           </table>
         </div>
-
-        
       </main>
     </div>
+
     <script src="/assets/js/nav.js" defer></script>
     <script src="/assets/js/logout.js" defer></script>
     <script src="/assets/js/mobileView.js" defer></script>
     <script src="/assets/js/profile.js" defer></script>
+    <script src="/assets/js/searchbar.js" defer></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const tableBody = document.querySelector(".roomAllocationTable tbody");
+
+        // fetch data from localStorage
+        let allocations = JSON.parse(localStorage.getItem("roomAllocations")) || [];
+
+        if (allocations.length === 0) {
+          tableBody.innerHTML = `<tr><td colspan="5">No records available</td></tr>`;
+          return;
+        }
+
+        tableBody.innerHTML = "";
+
+        allocations.forEach((alloc) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${alloc.name}</td>
+            <td>${alloc.roomNo}</td>
+            <td>${alloc.roomType}</td>
+            <td>${alloc.capacity}</td>
+            <td><span class="status ${alloc.status.toLowerCase()}">${alloc.status}</span></td>
+          `;
+          tableBody.appendChild(tr);
+        });
+      });
+    </script>
   </body>
 </html>

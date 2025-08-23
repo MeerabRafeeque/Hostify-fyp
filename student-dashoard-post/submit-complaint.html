@@ -117,74 +117,117 @@
           </div>
 
           <!-- Complaint History -->
-          <div class="post-card">
-            <h3>Your Complaints</h3>
-            <table class="complaint-table">
-              <thead>
-                <tr>
-                  <th>Type</th>
-                  <th>Description</th>
-                  <th>Date</th>
-                  <th>Status</th>
-                  <th>Warden Response</th>
-                </tr>
-              </thead>
-              <tbody id="complaintHistory">
-                <!-- Complaints will appear here -->
-              </tbody>
-            </table>
-          </div>
-        </main>
+<div class="post-card">
+  <h3>Your Complaints</h3>
+  <table class="complaint-table">
+    <thead>
+      <tr>
+        <th>Student ID</th>
+        <th>Student Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Date</th>
+        <th>Status</th>
+        <th>Warden Response</th>
+      </tr>
+    </thead>
+    <tbody id="complaintHistory">
+      <!-- Complaints will appear here -->
+    </tbody>
+  </table>
+</div>
 
-        <script>
-          // auto-fill date
-          document.getElementById("submitDate").value =
-            new Date().toLocaleDateString();
+<script>
+  // Auto-fill date
+  document.getElementById("submitDate").value =
+    new Date().toLocaleDateString();
 
-          // show "Other" input box
-          document
-            .getElementById("complaintType")
-            .addEventListener("change", function () {
-              document.getElementById("otherTypeGroup").style.display =
-                this.value === "Other" ? "block" : "none";
-            });
+  // Show "Other" input box
+  document
+    .getElementById("complaintType")
+    .addEventListener("change", function () {
+      document.getElementById("otherTypeGroup").style.display =
+        this.value === "Other" ? "block" : "none";
+    });
 
-          // handle form submit
-          document
-            .getElementById("complaintForm")
-            .addEventListener("submit", function (e) {
-              e.preventDefault();
+  // Save complaint in localStorage
+  function saveComplaint(c) {
+    let all = JSON.parse(localStorage.getItem("complaints") || "[]");
+    all.push(c);
+    localStorage.setItem("complaints", JSON.stringify(all));
+  }
 
-              let type = document.getElementById("complaintType").value;
-              if (type === "Other") {
-                type = document.getElementById("otherType").value || "Other";
-              }
-              const desc = document.getElementById("complaintDesc").value;
-              const date = document.getElementById("submitDate").value;
-              const status = "Pending";
-              const wardenResponse = "Awaiting response";
+  // Load complaints from localStorage
+  function loadComplaints() {
+    const all = JSON.parse(localStorage.getItem("complaints") || "[]");
+    const tbody = document.getElementById("complaintHistory");
+    tbody.innerHTML = "";
+    all.forEach((c) => {
+      const row = `
+        <tr>
+          <td>${c.studentId}</td>
+          <td>${c.studentName}</td>
+          <td>${c.type}</td>
+          <td>${c.desc}</td>
+          <td>${c.date}</td>
+          <td>${c.status}</td>
+          <td>${c.wardenResponse}</td>
+        </tr>
+      `;
+      tbody.insertAdjacentHTML("beforeend", row);
+    });
+  }
 
-              // add row to table
-              const row = `
-                    <tr>
-                    <td>${type}</td>
-                    <td>${desc}</td>
-                    <td>${date}</td>
-                    <td>${status}</td>
-                    <td>${wardenResponse}</td>
-                    </tr>`;
-              document
-                .getElementById("complaintHistory")
-                .insertAdjacentHTML("beforeend", row);
+  // Handle form submit
+  document
+    .getElementById("complaintForm")
+    .addEventListener("submit", function (e) {
+      e.preventDefault();
 
-              // reset form
-              document.getElementById("complaintForm").reset();
-              document.getElementById("otherTypeGroup").style.display = "none";
-              document.getElementById("submitDate").value =
-                new Date().toLocaleDateString();
-              document.getElementById("status").value = "Pending";
-            });
-        </script>
+      let type = document.getElementById("complaintType").value;
+      if (type === "Other") {
+        type = document.getElementById("otherType").value || "Other";
+      }
+      const desc = document.getElementById("complaintDesc").value.trim();
+      const date = document.getElementById("submitDate").value;
+      const status = "Pending";
+      const wardenResponse = "Awaiting response";
+
+      // ⚡️Student Info (Dummy Example — tum apne login/localStorage se replace karna)
+      const studentId = localStorage.getItem("studentId") || "STU001";
+      const studentName = localStorage.getItem("studentName") || "Ali Khan";
+
+      // Validation
+      if (desc === "") {
+        alert("Please provide a description.");
+        return;
+      }
+
+      const complaint = { 
+        studentId, 
+        studentName, 
+        type, 
+        desc, 
+        date, 
+        status, 
+        wardenResponse 
+      };
+      saveComplaint(complaint);
+      loadComplaints();
+
+      // Reset form
+      this.reset();
+      document.getElementById("otherTypeGroup").style.display = "none";
+      document.getElementById("submitDate").value =
+        new Date().toLocaleDateString();
+      document.getElementById("status").value = "Pending";
+    });
+
+  // Initial load
+  loadComplaints();
+</script>
+
+
       </body>
     </html>
   </body>

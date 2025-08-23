@@ -70,7 +70,7 @@
         <header class="topHeader">
           <div class="searchbar">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Search here..." />
+            <input type="text" id="globalSearch" placeholder="Search here..." />
           </div>
           <div class="userProfile">
             <img src="/assets/images/user-profile.avif" alt="Admin" />
@@ -167,6 +167,83 @@
     <script src="/assets/js/logout.js" defer></script>
     <script src="/assets/js/mobileView.js" defer></script>
     <script src="/assets/js/profile.js" defer></script>
+    <script src="/assets/js/searchbar.js" defer></script>
+   <script>
+const paymentTableBody = document.querySelector("#payment-table tbody");
+
+// Load and render payments
+function renderPayments() {
+  const payments = JSON.parse(localStorage.getItem("roomPayments")) || [];
+  paymentTableBody.innerHTML = "";
+
+  payments.forEach(payment => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${payment.id}</td>
+      <td>${payment.studentName}</td>
+      <td>${payment.roomType === "single" ? "15000" : "7000"}</td>
+      <td>${payment.date}</td>
+      <td>${payment.method}</td>
+      <td>
+        Transaction: ${payment.transactionId} <br>
+        <img src="${payment.screenshot}" width="80" style="border:1px solid #ccc; margin-top:5px;" />
+      </td>
+      <td>
+        <button class="verify-btn">Verify</button>
+        <button class="reject-btn">Reject</button>
+      </td>
+    `;
+    paymentTableBody.appendChild(tr);
+
+    // Verify button
+    tr.querySelector(".verify-btn").addEventListener("click", () => {
+      payment.status = "Verified";
+
+      // Set full-access flag for student
+      localStorage.setItem(`${payment.studentName}_fullAccess`, "true");
+
+      // Remove any previous rejection notifications
+      localStorage.removeItem(`${payment.studentName}_paymentReject`);
+
+      // Store verification notification for student
+      localStorage.setItem(`${payment.studentName}_paymentVerified`, "true");
+
+      alert(`${payment.studentName} payment verified.`);
+
+      saveAndRender();
+    });
+
+    // Reject button
+    tr.querySelector(".reject-btn").addEventListener("click", () => {
+      const reason = prompt("Enter reason for rejection:");
+      if (!reason) return;
+
+      payment.status = "Rejected";
+      payment.rejectReason = reason;
+
+      // Store rejection notification for student
+      localStorage.setItem(`${payment.studentName}_paymentReject`, reason);
+
+      // Remove any previous verification flag
+      localStorage.removeItem(`${payment.studentName}_paymentVerified`);
+
+      alert(`${payment.studentName} payment rejected.`);
+      saveAndRender();
+    });
+  });
+}
+
+// Save to localStorage & rerender table
+function saveAndRender() {
+  const payments = JSON.parse(localStorage.getItem("roomPayments")) || [];
+  localStorage.setItem("roomPayments", JSON.stringify(payments));
+  renderPayments();
+}
+
+// Initial render
+renderPayments();
+</script>
+
 
   </body>
 </html>

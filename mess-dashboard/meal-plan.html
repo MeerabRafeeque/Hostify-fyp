@@ -47,7 +47,7 @@
         <header class="mess-topHeader">
           <div class="mess-searchbar">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Search here..." />
+            <input type="text" id="globalSearch" placeholder="Search here..." />
           </div>
           <div class="mess-userProfile">
             <img src="/assets/images/user-profile.avif" alt="Mess Staff" />
@@ -158,5 +158,59 @@
     <script src="/assets/js/logout.js" defer></script>
     <script src="/assets/js/mobileView.js" defer></script>
     <script src="/assets/js/profile.js" defer></script>
+    <script src="/assets/js/searchbar.js" defer></script>
+    
   </body>
+  <script>
+  // Form listener
+  document.querySelector(".mess-meal-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const day = document.getElementById("mess-day").value;
+    const meal = document.getElementById("mess-meal").value;
+    const description = document.getElementById("mess-description").value;
+    const updatedBy = document.getElementById("mess-updated-by").value;
+    const updatedDate = document.getElementById("mess-updated-date").value;
+
+    // Pehle ka data lao
+    let meals = JSON.parse(localStorage.getItem("mealPlan")) || [];
+
+    // Naya meal add karo
+    meals.push({ day, meal, description, updatedBy, updatedDate });
+
+    // Wapas save karo
+    localStorage.setItem("mealPlan", JSON.stringify(meals));
+
+    // UI update karo
+    renderMeals();
+
+    // Reset form
+    this.reset();
+    alert("Meal added successfully ✅");
+  });
+
+  // Render Function
+  function renderMeals() {
+    const meals = JSON.parse(localStorage.getItem("mealPlan")) || [];
+    const tbody = document.querySelector(".mess-meal-table tbody");
+    tbody.innerHTML = "";
+
+    meals.forEach((m) => {
+      const row = `<tr>
+        <td>${m.day}</td>
+        <td>${m.meal}</td>
+        <td>${m.description}</td>
+        <td>${m.updatedBy}</td>
+        <td>${m.updatedDate}</td>
+      </tr>`;
+      tbody.innerHTML += row;
+    });
+  }
+
+  // Page load pe render
+  renderMeals();
+</script>
+
+
+
 </html>

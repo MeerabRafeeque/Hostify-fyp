@@ -70,7 +70,7 @@
         <header class="topHeader">
           <div class="searchbar">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Search here..." />
+            <input type="text" id="globalSearch" placeholder="Search here..." />
           </div>
           <div class="userProfile">
             <img src="/assets/images/user-profile.avif" alt="Admin" />
@@ -91,7 +91,7 @@
           <div class="tab-header">
             <h2>Student Management</h2>
             <button class="btn btn-primary" id="reg-student-btn">
-              <i class="fa-solid fa-user-plus"></i> Reg Student
+              <i class="fa-solid fa-user-plus"></i> Add Student
             </button>
           </div>
           <div class="table-container">
@@ -101,6 +101,7 @@
                   <th>ID</th>
                   <th>Name</th>
                   <th>Room No.</th>
+                  <th>Room Type</th>
                   <th>Contact</th>
                   <th>Status</th>
                   <th>Actions</th>
@@ -130,22 +131,10 @@
                 <input type="email" id="student-email" required />
               </div>
               <div class="form-group">
-                <label for="student-phone">Contact</label>
-                <input type="tel" id="student-phone" required />
-              </div>
-              <div class="form-group">
                 <label for="student-room">Assign Room</label>
                 <select id="student-room" required>
                   <option value="">Select Room</option>
                 </select>
-              </div>
-              <div class="form-group">
-                <label for="student-dob">Date of Birth</label>
-                <input type="date" id="student-dob" required />
-              </div>
-              <div class="form-group">
-                <label for="student-address">Address</label>
-                <textarea id="student-address" required></textarea>
               </div>
               <div class="form-group">
                 <label for="student-edu">Education Level</label>
@@ -156,6 +145,16 @@
                 </select>
                 <select id="yearSemester">
                   <option value="">...Select Year/Semester...</option>
+                  <option value="1st year">1st year</option>
+                  <option value="2nd year">2nd year</option>
+                  <option value="1st semester">1st semester</option>
+                  <option value="2nd semester">2nd semester</option>
+                  <option value="3rd semester">3rd semester</option>
+                  <option value="4th semester">4th semester</option>
+                  <option value="5th semester">5th semester</option>
+                  <option value="6th semester">6th semester</option>
+                  <option value="7th semester">7th semester</option>
+                  <option value="8th semester">8th semester</option>
                 </select>
               </div>
               <div class="form-group">
@@ -190,22 +189,10 @@
                 <input type="email" id="edit-student-email" required />
               </div>
               <div class="form-group">
-                <label for="edit-student-phone">Contact</label>
-                <input type="tel" id="edit-student-phone" required />
-              </div>
-              <div class="form-group">
                 <label for="edit-student-room">Assign Room</label>
                 <select id="edit-student-room" required>
                   <option value="">Select Room</option>
                 </select>
-              </div>
-              <div class="form-group">
-                <label for="edit-student-dob">Date of Birth</label>
-                <input type="date" id="edit-student-dob" required />
-              </div>
-              <div class="form-group">
-                <label for="edit-student-address">Address</label>
-                <textarea id="edit-student-address" required></textarea>
               </div>
               <div class="form-group">
                 <label for="edit-student-edu">Education Level</label>
@@ -216,10 +203,20 @@
                 </select>
                 <select id="edit-yearSemester">
                   <option value="">...Select Year/Semester...</option>
+                  <option value="1st year">1st year</option>
+                  <option value="2nd year">2nd year</option>
+                  <option value="1st semester">1st semester</option>
+                  <option value="2nd semester">2nd semester</option>
+                  <option value="3rd semester">3rd semester</option>
+                  <option value="4th semester">4th semester</option>
+                  <option value="5th semester">5th semester</option>
+                  <option value="6th semester">6th semester</option>
+                  <option value="7th semester">7th semester</option>
+                  <option value="8th semester">8th semester</option>
                 </select>
               </div>
               <div class="form-group">
-                <label for="edit-student-regDate">Registration Date</label>
+                <label for="edit-student-regDate">Room Assign Date</label>
                 <input type="date" id="edit-student-regDate" required />
               </div>
               <div class="form-action">
@@ -232,12 +229,31 @@
           </div>
         </div>
 
+        <!-- modaloverlay -->
+         <div class="modalOverlay" id="modal-overlay"></div>
+        <div class="modal" id="details-modal">
+        <div class="modalHeader">
+          <h3 id="details-title">Details</h3>
+          <button class="closeModal">&times;</button>
+        </div>
+        <div class="modalBody" id="details-content">
+          <!-- Details content will be added dynamically -->
+        </div>
+        <div class="modalFooter">
+          <button type="button" class="btn btn-secondary closeModal">
+            Close
+          </button>
+        </div>
+      </div>
+
       </main>
     </div>
     <script src="/assets/js/nav.js" defer></script>
     <script src="/assets/js/logout.js" defer></script>
     <script src="/assets/js/mobileView.js" defer></script>
     <script src="/assets/js/profile.js" defer></script>
+    <script src="/assets/js/searchbar.js" defer></script>
+    <script src="/assets/js/admin-student-management.js" defer></script>
 
   </body>
 </html>
