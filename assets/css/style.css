@@ -3325,3 +3325,277 @@ body.post-body {
 .extension-table tr:nth-child(even) {
   background: #f3f4f6;
 }
+
+/* user login based on roles */
+
+.all-login-body {
+  background: url("/assets/images/double.webp") center/cover no-repeat;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  height: 100vh;
+}
+.all-login-container {
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+  width: 350px;
+}
+.all-login-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.all-login-container .form-group {
+  margin-bottom: 15px;
+  position: relative;
+}
+.all-login-container .form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+.all-login-container .form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+}
+.all-login-container .toggle-password {
+  position: absolute;
+  right: 12px;
+  top: 38px;
+  cursor: pointer;
+  font-size: 18px;
+  user-select: none;
+}
+.all-login-container button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background: #1e3a8a;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+.all-login-container button:hover {
+  background: white;
+  color: #1e3a8a;
+  transition: all 0.3s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.all-login-container .forgot-password {
+  display: flex;
+  text-decoration: none;
+  justify-content: center;
+  padding-top: 3rem;
+}
+
+.all-login-container .forgot-password:hover {
+  color: red;
+}
+
+.all-login-container p {
+  padding-top: 3rem;
+  padding-left: 1rem;
+}
+
+/* student registration page */
+
+.reg-body {
+  background: url("/assets/images/dorm.webp") center/cover no-repeat;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.reg-body .register-container {
+  background: #fff;
+  padding: 25px;
+  width: 700px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  clear: right;
+}
+
+.reg-body .register-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #1e3a8a;
+}
+
+.reg-body .register-form-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.reg-body .register-form-group label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.register-form-group input,
+.register-form-group select,
+.register-form-group textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+.reg-body .password-wrapper {
+  position: relative;
+}
+
+.reg-body .register-toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 36px;
+  cursor: pointer;
+}
+
+.reg-body .register-btn {
+  width: 100%;
+  padding: 12px;
+  background: #1e3a8a;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.reg-body .register-btn:hover {
+  background: white;
+  color: #1e3a8a;
+  transition: all 0.3s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.reg-body a {
+  text-decoration: none;
+  text-align: center;
+  color: black;
+}
+
+.reg-body a:hover {
+  color: #1e3a8a;
+}
+
+.reg-body .reg-page-container {
+  display: flex;
+  gap: 10rem;
+}
+
+.reg-body .hostify-card {
+  position: absolute;
+  left: 60%;
+  background: #1e3a8a;
+  margin-top: 8rem;
+  color: white;
+  height: fit-content;
+  padding: 25px;
+  width: 300px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.reg-body .hostify-card .hostify-logo {
+  width: 80px;
+  margin-bottom: -20px;
+}
+
+.reg-body .hostify-card h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.reg-body .hostify-card .welcome {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.reg-body .hostify-card .punchline {
+  font-style: italic;
+  font-size: 14px;
+}
+
+/* reset password  pg*/
+
+.reset-body {
+  font-family: Arial, sans-serif;
+  background: url("/assets/images/beds-182965.jpg") center/cover no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.reset-container {
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+  width: 350px;
+}
+
+.reset-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.reset-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.reset-container label {
+  margin: 10px 0 5px;
+  font-weight: bold;
+  color: #444;
+}
+
+.reset-container .input-wrapper {
+  position: relative;
+}
+
+.reset-container input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.reset-container .toggle-reset-eye {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #1e3a8a;
+  font-size: 16px;
+}
+
+.reset-container button {
+  margin-top: 15px;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background: #1e3a8a;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.reset-container button:hover {
+  background: white;
+  color: #1e3a8a;
+  transition: all 0.3s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
