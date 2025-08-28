@@ -86,7 +86,7 @@
           </div>
         </header>
 
-        <!-- Room Management Tab -->
+        <!-- room management tab -->
         <div class="tab-content active" id="room">
           <div class="tab-header">
             <h2>Room Management</h2>
@@ -107,13 +107,13 @@
                 </tr>
               </thead>
               <tbody>
-                <!-- Room data will be populated dynamically -->
+                <!-- room data will be populated dynamically -->
               </tbody>
             </table>
           </div>
         </div>
 
-        <!-- Add Room Modal -->
+        <!-- add room modal -->
         <div class="modal" id="add-room-modal">
           <div class="modalHeader">
             <h3>Add New Room</h3>
@@ -137,7 +137,7 @@
                 <label for="room-type">Room Type</label>
                 <select id="room-type" required>
                   <option value="">Select Type</option>
-                  <!-- Room types will be added dynamically -->
+                  <!-- room types will be added dynamically -->
                 </select>
               </div>
               <div class="form-group">
@@ -165,7 +165,7 @@
           </div>
         </div>
 
-        <!-- Edit Room Modal -->
+        <!-- edit Room Modal -->
         <div class="modal" id="edit-room-modal">
           <div class="modalHeader">
             <h3>Edit Room</h3>
@@ -190,7 +190,7 @@
                 <label for="edit-room-type">Room Type</label>
                 <select id="edit-room-type" required>
                   <option value="">Select Type</option>
-                  <!-- Room types will be added dynamically -->
+                  <!-- room types will be added dynamically -->
                 </select>
               </div>
               <div class="form-group">
@@ -224,7 +224,7 @@
           <button class="closeModal">&times;</button>
         </div>
         <div class="modalBody" id="details-content">
-          <!-- Details content will be added dynamically -->
+          <!-- details content will be added dynamically -->
         </div>
         <div class="modalFooter">
           <button type="button" class="btn btn-secondary closeModal">
@@ -237,189 +237,186 @@
     </div>
     <script src="/assets/js/nav.js" defer></script>
     <script src="/assets/js/logout.js" defer></script>
-    <script src="/assets/js/mobileView.js" defer></script>y
+    <script src="/assets/js/mobileView.js" defer></script>
     <script src="/assets/js/profile.js" defer></script>
     <script src="/assets/js/searchbar.js" defer></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-  const addRoomBtn = document.getElementById("add-room-btn");
-  const addRoomModal = document.getElementById("add-room-modal");
-  const editRoomModal = document.getElementById("edit-room-modal");
-  const detailsModal = document.getElementById("details-modal");
-  const overlay = document.getElementById("modal-overlay");
+        const addRoomBtn = document.getElementById("add-room-btn");
+        const addRoomModal = document.getElementById("add-room-modal");
+        const editRoomModal = document.getElementById("edit-room-modal");
+        const detailsModal = document.getElementById("details-modal");
+        const overlay = document.getElementById("modal-overlay");
 
-  const addRoomForm = document.getElementById("add-room-form");
-  const editRoomForm = document.getElementById("edit-room-form");
-  const roomTableBody = document.querySelector("#room-table tbody");
+        const addRoomForm = document.getElementById("add-room-form");
+        const editRoomForm = document.getElementById("edit-room-form");
+        const roomTableBody = document.querySelector("#room-table tbody");
 
-  const roomTypeSelect = document.getElementById("room-type");
-  const editRoomTypeSelect = document.getElementById("edit-room-type");
+        const roomTypeSelect = document.getElementById("room-type");
+        const editRoomTypeSelect = document.getElementById("edit-room-type");
 
-  // add default room types
-  const roomTypes = ["Single", "Dormitory"];
-  roomTypes.forEach(type => {
-    const opt1 = document.createElement("option");
-    opt1.value = type;
-    opt1.textContent = type;
-    roomTypeSelect.appendChild(opt1);
+        // add default room types
+        const roomTypes = ["Single", "Dormitory"];
+        roomTypes.forEach(type => {
+          const opt1 = document.createElement("option");
+          opt1.value = type;
+          opt1.textContent = type;
+          roomTypeSelect.appendChild(opt1);
 
-    const opt2 = document.createElement("option");
-    opt2.value = type;
-    opt2.textContent = type;
-    editRoomTypeSelect.appendChild(opt2);
-  });
+          const opt2 = document.createElement("option");
+          opt2.value = type;
+          opt2.textContent = type;
+          editRoomTypeSelect.appendChild(opt2);
+        });
 
-  // Load rooms
-  function loadRooms() {
-    roomTableBody.innerHTML = "";
-    const rooms = JSON.parse(localStorage.getItem("rooms")) || [];
+        // Load rooms
+        function loadRooms() {
+          roomTableBody.innerHTML = "";
+          const rooms = JSON.parse(localStorage.getItem("rooms")) || [];
 
-    rooms.forEach((room, index) => {
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td>${room.roomNo}</td>
-        <td>${room.roomType}</td>
-        <td>${room.capacity}</td>
-        <td>${room.occupied || 0}</td>
-        <td>${room.status}</td>
-        <td>
-          <button class="btn btn-sm btn-info" onclick="viewRoom(${index})">View</button>
-          <button class="btn btn-sm btn-warning" onclick="editRoom(${index})">Update</button>
-          <button class="btn btn-sm btn-danger" onclick="deleteRoom(${index})">Delete</button>
-        </td>
-      `;
-      roomTableBody.appendChild(row);
-    });
-  }
-  loadRooms();
+          rooms.forEach((room, index) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+              <td>${room.roomNo}</td>
+              <td>${room.roomType}</td>
+              <td>${room.capacity}</td>
+              <td>${room.occupied || 0}</td>
+              <td>${room.status}</td>
+              <td>
+                <button class="btn btn-sm btn-info" onclick="viewRoom(${index})">View</button>
+                <button class="btn btn-sm btn-warning" onclick="editRoom(${index})">Update</button>
+                <button class="btn btn-sm btn-danger" onclick="deleteRoom(${index})">Delete</button>
+              </td>
+            `;
+            roomTableBody.appendChild(row);
+          });
+        }
+        loadRooms();
 
-  // Add room
-  addRoomForm.addEventListener("submit", function (e) {
-    e.preventDefault();
+        // Add room
+        addRoomForm.addEventListener("submit", function (e) {
+          e.preventDefault();
 
-    const roomNo = document.getElementById("room-number").value;
-    const floor = document.getElementById("floor-number").value;
-    const allocateDate = document.getElementById("allocate-date").value;
-    const roomType = document.getElementById("room-type").value;
-    const capacity = parseInt(document.getElementById("room-capacity").value);
-    const price = document.getElementById("room-price").value;
-    const status = document.getElementById("room-status").value;
+          const roomNo = document.getElementById("room-number").value;
+          const floor = document.getElementById("floor-number").value;
+          const allocateDate = document.getElementById("allocate-date").value;
+          const roomType = document.getElementById("room-type").value;
+          const capacity = parseInt(document.getElementById("room-capacity").value);
+          const price = document.getElementById("room-price").value;
+          const status = document.getElementById("room-status").value;
 
-    let rooms = JSON.parse(localStorage.getItem("rooms")) || [];
+          let rooms = JSON.parse(localStorage.getItem("rooms")) || [];
 
-    // duplicate room number check
-    if (rooms.some(r => r.roomNo === roomNo)) {
-      alert("Room number already exists!");
-      return;
-    }
+          // duplicate room number check
+          if (rooms.some(r => r.roomNo === roomNo)) {
+            alert("Room number already exists!");
+            return;
+          }
 
-    rooms.push({
-      roomNo,
-      floor,
-      allocateDate,
-      roomType,
-      capacity,
-      price,
-      status,
-      occupied: 0
-    });
+          rooms.push({
+            roomNo,
+            floor,
+            allocateDate,
+            roomType,
+            capacity,
+            price,
+            status,
+            occupied: 0
+          });
 
-    localStorage.setItem("rooms", JSON.stringify(rooms));
-    addRoomModal.style.display = "none";
-    overlay.style.display = "none";
-    addRoomForm.reset();
-    loadRooms();
-  });
+          localStorage.setItem("rooms", JSON.stringify(rooms));
+          addRoomModal.style.display = "none";
+          overlay.style.display = "none";
+          addRoomForm.reset();
+          loadRooms();
+        });
 
-  // View room
-  window.viewRoom = function (index) {
-    const rooms = JSON.parse(localStorage.getItem("rooms")) || [];
-    const room = rooms[index];
+        // view room
+        window.viewRoom = function (index) {
+          const rooms = JSON.parse(localStorage.getItem("rooms")) || [];
+          const room = rooms[index];
 
-    document.getElementById("details-title").textContent = "Room Details";
-    document.getElementById("details-content").innerHTML = `
-      <p><b>Room No:</b> ${room.roomNo}</p>
-      <p><b>Floor:</b> ${room.floor}</p>
-      <p><b>Allocation Date:</b> ${room.allocateDate}</p>
-      <p><b>Type:</b> ${room.roomType}</p>
-      <p><b>Capacity:</b> ${room.capacity}</p>
-      <p><b>Occupied:</b> ${room.occupied}</p>
-      <p><b>Price:</b> ${room.price}</p>
-      <p><b>Status:</b> ${room.status}</p>
-    `;
-    detailsModal.style.display = "block";
-    overlay.style.display = "block";
-  };
+          document.getElementById("details-title").textContent = "Room Details";
+          document.getElementById("details-content").innerHTML = `
+            <p><b>Room No:</b> ${room.roomNo}</p>
+            <p><b>Floor:</b> ${room.floor}</p>
+            <p><b>Allocation Date:</b> ${room.allocateDate}</p>
+            <p><b>Type:</b> ${room.roomType}</p>
+            <p><b>Capacity:</b> ${room.capacity}</p>
+            <p><b>Occupied:</b> ${room.occupied}</p>
+            <p><b>Price:</b> ${room.price}</p>
+            <p><b>Status:</b> ${room.status}</p>
+          `;
+          detailsModal.style.display = "block";
+          overlay.style.display = "block";
+        };
 
-  // Edit room
-  window.editRoom = function (index) {
-    const rooms = JSON.parse(localStorage.getItem("rooms")) || [];
-    const room = rooms[index];
+        // edit room
+        window.editRoom = function (index) {
+          const rooms = JSON.parse(localStorage.getItem("rooms")) || [];
+          const room = rooms[index];
 
-    document.getElementById("edit-room-id").value = index;
-    document.getElementById("edit-room-number").value = room.roomNo;
-    document.getElementById("edit-floor-number").value = room.floor;
-    document.getElementById("edit-allocate-date").value = room.allocateDate;
-    document.getElementById("edit-room-type").value = room.roomType;
-    document.getElementById("edit-room-capacity").value = room.capacity;
-    document.getElementById("edit-room-price").value = room.price;
-    document.getElementById("edit-room-status").value = room.status;
+          document.getElementById("edit-room-id").value = index;
+          document.getElementById("edit-room-number").value = room.roomNo;
+          document.getElementById("edit-floor-number").value = room.floor;
+          document.getElementById("edit-allocate-date").value = room.allocateDate;
+          document.getElementById("edit-room-type").value = room.roomType;
+          document.getElementById("edit-room-capacity").value = room.capacity;
+          document.getElementById("edit-room-price").value = room.price;
+          document.getElementById("edit-room-status").value = room.status;
 
-    editRoomModal.style.display = "block";
-    overlay.style.display = "block";
-  };
+          editRoomModal.style.display = "block";
+          overlay.style.display = "block";
+        };
 
-  // Save updated room
-  editRoomForm.addEventListener("submit", function (e) {
-    e.preventDefault();
-    const index = document.getElementById("edit-room-id").value;
+        // save updated room
+        editRoomForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          const index = document.getElementById("edit-room-id").value;
 
-    let rooms = JSON.parse(localStorage.getItem("rooms")) || [];
-    rooms[index] = {
-      ...rooms[index],
-      roomNo: document.getElementById("edit-room-number").value,
-      floor: document.getElementById("edit-floor-number").value,
-      allocateDate: document.getElementById("edit-allocate-date").value,
-      roomType: document.getElementById("edit-room-type").value,
-      capacity: parseInt(document.getElementById("edit-room-capacity").value),
-      price: document.getElementById("edit-room-price").value,
-      status: document.getElementById("edit-room-status").value
-    };
+          let rooms = JSON.parse(localStorage.getItem("rooms")) || [];
+          rooms[index] = {
+            ...rooms[index],
+            roomNo: document.getElementById("edit-room-number").value,
+            floor: document.getElementById("edit-floor-number").value,
+            allocateDate: document.getElementById("edit-allocate-date").value,
+            roomType: document.getElementById("edit-room-type").value,
+            capacity: parseInt(document.getElementById("edit-room-capacity").value),
+            price: document.getElementById("edit-room-price").value,
+            status: document.getElementById("edit-room-status").value
+          };
 
-    localStorage.setItem("rooms", JSON.stringify(rooms));
-    editRoomModal.style.display = "none";
-    overlay.style.display = "none";
-    loadRooms();
-  });
+          localStorage.setItem("rooms", JSON.stringify(rooms));
+          editRoomModal.style.display = "none";
+          overlay.style.display = "none";
+          loadRooms();
+        });
 
-  // Delete room
-  window.deleteRoom = function (index) {
-    let rooms = JSON.parse(localStorage.getItem("rooms")) || [];
-    if (rooms[index].occupied > 0) {
-      alert("Can't delete. The room is occupied!");
-      return;
-    }
-    rooms.splice(index, 1);
-    localStorage.setItem("rooms", JSON.stringify(rooms));
-    loadRooms();
-  };
+        // delete room
+        window.deleteRoom = function (index) {
+          let rooms = JSON.parse(localStorage.getItem("rooms")) || [];
+          if (rooms[index].occupied > 0) {
+            alert("Can't delete. The room is occupied!");
+            return;
+          }
+          rooms.splice(index, 1);
+          localStorage.setItem("rooms", JSON.stringify(rooms));
+          loadRooms();
+        };
 
-  // modal open/close handling
-  addRoomBtn.addEventListener("click", () => {
-    addRoomModal.style.display = "block";
-    overlay.style.display = "block";
-  });
+        // modal open/close handling
+        addRoomBtn.addEventListener("click", () => {
+          addRoomModal.style.display = "block";
+          overlay.style.display = "block";
+        });
 
-  document.querySelectorAll(".closeModal").forEach(btn => {
-    btn.addEventListener("click", () => {
-      [addRoomModal, editRoomModal, detailsModal].forEach(m => (m.style.display = "none"));
-      overlay.style.display = "none";
-    });
-  });
-});
-
+        document.querySelectorAll(".closeModal").forEach(btn => {
+          btn.addEventListener("click", () => {
+            [addRoomModal, editRoomModal, detailsModal].forEach(m => (m.style.display = "none"));
+            overlay.style.display = "none";
+          });
+        });
+      });
     </script>
-
-
   </body>
 </html>

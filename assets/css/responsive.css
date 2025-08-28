@@ -78,7 +78,6 @@
   cursor: pointer;
 }
 
-/* responsive settings */
 @media (max-width: 768px) {
   /* Show hamburger */
   .menu-toggle {
@@ -87,7 +86,7 @@
     margin-right: 10px;
   }
 
-  /* Sidebar hidden by default */
+  /* sidebar hidden by default */
   .warden-sideBar {
     position: fixed;
     left: -300px;

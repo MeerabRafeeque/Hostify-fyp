@@ -108,13 +108,13 @@
                 </tr>
               </thead>
               <tbody>
-                <!-- Payment data will be populated dynamically -->
+                <!-- payment data will be populated dynamically -->
               </tbody>
             </table>
           </div>
         </div>
 
-        <!-- Add Payment Modal -->
+        <!-- add payment modal -->
         <div class="modal" id="add-payment-modal">
           <div class="modalHeader">
             <h3>Record New Payment</h3>
@@ -168,82 +168,80 @@
     <script src="/assets/js/mobileView.js" defer></script>
     <script src="/assets/js/profile.js" defer></script>
     <script src="/assets/js/searchbar.js" defer></script>
-   <script>
-const paymentTableBody = document.querySelector("#payment-table tbody");
+    <script>
+      const paymentTableBody = document.querySelector("#payment-table tbody");
 
-// Load and render payments
-function renderPayments() {
-  const payments = JSON.parse(localStorage.getItem("roomPayments")) || [];
-  paymentTableBody.innerHTML = "";
+      // load and render payments
+      function renderPayments() {
+        const payments = JSON.parse(localStorage.getItem("roomPayments")) || [];
+        paymentTableBody.innerHTML = "";
 
-  payments.forEach(payment => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${payment.id}</td>
-      <td>${payment.studentName}</td>
-      <td>${payment.roomType === "single" ? "15000" : "7000"}</td>
-      <td>${payment.date}</td>
-      <td>${payment.method}</td>
-      <td>
-        Transaction: ${payment.transactionId} <br>
-        <img src="${payment.screenshot}" width="80" style="border:1px solid #ccc; margin-top:5px;" />
-      </td>
-      <td>
-        <button class="verify-btn">Verify</button>
-        <button class="reject-btn">Reject</button>
-      </td>
-    `;
-    paymentTableBody.appendChild(tr);
+        payments.forEach(payment => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${payment.id}</td>
+            <td>${payment.studentName}</td>
+            <td>${payment.roomType === "single" ? "15000" : "7000"}</td>
+            <td>${payment.date}</td>
+            <td>${payment.method}</td>
+            <td>
+              Transaction: ${payment.transactionId} <br>
+              <img src="${payment.screenshot}" width="80" style="border:1px solid #ccc; margin-top:5px;" />
+            </td>
+            <td>
+              <button class="verify-btn">Verify</button>
+              <button class="reject-btn">Reject</button>
+            </td>
+          `;
+          paymentTableBody.appendChild(tr);
 
-    // Verify button
-    tr.querySelector(".verify-btn").addEventListener("click", () => {
-      payment.status = "Verified";
+          // verify button
+          tr.querySelector(".verify-btn").addEventListener("click", () => {
+            payment.status = "Verified";
 
-      // Set full-access flag for student
-      localStorage.setItem(`${payment.studentName}_fullAccess`, "true");
+            // set full-access flag for student
+            localStorage.setItem(`${payment.studentName}_fullAccess`, "true");
 
-      // Remove any previous rejection notifications
-      localStorage.removeItem(`${payment.studentName}_paymentReject`);
+            // remove any previous rejection notifications
+            localStorage.removeItem(`${payment.studentName}_paymentReject`);
 
-      // Store verification notification for student
-      localStorage.setItem(`${payment.studentName}_paymentVerified`, "true");
+            // store verification notification for student
+            localStorage.setItem(`${payment.studentName}_paymentVerified`, "true");
 
-      alert(`${payment.studentName} payment verified.`);
+            alert(`${payment.studentName} payment verified.`);
 
-      saveAndRender();
-    });
+            saveAndRender();
+          });
 
-    // Reject button
-    tr.querySelector(".reject-btn").addEventListener("click", () => {
-      const reason = prompt("Enter reason for rejection:");
-      if (!reason) return;
+          // reject button
+          tr.querySelector(".reject-btn").addEventListener("click", () => {
+            const reason = prompt("Enter reason for rejection:");
+            if (!reason) return;
 
-      payment.status = "Rejected";
-      payment.rejectReason = reason;
+            payment.status = "Rejected";
+            payment.rejectReason = reason;
 
-      // Store rejection notification for student
-      localStorage.setItem(`${payment.studentName}_paymentReject`, reason);
+            // store rejection notification for student
+            localStorage.setItem(`${payment.studentName}_paymentReject`, reason);
 
-      // Remove any previous verification flag
-      localStorage.removeItem(`${payment.studentName}_paymentVerified`);
+            // remove any previous verification flag
+            localStorage.removeItem(`${payment.studentName}_paymentVerified`);
 
-      alert(`${payment.studentName} payment rejected.`);
-      saveAndRender();
-    });
-  });
-}
+            alert(`${payment.studentName} payment rejected.`);
+            saveAndRender();
+          });
+        });
+      }
 
-// Save to localStorage & rerender table
-function saveAndRender() {
-  const payments = JSON.parse(localStorage.getItem("roomPayments")) || [];
-  localStorage.setItem("roomPayments", JSON.stringify(payments));
-  renderPayments();
-}
+      // save to localStorage & rerender table
+      function saveAndRender() {
+        const payments = JSON.parse(localStorage.getItem("roomPayments")) || [];
+        localStorage.setItem("roomPayments", JSON.stringify(payments));
+        renderPayments();
+      }
 
-// Initial render
-renderPayments();
-</script>
-
-
+      // initial render
+      renderPayments();
+    </script>
   </body>
 </html>

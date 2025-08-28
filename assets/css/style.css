@@ -159,7 +159,7 @@ body {
   color: #1e3a8a;
 }
 
-/* Table Content */
+/* table content */
 
 .tab-content.active {
   display: block;
@@ -174,7 +174,7 @@ body {
   color: #2c3e50;
 }
 
-/* Notification Panel */
+/* notification panel */
 
 .notificationPanel {
   position: absolute;
@@ -313,7 +313,7 @@ button:hover {
   color: #777;
 }
 
-/* Student Section Table */
+/* student sec table */
 
 .table-container {
   overflow-x: auto;
@@ -329,19 +329,15 @@ table {
 
 th,
 td {
+  background-color: white;
   padding: 12px 15px;
   text-align: left;
   border-bottom: 1px solid white;
 }
 
 th {
-  background-color: white;
-  font-weight: 600;
-  color: #333;
-}
-
-th:hover {
   background-color: #1e3a8a;
+  font-weight: 600;
   color: white;
 }
 
@@ -372,7 +368,7 @@ th:hover {
   color: green;
 }
 
-/* Styling All buttons */
+/* styling all buttons */
 
 .btn {
   padding: 10px;
@@ -503,12 +499,12 @@ th:hover {
   padding: 8px;
 }
 
-/* Modal Overlay */
+/* modal overlay */
 
 .modalOverlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0, 0, 0, 0.6);
   z-index: 999;
   display: none;
 }
@@ -522,8 +518,11 @@ th:hover {
   background: #fff;
   border-radius: 10px;
   padding: 20px;
-  width: 450px;
-  z-index: 1000;
+  width: 90%;
+  max-width: 450px;
+  z-index: 10000;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .modalOverlay.show {
@@ -555,7 +554,7 @@ th:hover {
   border: none;
   font-size: 20px;
   cursor: pointer;
-  color: #777;
+  color: red;
 }
 
 .modalBody {
@@ -571,14 +570,14 @@ th:hover {
 
 /* Warden Dashboard */
 
-/* Container layout */
+/* container layout */
 .warden-container {
   display: flex;
   min-height: 100vh;
   font-family: Arial, sans-serif;
 }
 
-/* Sidebar */
+/* sidebar */
 .warden-sideBar {
   background-color: #1e3a8a;
   color: white;
@@ -620,7 +619,7 @@ th:hover {
   font-size: 10px;
 }
 
-/* Main content area */
+/* main content area */
 .warden-mainContent {
   flex: 1;
   overflow-y: auto;
@@ -629,7 +628,7 @@ th:hover {
   transition: all 0.3s;
 }
 
-/* Header */
+/* header */
 .warden-topHeader {
   display: flex;
   justify-content: space-between;
@@ -702,18 +701,22 @@ th:hover {
   color: #1e3a8a;
 }
 
-/* Show profile dropdown when active */
+/* show profile dropdown when active */
 .warden-userProfile.active .profileDropdown {
   display: block;
 }
 
-/* Dashboard overview cards */
+/* dashboard overview cards */
 .warden-tab-content {
   display: block;
   background-color: white;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.warden-tab-content h2 {
+  color: #1e3a8a;
 }
 
 .warden-stat-container {
@@ -754,7 +757,7 @@ th:hover {
   color: #2c3e50;
 }
 
-/* Hide menu toggle on desktop */
+/* hide menu toggle on desktop */
 .menu-toggle {
   display: none;
   font-size: 1.5rem;
@@ -767,7 +770,7 @@ th:hover {
   background: #f8f9fa;
 }
 
-/* Heading */
+/* heading */
 .warden-notificationPanel h2 {
   font-size: 24px;
   margin-bottom: 20px;
@@ -790,7 +793,7 @@ th:hover {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
-/* Notification Header */
+/* notification header */
 .warden-notifyHeader {
   display: flex;
   justify-content: space-between;
@@ -808,7 +811,7 @@ th:hover {
   color: #888;
 }
 
-/* Notification Text */
+/* notification text */
 .warden-notification p {
   margin: 5px 0;
   font-size: 14px;
@@ -819,7 +822,7 @@ th:hover {
   color: #333;
 }
 
-/* Buttons */
+/* buttons */
 .warden-notification .btn {
   margin-top: 10px;
   padding: 6px 12px;
@@ -853,7 +856,7 @@ th:hover {
   padding: 20px 0;
   display: flex;
   flex-direction: column;
-  height: 165.5%;
+  min-height: 100vh;
 }
 
 .warden-notif-sideBar nav ul {
@@ -948,7 +951,7 @@ th:hover {
 
 /* warden marks deputy RT attendance */
 
-/* Add deputy Section */
+/* add deputy sec */
 .warden-add-deputy-section {
   margin-bottom: 30px;
   padding: 20px;
@@ -1098,7 +1101,7 @@ th:hover {
 
 /* deputy RT attendance marking */
 
-/* Add Student Section */
+/* add student sec */
 .deputy-add-student-section {
   margin-bottom: 30px;
   padding: 20px;
@@ -1440,20 +1443,6 @@ a:hover {
   margin-top: 20px;
 }
 
-.actions button {
-  padding: 12px 24px;
-  background-color: #28a745;
-  border: none;
-  color: #fff;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.actions button:hover {
-  background-color: #218838;
-}
-
 /* mess dashboard section */
 #mess-dashboard h2,
 #food-shortage h2,
@@ -1511,7 +1500,7 @@ a:hover {
   font-size: 10px;
 }
 
-/* Main content area */
+/* main content area */
 .mess-mainContent {
   flex: 1;
   overflow-y: auto;
@@ -1520,7 +1509,7 @@ a:hover {
   transition: all 0.3s;
 }
 
-/* Header */
+/* header */
 .mess-topHeader {
   display: flex;
   justify-content: space-between;
@@ -1898,7 +1887,7 @@ a:hover {
   font-size: 10px;
 }
 
-/* Main content area */
+/* main content area */
 .deputy-mainContent {
   flex: 1;
   overflow-y: auto;
@@ -1913,7 +1902,7 @@ a:hover {
   font-family: Arial, sans-serif;
 }
 
-/* Header */
+/* header */
 .deputy-topHeader {
   display: flex;
   justify-content: space-between;
@@ -2152,11 +2141,9 @@ a:hover {
   border: 1px solid #ccc;
 }
 
-/* student registeration/sign-up form */
-
 /*std login  pg*/
 .login-body {
-  background: url("/assets/images/dorm.webp") center/cover no-repeat;
+  background: url("/staticfiles/images/dorm.webp") center/cover no-repeat;
   justify-content: center;
   display: flex;
   align-items: center;
@@ -2427,7 +2414,7 @@ a:hover {
   font-size: 10px;
 }
 
-/* Main content area */
+/* main content area */
 .pre-mainContent {
   flex: 1;
   margin-left: 15px;
@@ -2441,7 +2428,7 @@ a:hover {
   font-family: Arial, sans-serif;
 }
 
-/* Header */
+/* header */
 .pre-topHeader {
   display: flex;
   justify-content: space-between;
@@ -2567,6 +2554,7 @@ body .pre-body {
   grid-template-columns: 240px 1fr;
   gap: 18px;
   padding: 18px;
+  background: url("/assets/images/hostify.jpg") center/cover no-repeat;
 }
 @media (max-width: 880px) {
   .layout {
@@ -2591,7 +2579,7 @@ body .pre-body {
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
-.nav {
+.pre-body .nav {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -2600,7 +2588,7 @@ body .pre-body {
   gap: 6px;
 }
 
-.nav .item {
+.pre-body .nav .item {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -2611,7 +2599,7 @@ body .pre-body {
   border: 1px solid transparent;
 }
 
-.nav a {
+.pre-body .nav a {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -2623,14 +2611,14 @@ body .pre-body {
   border: 1px solid transparent;
 }
 
-.nav a:hover {
+.pre-body .nav a:hover {
   background: #fff;
   color: #1e3a8a;
   transition: all 0.3s;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 }
 
-.nav .disabled {
+.pre-body .nav .disabled {
   color: #9ca3af;
   background: #f3f4f6;
   pointer-events: none;
@@ -2837,6 +2825,10 @@ body .pre-body {
   padding: 20px;
 }
 
+#notifications h2 {
+  color: white;
+}
+
 .notifications-list {
   list-style: none;
   padding: 0;
@@ -2952,7 +2944,7 @@ body.post-body {
   min-height: 100vh;
   display: flex;
   flex-direction: row;
-  background: #f3f4f6;
+  background: url("/assets/images/hostify.jpg") center/cover no-repeat;
 }
 
 /* sidebar */
@@ -3185,7 +3177,7 @@ body.post-body {
   background: #f9fafb;
 }
 
-/* Status Badges */
+/* status badges */
 .status {
   padding: 4px 10px;
   border-radius: 12px;
@@ -3214,6 +3206,10 @@ body.post-body {
 }
 
 /* submit meal feedback */
+
+.meal-section h3 {
+  color: white;
+}
 
 .feedback-form {
   display: flex;
@@ -3262,7 +3258,10 @@ body.post-body {
 }
 
 .btn-submit:hover {
-  background: #16327a;
+  background: white;
+  color: #1e3a8a;
+  transition: all 0.3s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 /* complaint submission page */
@@ -3416,7 +3415,7 @@ body.post-body {
 .reg-body .register-container {
   background: #fff;
   padding: 25px;
-  width: 700px;
+  width: 600px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   clear: right;
 }
