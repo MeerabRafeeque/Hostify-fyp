@@ -88,7 +88,7 @@
             </ul>
           </div>
         </header>
-        <!-- staff management tab -->
+        <!-- Staff Management Tab -->
         <div class="tab-content active" id="staff">
           <div class="tab-header">
             <h2>Staff Management</h2>
@@ -102,19 +102,19 @@
                 <tr>
                   <th>Name</th>
                   <th>Email</th>
-                  <th>Position</th>
-                  <th>Shift</th>
+                  <th>Staff Type</th>
+                  <th>Department</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                <!-- staff data will be populated dynamically -->
+                <!-- Staff data will be populated dynamically -->
               </tbody>
             </table>
           </div>
         </div>
 
-        <!-- add staff modal -->
+        <!-- Add Staff Modal -->
         <div class="modal" id="add-staff-modal">
           <div class="modalHeader">
             <h3>Add New Staff Member</h3>
@@ -133,9 +133,9 @@
               <div class="form-group">
                 <label for="staff-position">Position</label>
                 <select id="staff-position">
-                  <option value="Warden">Warden</option>
-                  <option value="Mess Committee">Mess Committee</option>
-                  <option value="Deputy RT">Deputy RT</option>
+                  <option value="warden">Warden</option>
+                  <option value="mess_staff">Mess Staff</option>
+                  <option value="deputy_rt">Deputy RT</option>
                 </select>
               </div>
               <div class="form-group">
@@ -143,11 +143,8 @@
                 <input type="tel" id="staff-phone" required />
               </div>
               <div class="form-group">
-                <label for="staff-shift">Assign Shift</label>
-                <select id="staff-shift" required>
-                  <option value="Morning">Morning</option>
-                  <option value="Evening">Evening</option>
-                </select>
+                <label for="staff-shift">Department</label>
+                <input type="text" id="staff-shift" placeholder="e.g., Hostel Administration" required />
               </div>
               <div class="form-action">
                 <button type="button" class="btn btn-secondary closeModal">
@@ -159,7 +156,7 @@
           </div>
         </div>
 
-        <!-- edit staff modal -->
+        <!-- Edit Staff Modal -->
         <div class="modal" id="edit-staff-modal">
           <div class="modalHeader">
             <h3>Edit Staff Member</h3>
@@ -179,9 +176,9 @@
               <div class="form-group">
                 <label for="edit-staff-position">Position</label>
                 <select id="edit-staff-position">
-                  <option value="Warden">Warden</option>
-                  <option value="Mess Committee">Mess Committee</option>
-                  <option value="Deputy RT">Deputy RT</option>
+                  <option value="warden">Warden</option>
+                  <option value="mess_staff">Mess Staff</option>
+                  <option value="deputy_rt">Deputy RT</option>
                 </select>
               </div>
               <div class="form-group">
@@ -189,11 +186,8 @@
                 <input type="tel" id="edit-staff-phone" required />
               </div>
               <div class="form-group">
-                <label for="edit-staff-shift">Assign Shift</label>
-                <select id="edit-staff-shift" required>
-                  <option value="Morning">Morning</option>
-                  <option value="Evening">Evening</option>
-                </select>
+                <label for="edit-staff-shift">Department</label>
+                <input type="text" id="edit-staff-shift" placeholder="e.g., Hostel Administration" required />
               </div>
               <div class="form-action">
                 <button type="button" class="btn btn-secondary closeModal">
@@ -213,7 +207,7 @@
             <button class="closeModal">&times;</button>
           </div>
           <div class="modalBody" id="details-content">
-            <!-- details content will be added dynamically -->
+            <!-- Details content will be added dynamically -->
           </div>
           <div class="modalFooter">
             <button type="button" class="btn btn-secondary closeModal">

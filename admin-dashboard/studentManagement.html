@@ -81,7 +81,7 @@
                 <a href="profile.html"><i class="fa-solid fa-user"></i>Profile</a>
               </li>
               <li id="logoutBtn">
-              <a href="/student-public.html/login-all.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</li></a>
+              <a href="#"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
             </ul>
           </div>
         </header>
@@ -94,16 +94,48 @@
               <i class="fa-solid fa-user-plus"></i> Add Student
             </button>
           </div>
+          
+          <!-- Filter Section -->
+          <div class="filter-section">
+            <div class="filter-group">
+              <label for="payment-filter">Payment Status:</label>
+              <select id="payment-filter">
+                <option value="">All Students</option>
+                <option value="verified">Payment Verified</option>
+                <option value="pending">Payment Pending</option>
+                <option value="no-payment">No Payment</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="room-filter">Room Status:</label>
+              <select id="room-filter">
+                <option value="">All Students</option>
+                <option value="assigned">Room Assigned</option>
+                <option value="unassigned">No Room</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="room-type-filter">Room Type:</label>
+              <select id="room-type-filter">
+                <option value="">All Types</option>
+                <option value="single">Single</option>
+                <option value="dormitory">Dormitory</option>
+              </select>
+            </div>
+          </div>
+          
           <div class="table-container">
             <table id="students-table">
               <thead>
                 <tr>
                   <th>ID</th>
                   <th>Name</th>
+                  <th>Email</th>
+                  <th>Department</th>
+                  <th>Year</th>
+                  <th>Payment Status</th>
                   <th>Room No.</th>
                   <th>Room Type</th>
-                  <th>Contact</th>
-                  <th>Status</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -123,43 +155,49 @@
           <div class="modalBody">
             <form id="add-student-form">
               <div class="form-group">
-                <label for="student-name">Full Name</label>
-                <input type="text" id="student-name" required />
+                <label for="student-first-name">First Name</label>
+                <input type="text" id="student-first-name" required />
+              </div>
+              <div class="form-group">
+                <label for="student-last-name">Last Name</label>
+                <input type="text" id="student-last-name" required />
               </div>
               <div class="form-group">
                 <label for="student-email">Email</label>
                 <input type="email" id="student-email" required />
               </div>
               <div class="form-group">
-                <label for="student-room">Assign Room</label>
-                <select id="student-room" required>
-                  <option value="">Select Room</option>
+                <label for="student-phone">Phone</label>
+                <input type="tel" id="student-phone" required />
+              </div>
+              <div class="form-group">
+                <label for="student-department">Department</label>
+                <select id="student-department" required>
+                  <option value="">Select Department</option>
+                  <option value="Computer Science">Computer Science</option>
+                  <option value="Electrical Engineering">Electrical Engineering</option>
+                  <option value="Mechanical Engineering">Mechanical Engineering</option>
+                  <option value="Civil Engineering">Civil Engineering</option>
+                  <option value="Business Administration">Business Administration</option>
                 </select>
               </div>
               <div class="form-group">
-                <label for="student-edu">Education Level</label>
-                <select id="student-edu" required>
-                  <option value="">...Select Education Level...</option>
-                  <option value="BS">BS</option>
-                  <option value="Intermediate">Intermediate</option>
-                </select>
-                <select id="yearSemester">
-                  <option value="">...Select Year/Semester...</option>
-                  <option value="1st year">1st year</option>
-                  <option value="2nd year">2nd year</option>
-                  <option value="1st semester">1st semester</option>
-                  <option value="2nd semester">2nd semester</option>
-                  <option value="3rd semester">3rd semester</option>
-                  <option value="4th semester">4th semester</option>
-                  <option value="5th semester">5th semester</option>
-                  <option value="6th semester">6th semester</option>
-                  <option value="7th semester">7th semester</option>
-                  <option value="8th semester">8th semester</option>
+                <label for="student-year">Year of Study</label>
+                <select id="student-year" required>
+                  <option value="">Select Year</option>
+                  <option value="1">1st Year</option>
+                  <option value="2">2nd Year</option>
+                  <option value="3">3rd Year</option>
+                  <option value="4">4th Year</option>
                 </select>
               </div>
               <div class="form-group">
-                <label for="student-regDate">Registration Date</label>
-                <input type="date" id="student-regDate" required />
+                <label for="student-parent">Parent Name</label>
+                <input type="text" id="student-parent" required />
+              </div>
+              <div class="form-group">
+                <label for="student-address">Address</label>
+                <textarea id="student-address" required></textarea>
               </div>
               <div class="form-action">
                 <button type="button" class="btn btn-secondary closeModal">
@@ -181,49 +219,96 @@
             <form id="edit-student-form">
               <input type="hidden" id="edit-student-id" required />
               <div class="form-group">
-                <label for="edit-student-name">Full Name</label>
-                <input type="text" id="edit-student-name" required />
+                <label for="edit-student-first-name">First Name</label>
+                <input type="text" id="edit-student-first-name" required />
+              </div>
+              <div class="form-group">
+                <label for="edit-student-last-name">Last Name</label>
+                <input type="text" id="edit-student-last-name" required />
               </div>
               <div class="form-group">
                 <label for="edit-student-email">Email</label>
                 <input type="email" id="edit-student-email" required />
               </div>
               <div class="form-group">
-                <label for="edit-student-room">Assign Room</label>
-                <select id="edit-student-room" required>
-                  <option value="">Select Room</option>
+                <label for="edit-student-phone">Phone</label>
+                <input type="tel" id="edit-student-phone" required />
+              </div>
+              <div class="form-group">
+                <label for="edit-student-department">Department</label>
+                <select id="edit-student-department" required>
+                  <option value="">Select Department</option>
+                  <option value="Computer Science">Computer Science</option>
+                  <option value="Electrical Engineering">Electrical Engineering</option>
+                  <option value="Mechanical Engineering">Mechanical Engineering</option>
+                  <option value="Civil Engineering">Civil Engineering</option>
+                  <option value="Business Administration">Business Administration</option>
                 </select>
               </div>
               <div class="form-group">
-                <label for="edit-student-edu">Education Level</label>
-                <select id="edit-student-edu" required>
-                  <option value="">...Select Education Level...</option>
-                  <option value="BS">BS</option>
-                  <option value="Intermediate">Intermediate</option>
-                </select>
-                <select id="edit-yearSemester">
-                  <option value="">...Select Year/Semester...</option>
-                  <option value="1st year">1st year</option>
-                  <option value="2nd year">2nd year</option>
-                  <option value="1st semester">1st semester</option>
-                  <option value="2nd semester">2nd semester</option>
-                  <option value="3rd semester">3rd semester</option>
-                  <option value="4th semester">4th semester</option>
-                  <option value="5th semester">5th semester</option>
-                  <option value="6th semester">6th semester</option>
-                  <option value="7th semester">7th semester</option>
-                  <option value="8th semester">8th semester</option>
+                <label for="edit-student-year">Year of Study</label>
+                <select id="edit-student-year" required>
+                  <option value="">Select Year</option>
+                  <option value="1">1st Year</option>
+                  <option value="2">2nd Year</option>
+                  <option value="3">3rd Year</option>
+                  <option value="4">4th Year</option>
                 </select>
               </div>
               <div class="form-group">
-                <label for="edit-student-regDate">Room Assign Date</label>
-                <input type="date" id="edit-student-regDate" required />
+                <label for="edit-student-parent">Parent Name</label>
+                <input type="text" id="edit-student-parent" required />
+              </div>
+              <div class="form-group">
+                <label for="edit-student-address">Address</label>
+                <textarea id="edit-student-address" required></textarea>
               </div>
               <div class="form-action">
                 <button type="button" class="btn btn-secondary closeModal">
                   Cancel
                 </button>
                 <button type="submit" class="btn btn-primary">Update Student</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- room assignment modal -->
+        <div class="modal" id="room-assignment-modal">
+          <div class="modalHeader">
+            <h3>Assign Room to Student</h3>
+            <button class="closeModal">&times;</button>
+          </div>
+          <div class="modalBody">
+            <form id="room-assignment-form">
+              <input type="hidden" id="assignment-student-id" required />
+              <div class="form-group">
+                <label for="assignment-student-name">Student Name</label>
+                <input type="text" id="assignment-student-name" readonly />
+              </div>
+              <div class="form-group">
+                <label for="assignment-payment-status">Payment Status</label>
+                <input type="text" id="assignment-payment-status" readonly />
+              </div>
+              <div class="form-group">
+                <label for="assignment-room-type">Room Type</label>
+                <select id="assignment-room-type" required>
+                  <option value="">Select Room Type</option>
+                  <option value="single">Single Room</option>
+                  <option value="dormitory">Dormitory</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="assignment-room">Available Rooms</label>
+                <select id="assignment-room" required>
+                  <option value="">Select Room</option>
+                </select>
+              </div>
+              <div class="form-action">
+                <button type="button" class="btn btn-secondary closeModal">
+                  Cancel
+                </button>
+                <button type="submit" class="btn btn-primary">Assign Room</button>
               </div>
             </form>
           </div>

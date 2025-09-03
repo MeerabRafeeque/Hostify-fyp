@@ -81,7 +81,7 @@
                 <a href="profile.html"><i class="fa-solid fa-user"></i>Profile</a>
               </li>
               <li id="logoutBtn">
-                <a href="/student-public.html/login-all.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</li></a>
+                <a href="#"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
               </ul>
           </div>
         </header>
@@ -114,6 +114,45 @@
             </tbody>
           </table>
         </div>
+
+        <!-- Rejection Modal -->
+        <div class="modal" id="rejection-modal">
+          <div class="modalHeader">
+            <h3>Reject Stay Extension Request</h3>
+            <button class="closeModal">&times;</button>
+          </div>
+          <div class="modalBody">
+            <form id="rejection-form">
+              <input type="hidden" id="rejection-request-id" />
+              <div class="form-group">
+                <label for="rejection-student-name">Student Name</label>
+                <input type="text" id="rejection-student-name" readonly />
+              </div>
+              <div class="form-group">
+                <label for="rejection-reason">Rejection Reason</label>
+                <textarea id="rejection-reason" required placeholder="Please provide a reason for rejection..."></textarea>
+              </div>
+              <div class="form-action">
+                <button type="button" class="btn btn-secondary closeModal">Cancel</button>
+                <button type="submit" class="btn btn-danger">Reject Request</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Details Modal -->
+        <div class="modal" id="details-modal">
+          <div class="modalHeader">
+            <h3 id="details-title">Request Details</h3>
+            <button class="closeModal">&times;</button>
+          </div>
+          <div class="modalBody" id="details-content">
+            <!-- Details content will be added dynamically -->
+          </div>
+          <div class="modalFooter">
+            <button type="button" class="btn btn-secondary closeModal">Close</button>
+          </div>
+        </div>
         </div>
       </main>
     </div>
@@ -122,6 +161,6 @@
     <script src="/assets/js/mobileView.js" defer></script>
     <script src="/assets/js/profile.js" defer></script>
     <script src="/assets/js/searchbar.js" defer></script>
-    <script src="/assets/js/admin-stay-ext-req.js" defer></script>
+    <script src="/assets/js/admin-stay-extension.js" defer></script>
   </body>
 </html>

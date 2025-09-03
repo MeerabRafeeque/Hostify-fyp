@@ -81,7 +81,7 @@
                 <a href="profile.html"><i class="fa-solid fa-user"></i>Profile</a>
               </li>
               <li id="logoutBtn">
-                <a href="/student-public.html/login-all.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</li></a>
+                <a href="#"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
               </ul>
           </div>
         </header>
@@ -94,16 +94,47 @@
               <i class="fa-solid fa-plus"></i> Record Payment
             </button>
           </div>
+          
+          <!-- Filter Section -->
+          <div class="filter-section">
+            <div class="filter-group">
+              <label for="payment-status-filter">Payment Status:</label>
+              <select id="payment-status-filter">
+                <option value="">All Payments</option>
+                <option value="pending">Pending</option>
+                <option value="verified">Verified</option>
+                <option value="rejected">Rejected</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="payment-method-filter">Payment Method:</label>
+              <select id="payment-method-filter">
+                <option value="">All Methods</option>
+                <option value="Bank Transfer">Bank Transfer</option>
+                <option value="Credit Card">Credit Card</option>
+                <option value="Mobile Payment">Mobile Payment</option>
+                <option value="Cash">Cash</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="payment-date-filter">Date Range:</label>
+              <input type="date" id="payment-date-from" placeholder="From Date">
+              <input type="date" id="payment-date-to" placeholder="To Date">
+            </div>
+          </div>
+          
           <div class="table-container">
             <table id="payment-table">
               <thead>
                 <tr>
                   <th>ID</th>
                   <th>Student</th>
+                  <th>Student ID</th>
                   <th>Amount</th>
                   <th>Date</th>
                   <th>Method</th>
                   <th>Description</th>
+                  <th>Status</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -131,7 +162,7 @@
               </div>
               <div class="form-group">
                 <label for="payment-amount">Amount</label>
-                <input type="number" id="payment-amount" min="0" required />
+                <input type="number" id="payment-amount" min="0" step="0.01" required />
               </div>
               <div class="form-group">
                 <label for="payment-date">Date</label>
@@ -140,14 +171,20 @@
               <div class="form-group">
                 <label for="payment-method">Payment Method</label>
                 <select id="payment-method" required>
+                  <option value="">Select Payment Method</option>
                   <option value="Bank Transfer">Bank Transfer</option>
                   <option value="Credit Card">Credit Card</option>
                   <option value="Mobile Payment">Mobile Payment</option>
+                  <option value="Cash">Cash</option>
                 </select>
               </div>
               <div class="form-group">
+                <label for="payment-transaction">Transaction ID</label>
+                <input type="text" id="payment-transaction" placeholder="Enter transaction ID" />
+              </div>
+              <div class="form-group">
                 <label for="payment-description">Description</label>
-                <textarea id="payment-description"></textarea>
+                <textarea id="payment-description" placeholder="Enter payment description"></textarea>
               </div>
               <div class="form-action">
                 <button type="button" class="btn btn-secondary closeModal">
@@ -161,6 +198,52 @@
           </div>
         </div>
 
+        <!-- payment rejection modal -->
+        <div class="modal" id="rejection-modal">
+          <div class="modalHeader">
+            <h3>Reject Payment</h3>
+            <button class="closeModal">&times;</button>
+          </div>
+          <div class="modalBody">
+            <form id="rejection-form">
+              <input type="hidden" id="rejection-payment-id" required />
+              <div class="form-group">
+                <label for="rejection-student-name">Student Name</label>
+                <input type="text" id="rejection-student-name" readonly />
+              </div>
+              <div class="form-group">
+                <label for="rejection-amount">Payment Amount</label>
+                <input type="text" id="rejection-amount" readonly />
+              </div>
+              <div class="form-group">
+                <label for="rejection-reason">Rejection Reason</label>
+                <textarea id="rejection-reason" required placeholder="Please provide a detailed reason for rejecting this payment..."></textarea>
+              </div>
+              <div class="form-action">
+                <button type="button" class="btn btn-secondary closeModal">
+                  Cancel
+                </button>
+                <button type="submit" class="btn btn-danger">
+                  Reject Payment
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- payment details modal -->
+        <div class="modal" id="payment-details-modal">
+          <div class="modalHeader">
+            <h3>Payment Details</h3>
+            <button class="closeModal">&times;</button>
+          </div>
+          <div class="modalBody">
+            <div id="payment-details-content">
+              <!-- Payment details will be loaded here -->
+            </div>
+          </div>
+        </div>
+
       </main>
     </div>
     <script src="/assets/js/nav.js" defer></script>
@@ -168,80 +251,6 @@
     <script src="/assets/js/mobileView.js" defer></script>
     <script src="/assets/js/profile.js" defer></script>
     <script src="/assets/js/searchbar.js" defer></script>
-    <script>
-      const paymentTableBody = document.querySelector("#payment-table tbody");
-
-      // load and render payments
-      function renderPayments() {
-        const payments = JSON.parse(localStorage.getItem("roomPayments")) || [];
-        paymentTableBody.innerHTML = "";
-
-        payments.forEach(payment => {
-          const tr = document.createElement("tr");
-          tr.innerHTML = `
-            <td>${payment.id}</td>
-            <td>${payment.studentName}</td>
-            <td>${payment.roomType === "single" ? "15000" : "7000"}</td>
-            <td>${payment.date}</td>
-            <td>${payment.method}</td>
-            <td>
-              Transaction: ${payment.transactionId} <br>
-              <img src="${payment.screenshot}" width="80" style="border:1px solid #ccc; margin-top:5px;" />
-            </td>
-            <td>
-              <button class="verify-btn">Verify</button>
-              <button class="reject-btn">Reject</button>
-            </td>
-          `;
-          paymentTableBody.appendChild(tr);
-
-          // verify button
-          tr.querySelector(".verify-btn").addEventListener("click", () => {
-            payment.status = "Verified";
-
-            // set full-access flag for student
-            localStorage.setItem(`${payment.studentName}_fullAccess`, "true");
-
-            // remove any previous rejection notifications
-            localStorage.removeItem(`${payment.studentName}_paymentReject`);
-
-            // store verification notification for student
-            localStorage.setItem(`${payment.studentName}_paymentVerified`, "true");
-
-            alert(`${payment.studentName} payment verified.`);
-
-            saveAndRender();
-          });
-
-          // reject button
-          tr.querySelector(".reject-btn").addEventListener("click", () => {
-            const reason = prompt("Enter reason for rejection:");
-            if (!reason) return;
-
-            payment.status = "Rejected";
-            payment.rejectReason = reason;
-
-            // store rejection notification for student
-            localStorage.setItem(`${payment.studentName}_paymentReject`, reason);
-
-            // remove any previous verification flag
-            localStorage.removeItem(`${payment.studentName}_paymentVerified`);
-
-            alert(`${payment.studentName} payment rejected.`);
-            saveAndRender();
-          });
-        });
-      }
-
-      // save to localStorage & rerender table
-      function saveAndRender() {
-        const payments = JSON.parse(localStorage.getItem("roomPayments")) || [];
-        localStorage.setItem("roomPayments", JSON.stringify(payments));
-        renderPayments();
-      }
-
-      // initial render
-      renderPayments();
-    </script>
+    <script src="/assets/js/admin-payment-verification.js" defer></script>
   </body>
 </html>

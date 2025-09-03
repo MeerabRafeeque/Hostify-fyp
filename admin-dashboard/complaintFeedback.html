@@ -81,7 +81,7 @@
                 <a href="profile.html"><i class="fa-solid fa-user"></i>Profile</a>
               </li>
               <li id="logoutBtn">
-                <a href="/student-public.html/login-all.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</li></a>
+                <a href="#"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
               </ul>
           </div>
         </header>
@@ -150,36 +150,7 @@
     <script src="/assets/js/mobileView.js" defer></script>
     <script src="/assets/js/profile.js" defer></script>
     <script src="/assets/js/searchbar.js" defer></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-      const complaintTableBody = document.querySelector("#complaint-table tbody");
-
-      // complaints load from localstorage
-      let complaints = JSON.parse(localStorage.getItem("complaints")) || [];
-
-      // table fill
-      function renderComplaints() {
-        complaintTableBody.innerHTML = "";
-          complaints.forEach((comp, index) => {
-            const row = document.createElement("tr");
-
-            row.innerHTML = `
-              <td>CMP${index + 1}</td>
-              <td>${comp.studentName || "N/A"}</td>
-              <td>${comp.desc || "N/A"}</td>
-              <td>${comp.status || "Pending"}</td>
-              <td>${comp.handledBy || "Warden"}</td>
-              <td>${comp.wardenResponse || "No Feedback Yet"}</td>
-            `;
-
-            complaintTableBody.appendChild(row);
-          });
-        }
-
-        renderComplaints();
-      });
-
-    </script>
+    <script src="/assets/js/admin-complaints-feedback.js" defer></script>
 
   </body>
 </html>
