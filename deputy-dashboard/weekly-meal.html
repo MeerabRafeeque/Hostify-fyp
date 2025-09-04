@@ -13,7 +13,7 @@
   </head>
   <body>
     <div class="deputy-container">
-      <!-- Sidebar -->
+      <!-- sidebar -->
       <aside class="deputy-sideBar">
         <div class="logo"><span>Hostify</span></div>
         <nav>
@@ -42,7 +42,7 @@
         </nav>
       </aside>
 
-      <!-- Main content -->
+      <!-- main content -->
       <main class="deputy-mainContent">
         <header class="deputy-topHeader">
           <div class="deputy-searchbar">
@@ -60,7 +60,7 @@
                 >
               </li>
               <li id="logoutBtn">
-                <a href="/student-public.html/login-all.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</li></a>
+                <a href="#"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
             </ul>
           </div>
         </header>
@@ -80,8 +80,8 @@
                   <th>Updated Date</th>
                 </tr>
               </thead>
-              <tbody>
-                <!-- repeat dynamically -->
+              <tbody id="meal-menu-tbody">
+                <!-- meals will be loaded dynamically -->
               </tbody>
             </table>
           </section>
@@ -99,8 +99,8 @@
                   <th>Feedback</th>
                 </tr>
               </thead>
-              <tbody>
-                <!-- repeat dynamically -->
+              <tbody id="meal-feedback-tbody">
+                <!-- feedback will be loaded dynamically -->
               </tbody>
             </table>
           </section>
@@ -112,8 +112,7 @@
     <script src="/assets/js/logout.js" defer></script>
     <script src="/assets/js/mobileView.js" defer></script>
     <script src="/assets/js/profile.js" defer></script>
-    
-    <script src="/assets/js/searchbar.js"></script>
-    <script src="/assets/js/deputy-meal-view.js"></script>
+    <script src="/assets/js/searchbar.js" defer></script>
+    <script src="/assets/js/deputy-meal-view.js" defer></script>
   </body>
 </html>

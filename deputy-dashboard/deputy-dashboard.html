@@ -13,7 +13,7 @@
   </head>
   <body>
     <div class="deputy-container">
-      <!-- Sidebar -->
+      <!-- sidebar -->
       <aside class="deputy-sideBar">
         <div class="logo"><span>Hostify</span></div>
         <nav>
@@ -42,7 +42,7 @@
         </nav>
       </aside>
 
-      <!-- Main content -->
+      <!-- main content -->
       <main class="deputy-mainContent">
         <header class="deputy-topHeader">
           <div class="deputy-searchbar">
@@ -60,7 +60,7 @@
                 >
               </li>
               <li id="logoutBtn">
-                <a href="/student-public.html/login-all.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</li></a>
+                <a href="#"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
             </ul>
           </div>
         </header>
@@ -69,41 +69,57 @@
         <div class="deputy-dashboard">
           <div class="deputy-row">
             <!-- attendance card -->
-            <div class="deputy-card">
+            <div class="deputy-card clickable" onclick="openAttendanceTab()">
               <h3>Total Students</h3>
-              <p class="deputy-value">120</p>
+              <p class="deputy-value" id="total-students-count">0</p>
               <span class="deputy-note">For attendance marking</span>
             </div>
 
             <!-- meal menu card -->
-            <div class="deputy-card">
+            <div class="deputy-card clickable" onclick="openMealMenuTab()">
               <h3>Meal Menu</h3>
-              <p class="deputy-value">Updated 2 days ago</p>
+              <p class="deputy-value" id="meal-menu-last-updated">Not updated</p>
               <span class="deputy-note">View latest menu</span>
             </div>
 
             <!-- feedback card -->
-            <div class="deputy-card">
+            <div class="deputy-card clickable" onclick="openMealMenuTab()">
               <h3>New Feedbacks</h3>
-              <p class="deputy-value">5</p>
+              <p class="deputy-value" id="meal-feedback-count">0</p>
               <span class="deputy-note">Related to meals</span>
             </div>
           </div>
 
           <div class="deputy-row">
             <!-- notifications card -->
-            <div class="deputy-card">
+            <div class="deputy-card clickable" onclick="openNotificationsTab()">
               <h3>Notifications</h3>
-              <p class="deputy-value">3</p>
+              <p class="deputy-value" id="notifications-count">0</p>
               <span class="deputy-note">Includes new student alerts</span>
             </div>
 
             <!-- new students card -->
-            <div class="deputy-card">
+            <div class="deputy-card clickable" onclick="showNewStudentsModal()">
               <h3>New Students</h3>
-              <p class="deputy-value">2</p>
+              <p class="deputy-value" id="new-students-count">0</p>
               <span class="deputy-note">Add to attendance sheet</span>
             </div>
+          </div>
+        </div>
+
+        <!-- new students modal -->
+        <div class="modal" id="new-students-modal">
+          <div class="modalHeader">
+            <h3>New Students Added by Admin</h3>
+            <button class="closeModal">&times;</button>
+          </div>
+          <div class="modalBody">
+            <div id="new-students-list">
+              <!-- new students will be loaded here -->
+            </div>
+          </div>
+          <div class="modalFooter">
+            <button type="button" class="btn btn-secondary closeModal">Close</button>
           </div>
         </div>
       </main>

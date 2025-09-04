@@ -58,7 +58,7 @@
                 >
               </li>
               <li id="logoutBtn">
-                <a href="/student-public.html/login-all.html"
+                <a href="#"
                   ><i class="fa-solid fa-right-from-bracket"></i> Logout</a
                 >
               </li>
@@ -66,7 +66,7 @@
           </div>
         </header>
 
-        <!-- Add New Student -->
+        <!-- add new student -->
         <section class="deputy-add-student-section">
           <h2>Add New Student</h2>
           <form id="add-student-form">
@@ -86,29 +86,33 @@
           </form>
         </section>
 
-        <!-- Attendance Table -->
+        <!-- attendance table -->
         <div class="deputy-attendance-container">
           <section class="deputy-attendance-section">
             <h2>Mark Attendance</h2>
+            <div class="date-selector">
+              <label for="attendance-date">Select Date:</label>
+              <input type="date" id="attendance-date" />
+              <button id="load-attendance" class="btn btn-primary">Load Attendance</button>
+            </div>
             <table class="deputy-attendance-table">
               <thead>
                 <tr>
                   <th>Student ID</th>
                   <th>Student Name</th>
-                  <th>Morning</th>
-                  <th>Evening</th>
-                  <th>Night</th>
-                  <th>Marked By</th>
-                  <th>Date</th>
-                  <th>Monthly Summary</th>
+                  <th>Morning Shift</th>
+                  <th>Evening Shift</th>
+                  <th>Night Shift</th>
+                  <th>Summary</th>
+                  <th>Remarks</th>
                 </tr>
               </thead>
               <tbody id="attendance-tbody"></tbody>
             </table>
-            <button id="save-attendance">Save Attendance</button>
+            <button id="save-attendance" class="btn btn-success">Save Attendance</button>
           </section>
 
-          <!-- Penalty Table -->
+          <!-- penalty table -->
           <section class="deputy-penalty-section">
             <h2>Penalty List (Night Shift)</h2>
             <table class="deputy-penalty-table">
@@ -129,225 +133,7 @@
       </main>
     </div>
 
-    <script>
-      let students = JSON.parse(localStorage.getItem("students")) || [
-        { id: "STU001", name: "Ali Khan" },
-        { id: "STU002", name: "Fatima Noor" },
-        { id: "STU003", name: "Hamza Ali" },
-      ];
-
-      let attendanceRecords =
-        JSON.parse(localStorage.getItem("attendanceRecords")) || [];
-      let penalties = JSON.parse(localStorage.getItem("penalties")) || [];
-
-      const attendanceTbody = document.getElementById("attendance-tbody");
-      const penaltyTbody = document.getElementById("penalty-tbody");
-
-      // Render Penalty Table
-      function renderPenaltyTable() {
-        penaltyTbody.innerHTML = "";
-        students.forEach((student) => {
-          const studentPenalties = penalties.filter(
-            (p) => p.student_id === student.id
-          );
-          studentPenalties.forEach((p) => {
-            const monthlyTotal = studentPenalties.reduce(
-              (sum, r) => sum + r.penalty_amount,
-              0
-            );
-            const tr = document.createElement("tr");
-            tr.innerHTML = `
-        <td>${student.id}</td>
-        <td>${student.name}</td>
-        <td>${p.date}</td>
-        <td>${p.penalty_amount}</td>
-        <td>${p.marked_by}</td>
-        <td>${monthlyTotal}</td>
-      `;
-            penaltyTbody.appendChild(tr);
-          });
-        });
-      }
-
-      // Remove Night Penalty & Row
-      function removeNightPenalty(student_id) {
-        const index = penalties.findIndex((p) => p.student_id === student_id);
-        if (index !== -1) {
-          penalties.splice(index, 1);
-          localStorage.setItem("penalties", JSON.stringify(penalties));
-          renderPenaltyTable();
-        }
-      }
-
-      // Add Attendance Row
-      function addAttendanceRow(student) {
-        const tr = document.createElement("tr");
-        const today = new Date().toISOString().split("T")[0];
-
-        tr.innerHTML = `
-    <td>${student.id}</td>
-    <td>${student.name}</td>
-    <td>
-      <select data-shift="Morning">
-        <option>Present</option>
-        <option>Absent</option>
-        <option>Leave</option>
-        <option>Holiday</option>
-        <option selected>Null</option>
-      </select>
-    </td>
-    <td>
-      <select data-shift="Evening">
-        <option>Present</option>
-        <option>Absent</option>
-        <option>Leave</option>
-        <option>Holiday</option>
-        <option selected>Null</option>
-      </select>
-    </td>
-    <td>
-      <select data-shift="Night">
-        <option>Present</option>
-        <option>Absent</option>
-        <option>Leave</option>
-        <option>Holiday</option>
-        <option selected>Null</option>
-      </select>
-    </td>
-    <td>
-      <select>
-        <option>Deputy RT 1</option>
-        <option>Deputy RT 2</option>
-      </select>
-    </td>
-    <td><input type="date" value="${today}"></td>
-    <td class="summary-cell">Present:0, Absent:0, Leave:0, Holiday:0</td>
-  `;
-
-        const nightSelect = tr.querySelector("select[data-shift='Night']");
-        const eveningSelect = tr.querySelector("select[data-shift='Evening']");
-        const morningSelect = tr.querySelector("select[data-shift='Morning']");
-        const markedBySelect = tr.querySelector("td:nth-child(6) select");
-        const summaryCell = tr.querySelector(".summary-cell");
-
-        // summary count
-        function updateSummary() {
-          const morning = morningSelect.value;
-          const evening = eveningSelect.value;
-          const night = nightSelect.value;
-
-          let present = 0,
-            absent = 0,
-            leave = 0,
-            holiday = 0;
-
-          // ✅ Rule 1 & 2: Morning + Evening OR Morning + Night → 1 Present
-          if (
-            (morning === "Present" && evening === "Present") ||
-            (morning === "Present" && night === "Present")
-          ) {
-            present = 1;
-          }
-          // ✅ Rule 3 & 4: Morning + Evening OR Morning + Night → 1 Absent
-          else if (
-            (morning === "Absent" && evening === "Absent") ||
-            (morning === "Absent" && night === "Absent")
-          ) {
-            absent = 1;
-          }
-          // ✅ Rule 5: At least 2 shifts Leave → 1 Leave
-          else if (
-            [morning, evening, night].filter((v) => v === "Leave").length >= 2
-          ) {
-            leave = 1;
-          }
-          // ✅ Rule 6: At least 2 shifts Holiday → 1 Holiday
-          else if (
-            [morning, evening, night].filter((v) => v === "Holiday").length >= 2
-          ) {
-            holiday = 1;
-          }
-
-          summaryCell.textContent = `Present:${present}, Absent:${absent}, Leave:${leave}, Holiday:${holiday}`;
-        }
-
-        // Disable Night if Evening Present
-        function updateNightDisabled() {
-          if (eveningSelect.value === "Present") {
-            nightSelect.disabled = true;
-            nightSelect.value = "Null";
-          } else {
-            nightSelect.disabled = false;
-          }
-          updateSummary(); // also update summary when night disabled/enabled
-        }
-
-        // Event listeners
-        morningSelect.addEventListener("change", updateSummary);
-        eveningSelect.addEventListener("change", () => {
-          updateNightDisabled();
-          updateSummary();
-        });
-        nightSelect.addEventListener("change", () => {
-          updateSummary();
-
-          const status = nightSelect.value;
-          const markedBy = markedBySelect.value;
-
-          // Add/Update penalty if Present
-          if (status === "Present") {
-            if (!penalties.some((p) => p.student_id === student.id)) {
-              penalties.push({
-                student_id: student.id,
-                date: today,
-                penalty_amount: 500,
-                marked_by: markedBy,
-              });
-              localStorage.setItem("penalties", JSON.stringify(penalties));
-              renderPenaltyTable();
-            }
-          }
-
-          // Remove penalty & row if Null
-          if (status === "Null") {
-            removeNightPenalty(student.id);
-          }
-        });
-
-        // Initial setup
-        updateNightDisabled();
-        updateSummary();
-
-        attendanceTbody.appendChild(tr);
-      }
-
-      // Render existing students
-      students.forEach((student) => addAttendanceRow(student));
-      renderPenaltyTable();
-
-      // Add New Student
-      const addStudentForm = document.getElementById("add-student-form");
-      addStudentForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-
-        const newName = document.getElementById("student-name").value.trim();
-        const newId = document.getElementById("student-id").value.trim();
-        if (!newId || !newName) return;
-
-        if (students.some((s) => s.id === newId)) {
-          alert("Student ID already exists!");
-          return;
-        }
-
-        const newStudent = { id: newId, name: newName };
-        students.push(newStudent);
-        localStorage.setItem("students", JSON.stringify(students));
-
-        addAttendanceRow(newStudent);
-        addStudentForm.reset();
-      });
-    </script>
-
+    <script src="/assets/js/deputy-attendance.js" defer></script>
     <script src="/assets/js/nav.js" defer></script>
     <script src="/assets/js/logout.js" defer></script>
     <script src="/assets/js/mobileView.js" defer></script>
