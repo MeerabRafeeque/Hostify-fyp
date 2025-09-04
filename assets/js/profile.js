@@ -2,21 +2,29 @@ document.addEventListener("DOMContentLoaded", () => {
   const fullNameEl = document.getElementById("fullName");
   const userRoleEl = document.getElementById("userRole");
 
-  if (fullNameEl && userRoleEl) {
-    const user = {
-      fullName: "John Doe",
-      userId: "U1001",
-      contact: "0300-1234567",
-      password: "password123",
-      role: "role", // other roles: student, admin, mess, deputy
-      position: "role",
-    };
+  // --- get current logged-in user ---
+  // replace with actual backend or session check
+  const currentUserId = localStorage.getItem("currentUserId");
+  const users = JSON.parse(localStorage.getItem("users") || "[]");
+  const user = users.find(u => u.id === currentUserId) || {
+    fullName: "John Doe",
+    userId: "U1001",
+    contact: "0300-1234567",
+    password: "password123",
 
+    // student/admin/mess/deputy/warden
+    role: "role", 
+    position: "role",
+  };
+
+  // --- populate profile fields ---
+  if (fullNameEl && userRoleEl) {
     fullNameEl.textContent = user.fullName;
-    userRoleEl.textContent = user.role.charAt(0).toUpperCase() + user.role.slice(1);
+    userRoleEl.textContent =
+      user.role.charAt(0).toUpperCase() + user.role.slice(1);
 
     document.getElementById("fullNameInput").value = user.fullName;
-    document.getElementById("userIdInput").value = user.userId;
+    document.getElementById("userIdInput").value = user.id || user.userId;
     document.getElementById("contactInput").value = user.contact;
     document.getElementById("passwordInput").value = user.password;
 
@@ -27,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Toggle password visibility
+  // toggle password visibility
   const togglePasswordBtn = document.getElementById("togglePassword");
   if (togglePasswordBtn) {
     togglePasswordBtn.addEventListener("click", () => {
@@ -42,14 +50,32 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Save updates
+  // save updates
   const saveBtn = document.getElementById("saveProfile");
   if (saveBtn) {
     saveBtn.addEventListener("click", () => {
-      const updatedContact = document.getElementById("contactInput").value;
+      const updatedName = document.getElementById("fullNameInput").value.trim();
+      const updatedContact = document.getElementById("contactInput").value.trim();
       const updatedPassword = document.getElementById("passwordInput").value;
-      console.log("Saving:", { updatedContact, updatedPassword });
-      alert("Profile updated successfully!");
+
+      if (!updatedName || !updatedPassword) {
+        alert("Name and password cannot be empty!");
+        return;
+      }
+
+      // update localStorage
+      const userIndex = users.findIndex(u => u.id === user.id);
+      if (userIndex !== -1) {
+        users[userIndex].fullName = updatedName;
+        users[userIndex].contact = updatedContact;
+        users[userIndex].password = updatedPassword;
+        localStorage.setItem("users", JSON.stringify(users));
+
+        alert("Profile updated successfully!");
+        
+        // Refresh displayed data
+        fullNameEl.textContent = updatedName;
+      }
     });
   }
 });

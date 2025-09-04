@@ -1,11 +1,15 @@
-// Select all sidebar items
+// select all sidebar items
 const sidebarItems = document.querySelectorAll("aside nav ul li");
 
-sidebarItems.forEach(item => {
+sidebarItems.forEach((item) => {
   item.addEventListener("click", () => {
-    const targetPage = item.getAttribute("data-page"); // custom attribute for page link
-    if(targetPage) {
-      window.location.href = targetPage; // open the target page
+
+    // custom attribute for page link
+    const targetPage = item.getAttribute("data-page"); 
+    if (targetPage) {
+
+      // open the target page
+      window.location.href = targetPage; 
     }
   });
 });

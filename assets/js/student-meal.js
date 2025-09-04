@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Load meals from localStorage
+  // load meals from localStorage
   function renderStudentMeals() {
     const tbody = document.getElementById("studentMealTable");
     tbody.innerHTML = "";

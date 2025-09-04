@@ -1,210 +1,182 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("roomApplicationForm");
-  const roomType = document.getElementById("roomType");
-  const paymentMethod = document.getElementById("paymentMethod");
-  const transactionId = document.getElementById("transactionId");
-  const screenshot = document.getElementById("screenshot");
-  const confirmationMsg = document.getElementById("confirmationMsg");
+// room application functions
+let studentData = {};
 
-  // New fields
-  const fullName = document.getElementById("fullName");
-  const contact = document.getElementById("contact");
-  const dob = document.getElementById("dob");
-  const regDate = document.getElementById("regDate");
-
-  // Auto set registration date (today) & disable editing
-  const today = new Date().toISOString().split("T")[0];
-  regDate.value = today;
-  regDate.readOnly = true;
-
-  // Helper under paymentMethod
-  const methodHelp = document.createElement("div");
-  methodHelp.id = "methodHelp";
-  methodHelp.style.fontSize = "12px";
-  methodHelp.style.color = "#555";
-  methodHelp.style.marginTop = "6px";
-  paymentMethod.parentElement.appendChild(methodHelp);
-
-  // Update hints
-  paymentMethod.addEventListener("change", () => {
-    transactionId.value = "";
-    confirmationMsg.style.display = "none";
-    const m = paymentMethod.value;
-
-    if (m === "easypaisa") {
-      methodHelp.textContent =
-        "Accepted: Easypaisa Transaction ID (10–16 digits, optionally starts with EP). Cards are NOT accepted.";
-      transactionId.placeholder = "e.g. EP1234567890 or 123456789012";
-    } else if (m === "jazzcash") {
-      methodHelp.textContent =
-        "Accepted: JazzCash Transaction ID (10–16 digits, optionally starts with JC). Cards are NOT accepted.";
-      transactionId.placeholder = "e.g. JC1234567890";
-    } else if (m === "ubl") {
-      methodHelp.textContent =
-        "Accepted: UBL bank transfer reference (8–20 alphanumeric, may start with UBL). Cards are NOT accepted.";
-      transactionId.placeholder = "e.g. UBL12345678";
-    } else {
-      methodHelp.textContent = "";
-      transactionId.placeholder = "Enter Transaction ID from your receipt";
-    }
-  });
-
-  // TID cleanup
-  transactionId.addEventListener("input", () => {
-    transactionId.value = transactionId.value.replace(/\s+/g, "").toUpperCase();
-  });
-
-  // Looks-like-card check
-  function looksLikeCardNumber(s) {
-    if (!/^\d{13,19}$/.test(s)) return false;
-    let sum = 0,
-      alt = false;
-    for (let i = s.length - 1; i >= 0; i--) {
-      let n = parseInt(s[i], 10);
-      if (alt) {
-        n *= 2;
-        if (n > 9) n -= 9;
-      }
-      sum += n;
-      alt = !alt;
-    }
-    return sum % 10 === 0;
-  }
-
-  // Method-specific TID patterns
-  function tidMatchesMethod(method, tid) {
-    switch (method) {
-      case "easypaisa":
-        return /^(EP)?\d{10,16}$/i.test(tid);
-      case "jazzcash":
-        return /^(JC)?\d{10,16}$/i.test(tid);
-      case "ubl":
-        return /^((UBL|UB)[A-Z0-9]{6,18}|[A-Z0-9]{8,20})$/i.test(tid);
-      default:
-        return false;
-    }
-  }
-
-  // Screenshot validation
-  function validateScreenshot(input) {
-    if (!input.files || input.files.length === 0) {
-      return { ok: false, msg: "Please upload the payment screenshot." };
-    }
-    const f = input.files[0];
-    if (!/^image\//.test(f.type)) {
-      return {
-        ok: false,
-        msg: "Only image files are allowed (JPG, PNG, WEBP).",
-      };
-    }
-    if (f.size > 5 * 1024 * 1024) {
-      return {
-        ok: false,
-        msg: "Image is too large. Maximum allowed size is 5 MB.",
-      };
-    }
-    if (!/\.(jpe?g|png|webp)$/i.test(f.name)) {
-      return { ok: false, msg: "Allowed extensions: .jpg, .jpeg, .png, .webp" };
-    }
-    return { ok: true };
-  }
-
-  // Full name validation
-  function validateName(name) {
-    // must contain at least one letter + not only digits/symbols/spaces
-    return /^(?=.*[A-Za-z])[A-Za-z0-9 .,'-]+$/.test(name);
-  }
-
-  // Contact validation
-  function validateContact(c) {
-    return /^[0-9+\-]{7,15}$/.test(c);
-  }
-
-  // DOB validation (must be >= 16 years)
-  function validateDOB(dateStr) {
-    const dob = new Date(dateStr);
-    if (isNaN(dob)) return false;
-    const today = new Date();
-    const age =
-      today.getFullYear() -
-      dob.getFullYear() -
-      (today < new Date(today.getFullYear(), dob.getMonth(), dob.getDate())
-        ? 1
-        : 0);
-    return age >= 16;
-  }
-
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    confirmationMsg.style.display = "none";
-
-    // Name
-    if (!validateName(fullName.value.trim())) {
-      alert(
-        "Please enter a valid full name (letters required, not only numbers/symbols)."
-      );
-      return;
-    }
-
-    // Contact
-    if (!validateContact(contact.value.trim())) {
-      alert("Please enter a valid contact number (digits, + or - allowed).");
-      return;
-    }
-
-    // DOB
-    if (!validateDOB(dob.value)) {
-      alert("You must be at least 16 years old to register.");
-      return;
-    }
-
-    // Room type
-    const selectedRoom = roomType.value;
-    if (!selectedRoom) {
-      alert("Please select a room type.");
-      return;
-    }
-
-    // Payment
-    const method = paymentMethod.value;
-    const tid = transactionId.value.trim();
-    const fileCheck = validateScreenshot(screenshot);
-
-    if (!method) {
-      alert("Please select a payment method.");
-      return;
-    }
-    if (!tid) {
-      alert("Please enter the Transaction ID from your receipt.");
-      return;
-    }
-    if (looksLikeCardNumber(tid)) {
-      alert(
-        "Card numbers are not accepted. Enter the official transaction/reference ID."
-      );
-      return;
-    }
-    if (!tidMatchesMethod(method, tid)) {
-      alert(
-        "Transaction ID format does not match the selected payment method."
-      );
-      return;
-    }
-    if (!fileCheck.ok) {
-      alert(fileCheck.msg);
-      return;
-    }
-
-    // ✅ All good
-    const shortTid =
-      tid.length > 6 ? tid.slice(0, 3) + "…" + tid.slice(-3) : tid;
-    confirmationMsg.textContent = `Your application has been submitted. Payment (${method.toUpperCase()}) with reference ${shortTid} will be verified by admin.`;
-    confirmationMsg.style.display = "block";
-
-    // Reset form EXCEPT regDate
-    form.reset();
-    regDate.value = today;
-    regDate.readOnly = true;
-    methodHelp.textContent = "";
-  });
+// load data on page load
+document.addEventListener('DOMContentLoaded', function() {
+    loadStudentData();
+    setupEventListeners();
 });
+
+// load student data
+async function loadStudentData() {
+    try {
+        const response = await fetch('/api/students/me/', {
+            credentials: 'include'
+        });
+        if (response.ok) {
+            studentData = await response.json();
+        } else {
+            showNotification('Failed to load student data', 'error');
+        }
+    } catch (error) {
+        console.error('Error loading student data:', error);
+        showNotification('Error loading student data', 'error');
+    }
+}
+
+// setup event listeners
+function setupEventListeners() {
+    const form = document.getElementById('roomApplicationForm');
+    const paymentMethod = document.getElementById('paymentMethod');
+    const paymentInfo = document.getElementById('paymentInfo');
+
+    if (form) {
+        form.addEventListener('submit', handleFormSubmit);
+    }
+
+    if (paymentMethod) {
+        paymentMethod.addEventListener('change', function() {
+            showPaymentInfo(this.value);
+        });
+    }
+}
+
+// show payment information when method is selected
+function showPaymentInfo(method) {
+    const paymentInfo = document.getElementById('paymentInfo');
+    
+    const paymentNumbers = {
+        easypaisa: '0300-1234567',
+        jazzcash: '0311-7654321',
+        ubl: 'UBL Account: 0123456789'
+    };
+
+    if (method && paymentNumbers[method]) {
+        paymentInfo.style.display = 'block';
+        paymentInfo.innerHTML = `
+            <div class="payment-info">
+                <i class="fa-solid fa-info-circle"></i>
+                Send your payment to: <strong>${paymentNumbers[method]}</strong>
+                <br>
+                <small>Please keep your payment receipt for verification.</small>
+            </div>
+        `;
+    } else {
+        paymentInfo.style.display = 'none';
+        paymentInfo.innerHTML = '';
+    }
+}
+
+// handle form submission
+async function handleFormSubmit(event) {
+    event.preventDefault();
+
+    const roomType = document.getElementById('roomType').value;
+    const paymentMethod = document.getElementById('paymentMethod').value;
+    const transactionId = document.getElementById('transactionId').value;
+    const screenshot = document.getElementById('screenshot').files[0];
+
+    if (!roomType || !paymentMethod || !transactionId || !screenshot) {
+        showNotification('Please fill in all fields', 'error');
+      return;
+    }
+
+    // validate file size (max 5MB)
+    if (screenshot.size > 5 * 1024 * 1024) {
+        showNotification('Screenshot file size must be less than 5MB', 'error');
+      return;
+    }
+
+    // validate file type
+    if (!screenshot.type.startsWith('image/')) {
+        showNotification('Please upload an image file', 'error');
+      return;
+    }
+
+    try {
+
+        // create FormData for file upload
+        const formData = new FormData();
+        formData.append('room_type', roomType);
+        formData.append('payment_method', paymentMethod);
+        formData.append('transaction_id', transactionId);
+        formData.append('payment_screenshot', screenshot);
+
+        const response = await fetch('/api/room-applications/', {
+            method: 'POST',
+            credentials: 'include',
+            body: formData
+        });
+
+        if (response.ok) {
+            const result = await response.json();
+            showNotification('Room application submitted successfully! Payment will be verified by admin.', 'success');
+            
+            // reset form
+            event.target.reset();
+            document.getElementById('paymentInfo').style.display = 'none';
+            
+            // show confirmation message
+            const confirmationMsg = document.getElementById('confirmationMsg');
+            if (confirmationMsg) {
+                confirmationMsg.textContent = 'Your application has been submitted. Payment will be verified by admin.';
+                confirmationMsg.style.display = 'block';
+                
+                // hide confirmation after 5 seconds
+                setTimeout(() => {
+                    confirmationMsg.style.display = 'none';
+                }, 5000);
+            }
+        } else {
+            const error = await response.json();
+            showNotification('Failed to submit application: ' + JSON.stringify(error), 'error');
+        }
+    } catch (error) {
+        console.error('Error submitting application:', error);
+        showNotification('Error submitting application', 'error');
+    }
+}
+
+// get CSRF token
+function getCSRFToken() {
+
+    // first try to get from hidden input
+    const token = document.querySelector('[name=csrfmiddlewaretoken]');
+    if (token) {
+        return token.value;
+    }
+    
+    // if not found, try to get from cookie
+    const name = 'csrftoken';
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+// show notification
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show`;
+    notification.innerHTML = `
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    `;
+
+    const container = document.querySelector('.apply-room') || document.body;
+    container.insertBefore(notification, container.firstChild);
+
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.remove();
+        }
+    }, 5000);
+}

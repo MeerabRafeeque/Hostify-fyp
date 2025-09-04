@@ -1,18 +1,20 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // mess-meal.js
 
-  const STORAGE_MEAL = "weeklyMealData"; // meals
-  const STORAGE_FEEDBACK = "mealFeedbacks"; // feedbacks (students se)
+  // meals
+  const STORAGE_MEAL = "weeklyMealData"; 
 
-  // Selectors
+  // feedbacks (from students)
+  const STORAGE_FEEDBACK = "mealFeedbacks"; 
+
+  // selectors
   const mealForm = document.querySelector(".mess-meal-form");
   const mealTableBody = document.querySelector(".mess-meal-table tbody");
 
-  // --- Save meal ---
+  // save meal 
   function saveMeal(meal) {
     let allMeals = JSON.parse(localStorage.getItem(STORAGE_MEAL) || "[]");
 
-    // Check if same Day + Meal already exists → update
+    // check if same day + meal already exists → update
     const index = allMeals.findIndex(
       (m) => m.day === meal.day && m.meal === meal.meal
     );
@@ -25,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem(STORAGE_MEAL, JSON.stringify(allMeals));
   }
 
-  // --- Load meals ---
+  // load meals
   function loadMeals() {
     let allMeals = JSON.parse(localStorage.getItem(STORAGE_MEAL) || "[]");
     mealTableBody.innerHTML = "";
@@ -43,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // --- Form submit ---
+  // form submit
   mealForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -64,6 +66,6 @@ document.addEventListener("DOMContentLoaded", () => {
     mealForm.reset();
   });
 
-  // --- Init ---
+  // initialization
   document.addEventListener("DOMContentLoaded", loadMeals);
 });

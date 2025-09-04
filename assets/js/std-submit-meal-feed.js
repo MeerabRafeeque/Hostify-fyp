@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Save feedback
+    // save feedback
     const feedbacks = JSON.parse(localStorage.getItem("studentFeedbacks")) || [];
     feedbacks.push({ name, id, day, meal, feedback });
     localStorage.setItem("studentFeedbacks", JSON.stringify(feedbacks));
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     this.reset();
   });
 
-  // Render meals
+  // render meals
   const tbody = document.getElementById("studentMealTable");
   const meals = JSON.parse(localStorage.getItem("mealPlan")) || [];
   tbody.innerHTML = meals.length

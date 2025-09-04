@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     form.reset();
   });
 
-  // Render meals
+  // render meals
   function renderStudentMeals() {
     const meals = JSON.parse(localStorage.getItem("mealPlan")) || [];
     const tbody = document.getElementById("studentMealTable");
