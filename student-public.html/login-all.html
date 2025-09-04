@@ -90,25 +90,27 @@
   <body class="login-body">
     <div class="login-container">
       <h2>Login</h2>
-      <form>
+      <form id="loginForm">
+        <input type="hidden" name="csrfmiddlewaretoken" id="csrfToken">
         <div class="form-group">
           <label for="email">Email/Username</label>
           <input
             type="text"
             id="email"
+            name="email"
             placeholder="Enter your email or username"
             required
           />
         </div>
         <div class="form-group">
           <label for="role">Select your role</label>
-          <select>
-            <option value="Role">--Role--</option>
-            <option value="Studet">Student</option>
-            <option value="Admin">Admin</option>
-            <option value="Warden">Warden</option>
-            <option value="Deputy RT">Deputy RT</option>
-            <option value="Mess Staff">Mess Staff</option>
+          <select id="role" name="role">
+            <option value="">--Role--</option>
+            <option value="student">Student</option>
+            <option value="admin">Admin</option>
+            <option value="warden">Warden</option>
+            <option value="deputy_rt">Deputy RT</option>
+            <option value="mess_staff">Mess Staff</option>
           </select>
         </div>
         <div class="form-group">
@@ -116,6 +118,7 @@
           <input
             type="password"
             id="password"
+            name="password"
             placeholder="Enter your password"
             required
           />
@@ -130,6 +133,35 @@
         >Forgot password!</a
       >
     </div>
+    <script>
+      // add CSRF token to the page
+      function getCSRFToken() {
+        const cookies = document.cookie.split(';');
+        for (let cookie of cookies) {
+          const [name, value] = cookie.trim().split('=');
+          if (name === 'csrftoken') {
+            return value;
+          }
+        }
+        return '';
+      }
+      
+      // function to toggle password visibility
+      function togglePassword() {
+        const passwordField = document.getElementById("password");
+        const toggleBtn = document.querySelector(".toggle-password i");
+        
+        if (passwordField.type === "password") {
+          passwordField.type = "text";
+          toggleBtn.classList.remove("fa-eye");
+          toggleBtn.classList.add("fa-eye-slash");
+        } else {
+          passwordField.type = "password";
+          toggleBtn.classList.remove("fa-eye-slash");
+          toggleBtn.classList.add("fa-eye");
+        }
+      }
+    </script>
     <script src="/assets/js/user_login.js" defer></script>
   </body>
 </html>

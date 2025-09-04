@@ -133,10 +133,12 @@
   </head>
   <body class="beds">
     <div class="page-container">
-      <!-- Student Registration Form -->
+
+      <!-- student registration form -->
       <div class="register-container">
         <h1>Student Registration</h1>
         <form id="register-form">
+
           <!-- full name -->
           <div class="register-form-group">
             <label for="fullName">Full Name</label>
@@ -245,6 +247,7 @@
       </div>
     </div>
     <script>
+
       // password show/hide toggle
       function togglePassword() {
         const passField = document.getElementById("password");
@@ -284,7 +287,9 @@
       document
         .getElementById("register-form")
         .addEventListener("submit", function (e) {
-          e.preventDefault(); // prevent actual submit
+
+          // prevent actual submit
+          e.preventDefault(); 
 
           let fullName = document.getElementById("fullName").value.trim();
           let email = document.getElementById("email").value.trim();
