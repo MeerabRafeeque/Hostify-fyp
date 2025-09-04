@@ -1,0 +1,109 @@
+/* universal resp css */
+* {
+  box-sizing: border-box;
+}
+
+/* for 1024px & below */
+@media (max-width: 1024px) {
+  body {
+    font-size: 15px;
+  }
+
+  .tab-content, .panel, .formContainer, .attendancePanel, .notificationPanel {
+    padding: 10px;
+  }
+
+  .formGroup, .attendanceForm, .complaintForm, .roomForm {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .formGroup input,
+  .formGroup select,
+  .formGroup textarea,
+  button {
+    width: 100%;
+  }
+}
+
+/* tabs and small devices & below */
+@media (max-width: 768px) {
+  h1, h2, h3 {
+    font-size: 18px;
+  }
+
+  table {
+    font-size: 14px;
+  }
+
+  /* tables scroll */
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  table {
+    min-width: 600px; 
+  }
+
+  
+  .nav-tabs {
+    display: none; 
+  }
+}
+
+ /*  mobile devices & below */
+@media (max-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+
+  .btn, .btn-primary, .btn-danger, .btnSubmit {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  h1, h2, h3 {
+    font-size: 16px;
+  }
+
+  .formGroup label {
+    font-size: 14px;
+  }
+}
+
+/* hide menu toggle on deskt */
+.menu-toggle {
+  display: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  /* Show hamburger */
+  .menu-toggle {
+    display: block;
+    color: #2c3e50;
+    margin-right: 10px;
+  }
+
+  /* sidebar hidden by default */
+  .warden-sideBar {
+    position: fixed;
+    left: -300px;
+    top: 0;
+    height: 100%;
+    transition: left 0.3s ease;
+    z-index: 1000;
+  }
+
+  /* sidebar visible when active */
+  .warden-sideBar.active {
+    left: 0;
+  }
+
+  /* push content when sidebar shows */
+  .mainContent {
+    flex: 1;
+    margin-left: 0;
+  }
+}
