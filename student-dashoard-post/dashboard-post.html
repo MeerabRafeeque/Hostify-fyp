@@ -51,16 +51,16 @@
           >
         </li>
         <li id="logoutBtn">
-          <a href="/student-public.html/login.html"
+          <a href="#"
             ><i class="fa-solid fa-right-from-bracket"></i> Logout</a
           >
         </li>
       </ul>
     </aside>
 
-    <!-- Main Content -->
+    <!-- main content -->
     <main class="post-content">
-      <!-- Top Bar -->
+      <!-- top bar -->
       <header class="post-topbar">
         <h1>Welcome, Student</h1>
         <span
@@ -74,15 +74,11 @@
           <i class="fa-solid fa-unlock"></i> Full Access
         </span>
       </header>
-      <!-- <div>
-        <h3>Welcome <span id="student-name"></span></h3>
-        <p>Your Room: <strong id="student-room"></strong></p>
-      </div> -->
 
       <!-- status section -->
       <section class="post-status">
         <span class="chip ok"
-          ><i class="fa-solid fa-bed"></i> Room: Assigned (A-203)</span
+          ><i class="fa-solid fa-bed"></i> Room: Assigned</span
         >
         <span class="chip ok"
           ><i class="fa-solid fa-credit-card"></i> Payment: Complete</span
@@ -93,32 +89,14 @@
       <section class="post-card">
         <h3>Recent Notifications</h3>
         <div class="post-note">
-          <span class="post-badge success"
-            ><i class="fa-solid fa-check-circle"></i> Success</span
-          >
-          <span
-            >Your room has been allocated successfully. Welcome to
-            Hostify!</span
-          >
-        </div>
-        <div class="post-note">
           <span class="post-badge info"
-            ><i class="fa-solid fa-bell"></i> Reminder</span
+            ><i class="fa-solid fa-info-circle"></i> Loading...</span
           >
-          <span>Monthly hostel dues are payable by the 5th of each month.</span>
-        </div>
-        <div class="post-note">
-          <span class="post-badge warn"
-            ><i class="fa-solid fa-utensils"></i> Meal Update</span
-          >
-          <span
-            >New weekly meal menu has been posted. Don’t forget to give your
-            feedback.</span
-          >
+          <span>Loading notifications...</span>
         </div>
       </section>
 
-      <!-- Quick Links -->
+      <!-- quick links -->
       <section class="post-card">
         <h3>Quick Links</h3>
         <div class="locked-grid">
@@ -138,14 +116,7 @@
       </section>
     </main>
 
-    <script>
-      document
-        .getElementById("logoutBtn")
-        .addEventListener("click", function () {
-          alert("You have been logged out.");
-          window.location.href = "login.html"; // redirect to login page
-        });
-    </script>
-    <script src="/assets/js/std-fetch-room.js"></script>
+    <script src="/assets/js/logout.js" defer></script>
+    <script src="/assets/js/student-post-dashboard.js"></script>
   </body>
 </html>

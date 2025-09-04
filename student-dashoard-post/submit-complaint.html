@@ -51,7 +51,7 @@
           >
         </li>
         <li id="logoutBtn">
-          <a href="/student-public.html/login.html"
+          <a href="#"
             ><i class="fa-solid fa-right-from-bracket"></i> Logout</a
           >
         </li>
@@ -59,176 +59,87 @@
     </aside>
 
     <!-- main content -->
-    
-        <main class="post-content">
-          <div class="post-topbar">
-            <h1>Submit Complaint</h1>
-            <span class="post-pill"
-              ><i class="fa-solid fa-circle-exclamation"></i> Complaint
-              Panel</span
-            >
+    <main class="post-content">
+      <div class="post-topbar">
+        <h1>Submit Complaint</h1>
+        <span class="post-pill"
+          ><i class="fa-solid fa-circle-exclamation"></i> Complaint
+          Panel</span
+        >
+      </div>
+
+      <div class="post-card">
+        <h3>Complaint Form</h3>
+        <form class="complaint-form" id="complaintForm">
+          <div class="form-group">
+            <label for="complaintType">Complaint Type</label>
+            <select id="complaintType" name="complaintType" required>
+              <option value="">Select Type</option>
+              <option value="Room">Room</option>
+              <option value="Mess">Mess</option>
+              <option value="Cleanliness">Cleanliness</option>
+              <option value="Other">Other</option>
+            </select>
           </div>
 
-          <div class="post-card">
-            <h3>Complaint Form</h3>
-            <form class="complaint-form" id="complaintForm">
-              <div class="form-group">
-                <label for="complaintType">Complaint Type</label>
-                <select id="complaintType" required>
-                  <option value="">Select Type</option>
-                  <option value="Room">Room</option>
-                  <option value="Mess">Mess</option>
-                  <option value="Cleanliness">Cleanliness</option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
-
-              <div class="form-group" id="otherTypeGroup" style="display: none">
-                <label for="otherType">Other Issue</label>
-                <input
-                  type="text"
-                  id="otherType"
-                  placeholder="Specify your issue"
-                />
-              </div>
-
-              <div class="form-group">
-                <label for="complaintDesc">Complaint Description</label>
-                <textarea
-                  id="complaintDesc"
-                  rows="4"
-                  placeholder="Write your complaint here..."
-                  required
-                ></textarea>
-              </div>
-
-              <div class="form-group">
-                <label for="submitDate">Submit Date</label>
-                <input type="text" id="submitDate" readonly />
-              </div>
-
-              <div class="form-group">
-                <label for="status">Status</label>
-                <input type="text" id="status" value="Pending" readonly />
-              </div>
-
-              <button type="submit" class="btn-submit">Submit Complaint</button>
-            </form>
+          <div class="form-group" id="otherTypeGroup" style="display: none">
+            <label for="otherType">Other Issue</label>
+            <input
+              type="text"
+              id="otherType"
+              name="otherType"
+              placeholder="Specify your issue"
+            />
           </div>
 
-          <!-- Complaint History -->
-<div class="post-card">
-  <h3>Your Complaints</h3>
-  <table class="complaint-table">
-    <thead>
-      <tr>
-        <th>Student ID</th>
-        <th>Student Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Date</th>
-        <th>Status</th>
-        <th>Warden Response</th>
-      </tr>
-    </thead>
-    <tbody id="complaintHistory">
-      <!-- Complaints will appear here -->
-    </tbody>
-  </table>
-</div>
+          <div class="form-group">
+            <label for="complaintDesc">Complaint Description</label>
+            <textarea
+              id="complaintDesc"
+              name="complaintDesc"
+              rows="4"
+              placeholder="Write your complaint here..."
+              required
+            ></textarea>
+          </div>
 
-<script>
-  // Auto-fill date
-  document.getElementById("submitDate").value =
-    new Date().toLocaleDateString();
+          <div class="form-group">
+            <label for="submitDate">Submit Date</label>
+            <input type="text" id="submitDate" readonly />
+          </div>
 
-  // Show "Other" input box
-  document
-    .getElementById("complaintType")
-    .addEventListener("change", function () {
-      document.getElementById("otherTypeGroup").style.display =
-        this.value === "Other" ? "block" : "none";
-    });
+          <div class="form-group">
+            <label for="status">Status</label>
+            <input type="text" id="status" value="Pending" readonly />
+          </div>
 
-  // Save complaint in localStorage
-  function saveComplaint(c) {
-    let all = JSON.parse(localStorage.getItem("complaints") || "[]");
-    all.push(c);
-    localStorage.setItem("complaints", JSON.stringify(all));
-  }
+          <button type="submit" class="btn-submit">Submit Complaint</button>
+        </form>
+      </div>
 
-  // Load complaints from localStorage
-  function loadComplaints() {
-    const all = JSON.parse(localStorage.getItem("complaints") || "[]");
-    const tbody = document.getElementById("complaintHistory");
-    tbody.innerHTML = "";
-    all.forEach((c) => {
-      const row = `
-        <tr>
-          <td>${c.studentId}</td>
-          <td>${c.studentName}</td>
-          <td>${c.type}</td>
-          <td>${c.desc}</td>
-          <td>${c.date}</td>
-          <td>${c.status}</td>
-          <td>${c.wardenResponse}</td>
-        </tr>
-      `;
-      tbody.insertAdjacentHTML("beforeend", row);
-    });
-  }
+      <!-- complaint history -->
+      <div class="post-card">
+        <h3>Your Complaints</h3>
+        <table class="complaint-table">
+          <thead>
+            <tr>
+              <th>Student ID</th>
+              <th>Student Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Warden Response</th>
+            </tr>
+          </thead>
+          <tbody id="complaintHistory">
+            <!-- complaints will be loaded dynamically -->
+          </tbody>
+        </table>
+      </div>
+    </main>
 
-  // Handle form submit
-  document
-    .getElementById("complaintForm")
-    .addEventListener("submit", function (e) {
-      e.preventDefault();
-
-      let type = document.getElementById("complaintType").value;
-      if (type === "Other") {
-        type = document.getElementById("otherType").value || "Other";
-      }
-      const desc = document.getElementById("complaintDesc").value.trim();
-      const date = document.getElementById("submitDate").value;
-      const status = "Pending";
-      const wardenResponse = "Awaiting response";
-
-      // ⚡️Student Info (Dummy Example — tum apne login/localStorage se replace karna)
-      const studentId = localStorage.getItem("studentId") || "STU001";
-      const studentName = localStorage.getItem("studentName") || "Ali Khan";
-
-      // Validation
-      if (desc === "") {
-        alert("Please provide a description.");
-        return;
-      }
-
-      const complaint = { 
-        studentId, 
-        studentName, 
-        type, 
-        desc, 
-        date, 
-        status, 
-        wardenResponse 
-      };
-      saveComplaint(complaint);
-      loadComplaints();
-
-      // Reset form
-      this.reset();
-      document.getElementById("otherTypeGroup").style.display = "none";
-      document.getElementById("submitDate").value =
-        new Date().toLocaleDateString();
-      document.getElementById("status").value = "Pending";
-    });
-
-  // Initial load
-  loadComplaints();
-</script>
-
-
-      </body>
-    </html>
+    <script src="/assets/js/logout.js" defer></script>
+    <script src="/assets/js/student-post-complaints.js"></script>
   </body>
 </html>

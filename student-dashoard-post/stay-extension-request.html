@@ -51,7 +51,7 @@
           >
         </li>
         <li id="logoutBtn">
-          <a href="/student-public.html/login.html"
+          <a href="#"
             ><i class="fa-solid fa-right-from-bracket"></i> Logout</a
           >
         </li>
@@ -67,7 +67,7 @@
         >
       </div>
 
-      <!-- Request Form -->
+      <!-- request form -->
       <div class="post-card">
         <h3>Extension Request Form</h3>
         <form class="extension-form" id="extensionForm">
@@ -102,6 +102,31 @@
           </div>
 
           <div class="form-group">
+            <label for="eduLevel">Education Level</label>
+            <select id="inter/BS" required>
+              <option value="">...Select Education Level...</option>
+              <option value="BS">BS</option>
+              <option value="Intermediate">Intermediate</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="eduLevel">Year/Semester</label>
+            <select id="year/Semester" required>
+              <option value="">...Select Year/Semester...</option>
+              <option value="1st year">1st year</option>
+              <option value="2nd year">2nd year</option>
+              <option value="1st semester">1st semester</option>
+              <option value="2nd semester">2nd semester</option>
+              <option value="3rd semester">3rd semester</option>
+              <option value="4th semester">4th semester</option>
+              <option value="5th semester">5th semester</option>
+              <option value="6th semester">6th semester</option>
+              <option value="7th semester">7th semester</option>
+              <option value="8th semester">8th semester</option>
+            </select>
+          </div>
+
+          <div class="form-group">
             <label for="duration">Extension Duration (in days)</label>
             <input
               type="number"
@@ -131,7 +156,7 @@
         </form>
       </div>
 
-      <!-- Request History -->
+      <!-- request history -->
       <div class="post-card">
         <h3>Your Extension Requests</h3>
         <table class="extension-table">
@@ -145,108 +170,18 @@
               <th>Reason</th>
               <th>Status</th>
               <th>Admin Response</th>
+              <th>Edu</th>
+              <th>Year/Sem</th>
             </tr>
           </thead>
           <tbody id="extensionHistory">
-            <!-- Requests will appear here -->
+            <!-- requests will appear here -->
           </tbody>
         </table>
       </div>
     </main>
 
-    <script>
-      // Auto-fill request ID and date on page load
-      function generateReqId() {
-        return "EXT-" + Math.floor(Math.random() * 10000);
-      }
-      document.getElementById("reqId").value = generateReqId();
-      document.getElementById("reqDate").value =
-        new Date().toLocaleDateString();
-
-      // Load requests from localStorage and show in table
-      function loadRequests() {
-        const all = JSON.parse(
-          localStorage.getItem("extensionRequests") || "[]"
-        );
-        const tbody = document.getElementById("extensionHistory");
-        tbody.innerHTML = "";
-        all.forEach((r) => {
-          const row = `
-      <tr>
-        <td>${r.reqId}</td>
-        <td>${r.name}</td>
-        <td>${r.studentId}</td>
-        <td>${r.date}</td>
-        <td>${r.duration} days</td>
-        <td>${r.reason}</td>
-        <td>${r.status}</td>
-        <td>${r.adminResponse}</td>
-      </tr>
-    `;
-          tbody.insertAdjacentHTML("beforeend", row);
-        });
-      }
-
-      // Save request to localStorage
-      function saveRequest(req) {
-        let all = JSON.parse(localStorage.getItem("extensionRequests") || "[]");
-        all.push(req);
-        localStorage.setItem("extensionRequests", JSON.stringify(all));
-      }
-
-      // Handle form submit
-      document
-        .getElementById("extensionForm")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
-
-          const name = document.getElementById("studentName").value.trim();
-          const id = document.getElementById("studentId").value.trim();
-          const duration = document.getElementById("duration").value.trim();
-          const reason = document.getElementById("reason").value.trim();
-
-          // Validation
-          if (!name) {
-            alert("Please enter your name.");
-            return;
-          }
-          if (!id) {
-            alert("Please enter your student ID.");
-            return;
-          }
-          if (!duration || isNaN(duration) || duration <= 0) {
-            alert("Please enter a valid duration.");
-            return;
-          }
-          if (!reason) {
-            alert("Please provide a reason.");
-            return;
-          }
-
-          const req = {
-            reqId: generateReqId(), // Generate fresh ID for every new request
-            name,
-            studentId: id,
-            date: new Date().toLocaleDateString(),
-            duration,
-            reason,
-            status: "Pending",
-            adminResponse: "Awaiting response",
-          };
-
-          saveRequest(req);
-          loadRequests();
-
-          // Reset form
-          this.reset();
-          document.getElementById("status").value = "Pending";
-        });
-
-      // Polling to check for admin updates every 12 hrs
-      setInterval(loadRequests, 12 * 60 * 60 * 1000);
-
-      // Initial load
-      loadRequests();
-    </script>
+    <script src="/assets/js/logout.js" defer></script>
+    <script src="/assets/js/student-post-extension.js"></script>
   </body>
 </html>
