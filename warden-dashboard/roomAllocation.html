@@ -64,7 +64,7 @@
                 <a href="/admin-dashboard/profile.html"><i class="fa-solid fa-user"></i>Profile</a>
               </li>
               <li id="logoutBtn">
-                <a href="/student-public.html/login-all.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                <a href="#"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
               </li>
             </ul>
           </div>
@@ -77,14 +77,19 @@
             <thead>
               <tr>
                 <th>Student</th>
+                <th>Student ID</th>
                 <th>Room No.</th>
                 <th>Room Type</th>
+                <th>Floor</th>
                 <th>Capacity</th>
+                <th>Occupied</th>
                 <th>Status</th>
               </tr>
             </thead>
-            <tbody>
-              <!-- data will come dynamically -->
+            <tbody id="roomAllocationTableBody">
+              <tr>
+                <td colspan="8" class="loading">Loading room allocation records...</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -96,33 +101,6 @@
     <script src="/assets/js/mobileView.js" defer></script>
     <script src="/assets/js/profile.js" defer></script>
     <script src="/assets/js/searchbar.js" defer></script>
-
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const tableBody = document.querySelector(".roomAllocationTable tbody");
-
-        // fetch data from localStorage
-        let allocations = JSON.parse(localStorage.getItem("roomAllocations")) || [];
-
-        if (allocations.length === 0) {
-          tableBody.innerHTML = `<tr><td colspan="5">No records available</td></tr>`;
-          return;
-        }
-
-        tableBody.innerHTML = "";
-
-        allocations.forEach((alloc) => {
-          const tr = document.createElement("tr");
-          tr.innerHTML = `
-            <td>${alloc.name}</td>
-            <td>${alloc.roomNo}</td>
-            <td>${alloc.roomType}</td>
-            <td>${alloc.capacity}</td>
-            <td><span class="status ${alloc.status.toLowerCase()}">${alloc.status}</span></td>
-          `;
-          tableBody.appendChild(tr);
-        });
-      });
-    </script>
+    <script src="/assets/js/warden-room-allocation.js"></script>
   </body>
 </html>

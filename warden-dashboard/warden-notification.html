@@ -65,7 +65,7 @@
                     <a href="/admin-dashboard/profile.html"><i class="fa-solid fa-user"></i>Profile</a>
                   </li>
                   <li id="logoutBtn">
-                    <a href="/student-public.html/login-all.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</li></a>
+                    <a href="#"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
                 </ul>                
             </div>
         </header>
@@ -74,73 +74,14 @@
         <div class="warden-tab-content" id="warden-notification">
           <div class="warden-notificationPanel">
             <h2>Notifications</h2>
-
-            <!-- room allocated -->
-            <div class="warden-notification" data-tab="room">
-              <div class="warden-notifyHeader">
-                <span>Room Allocated</span>
-                <small>14 Aug 2025</small>
+            <div id="notificationsContainer">
+              <div class="warden-notification">
+                <div class="warden-notifyHeader">
+                  <span><i class="fa-solid fa-info-circle"></i> Loading...</span>
+                  <small>Loading notifications...</small>
+                </div>
+                <p>Please wait while notifications are being loaded...</p>
               </div>
-              <p><strong>Student:</strong> Ahmed Khan (ID:12)</p>
-              <p><strong>Room No:</strong> F1-04</p>
-              <p><strong>Allocated By:</strong> Admin</p>
-              <button
-                onclick="alert('View room allocation details for Ahmed Khan')"
-                class="btn btn-primary"
-              >
-                View Details
-              </button>
-            </div>
-
-            <!-- room deallocated -->
-            <div class="warden-notification" data-tab="room">
-              <div class="warden-notifyHeader">
-                <span>Room Deallocated</span>
-                <small>13 Aug 2025</small>
-              </div>
-              <p><strong>Student:</strong> Sara Malik (ID:7)</p>
-              <p><strong>Room No:</strong> F2-05</p>
-              <p><strong>Deallocated By:</strong> Admin</p>
-              <button
-                onclick="alert('View room deallocation details for Sara Malik')"
-                class="btn btn-primary"
-              >
-                View Details
-              </button>
-            </div>
-
-            <!-- student complaint submitted -->
-            <div class="warden-notification" data-tab="complaint">
-              <div class="warden-notifyHeader">
-                <span>New Student Complaint</span>
-                <small>12 Aug 2025</small>
-              </div>
-              <p><strong>Student:</strong> Bilal Ahmed (ID:4)</p>
-              <p><strong>Type:</strong> Mess Quality</p>
-              <p><strong>Details:</strong> Food served was cold during dinner.</p>
-              <button
-                onclick="alert('View complaint details for Bilal Ahmed')"
-                class="btn btn-primary"
-              >
-                View Complaint
-              </button>
-            </div>
-
-            <!-- Deputy RT Attendance Not Marked -->
-            <div class="warden-notification" data-tab="attendance">
-              <div class="warden-notifyHeader">
-                <span>Deputy RT Attendance Not Marked</span>
-                <small>11 Aug 2025</small>
-              </div>
-              <p>
-                Deputy RT attendance hasn't been marked for <strong>10 Aug 2025</strong>.
-              </p>
-              <button
-                onclick="alert('Mark Deputy RT Attendance now')"
-                class="btn btn-warning"
-              >
-                Mark Attendance
-              </button>
             </div>
           </div>
         </div> 
@@ -151,5 +92,6 @@
     <script src="/assets/js/mobileView.js" defer></script>
     <script src="/assets/js/profile.js" defer></script>
     <script src="/assets/js/searchbar.js" defer></script>
+    <script src="/assets/js/warden-notifications.js"></script>
   </body>
 </html>

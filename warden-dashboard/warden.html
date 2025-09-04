@@ -65,7 +65,7 @@
                     <a href="/admin-dashboard/profile.html"><i class="fa-solid fa-user"></i>Profile</a>
                   </li>
                   <li id="logoutBtn">
-                    <a href="/student-public.html/login-all.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</li></a>
+                    <a href="#"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
                 </ul>                
             </div>
         </header>
@@ -92,33 +92,6 @@
     <script src="/assets/js/mobileView.js"></script>
     <script src="/assets/js/profile.js"></script>
     <script src="/assets/js/searchbar.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-  const complaintCard = document.querySelector(".warden-stat-card:nth-child(1)");
-  const roomCard = document.querySelector(".warden-stat-card:nth-child(2)");
-
-  const totalComplaintsEl = document.getElementById("total-current-complaints");
-  const totalRoomsEl = document.getElementById("total-room-allocations");
-
-  // 1. complaints count 
-  let complaints = JSON.parse(localStorage.getItem("complaints")) || [];
-  let pendingComplaints = complaints.filter(c => !c.wardenResponse || c.wardenResponse.trim() === "");
-  totalComplaintsEl.textContent = pendingComplaints.length;
-
-  // 2. room allocation count
-  let roomAllocations = JSON.parse(localStorage.getItem("roomAllocations")) || [];
-  totalRoomsEl.textContent = roomAllocations.length;
-
-  // 3. click events → redirect to relevant tab
-  complaintCard.addEventListener("click", () => {
-    window.location.href = "studentComplaintsFeedback.html"; 
-  });
-
-  roomCard.addEventListener("click", () => {
-    window.location.href = "roomAllocation.html"; 
-  });
-});
-
-    </script>
+    <script src="/assets/js/warden-dashboard.js"></script>
   </body>
 </html>
