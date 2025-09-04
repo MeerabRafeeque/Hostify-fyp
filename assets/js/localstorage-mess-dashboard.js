@@ -1,18 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // ---------------------------
-  // 1. DOM ELEMENTS
-  // ---------------------------
+
+  // 1. DOM elements
   const feedbackCard = document.getElementById("pending-feed");
   const shortageCard = document.getElementById("total-shortage");
   const mealPlanStatus = document.getElementById("meal-plan-status");
   const notificationCard = document.getElementById("notifications-card"); // optional
 
-  // ---------------------------
-  // 2. FETCH DATA FROM LOCALSTORAGE
-  // ---------------------------
+  
+  // 2. fetch data from localstorage
   function getPendingFeedback() {
     const allFeedback = JSON.parse(localStorage.getItem("studentFeedbacks") || "[]");
-    return allFeedback; // return all feedbacks, ya filter if needed
+
+    // return all feedbacks, or filter if needed
+    return allFeedback; 
   }
 
   function getFoodShortageReports() {
@@ -24,7 +24,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!mealPlans.length) return false;
 
     const now = new Date();
-    const dayOfWeek = now.getDay(); // 0=Sun, 1=Mon
+
+    // 0=Sun, 1=Mon
+    const dayOfWeek = now.getDay(); 
     const monday = new Date(now);
     monday.setDate(now.getDate() - dayOfWeek + 1);
 
@@ -41,9 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return JSON.parse(localStorage.getItem("deputyNotifications") || "[]");
   }
 
-  // ---------------------------
-  // 3. UPDATE DASHBOARD COUNTS
-  // ---------------------------
+  // 3. update dashboard counts
   function updateDashboard() {
     document.getElementById("total-feedback").textContent = getPendingFeedback().length;
     document.getElementById("total-shortage").textContent = getFoodShortageReports().length;
@@ -55,15 +55,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Initial update
+  // initial update
   updateDashboard();
 
-  // Auto refresh every minute
+  // auto refresh every minute
   setInterval(updateDashboard, 60 * 1000);
 
-  // ---------------------------
-  // 4. CARD CLICK HANDLERS
-  // ---------------------------
+  
+  // 4. card click handlers
   feedbackCard.addEventListener("click", () => {
     window.location.href = "meal-feedback.html";
   });
@@ -86,9 +85,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ---------------------------
-  // 5. DEPUTY NOTIFICATIONS TABLE (OPTIONAL)
-  // ---------------------------
+  
+  // 5. deputy notifications table (opt)
   if (document.querySelector(".deputy-notification-table")) {
     let notifications = getDeputyNotifications();
 
@@ -106,13 +104,13 @@ document.addEventListener("DOMContentLoaded", () => {
         tbody.appendChild(row);
       });
 
-      // Update dashboard unread count
+      // update dashboard unread count
       const unreadCount = notifications.filter(n => !n.seen).length;
       if (notificationCard) {
         notificationCard.querySelector(".deputy-value").textContent = unreadCount;
       }
 
-      // Mark as read
+      // mark as read
       document.querySelectorAll(".deputy-btn").forEach(btn => {
         btn.addEventListener("click", () => {
           const i = parseInt(btn.dataset.index);

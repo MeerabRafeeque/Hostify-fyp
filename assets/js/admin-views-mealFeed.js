@@ -1,13 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // ---------------------------
-  // DOM ELEMENTS
-  // ---------------------------
+
+  // DOM elements
   const mealTableBody = document.querySelector("#meal-table tbody");
   const feedbackTableBody = document.querySelector("#meal-feedback tbody");
 
-  // ---------------------------
-  // FETCH DATA FROM LOCALSTORAGE
-  // ---------------------------
+  // fetch data from localstorage
   function getMealMenu() {
     return JSON.parse(localStorage.getItem("mealPlan") || "[]");
   }
@@ -16,9 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
     return JSON.parse(localStorage.getItem("studentFeedbacks") || "[]");
   }
 
-  // ---------------------------
-  // RENDER MEAL MENU
-  // ---------------------------
+  
+  // render meal menu
   function renderMealMenu() {
     const meals = getMealMenu();
     mealTableBody.innerHTML = "";
@@ -41,9 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ---------------------------
-  // RENDER STUDENT FEEDBACK
-  // ---------------------------
+  // render std feedback
   function renderStudentFeedback() {
     const feedbacks = getStudentFeedbacks();
     feedbackTableBody.innerHTML = "";
@@ -65,13 +59,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ---------------------------
-  // INITIAL RENDER
-  // ---------------------------
+  // initial render
   renderMealMenu();
   renderStudentFeedback();
 
-  // Optional: Auto-refresh every 30s
+  // optional: auto-refresh every 30s
   setInterval(() => {
     renderMealMenu();
     renderStudentFeedback();

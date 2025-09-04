@@ -2,11 +2,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const attendanceTbody = document.getElementById("attendance-tbody");
   const saveBtn = document.getElementById("save-attendance"); // button if any
 
-  // Load existing records
+  // load existing records
   let attendanceRecords = JSON.parse(localStorage.getItem("attendanceRecords")) || [];
   let penalties = JSON.parse(localStorage.getItem("penalties")) || [];
 
-  // Function to save attendance
+  // function to save attendance
   function saveAttendance() {
     const rows = attendanceTbody.querySelectorAll("tr");
 
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
           attendanceRecords.push(record); // add
         }
 
-        // Night penalty logic
+        // night penalty logic
         if (shift === "Night" && status === "Present") {
           if (!penalties.some(p => p.student_id === student_id && p.date === date)) {
             penalties.push({
@@ -64,13 +64,13 @@ document.addEventListener("DOMContentLoaded", () => {
       addOrUpdateRecord("Night", night);
     });
 
-    // Save to localStorage
+    // save to localStorage
     localStorage.setItem("attendanceRecords", JSON.stringify(attendanceRecords));
     localStorage.setItem("penalties", JSON.stringify(penalties));
     alert("Attendance saved successfully!");
   }
 
-  // Attach save button
+  // attach save button
   if (saveBtn) {
     saveBtn.addEventListener("click", saveAttendance);
   }
