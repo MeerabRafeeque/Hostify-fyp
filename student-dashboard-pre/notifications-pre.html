@@ -26,7 +26,7 @@
       <aside class="sidebar">
         <div class="nav-title">Hostify</div>
         <ul class="nav">
-          <li class="item active">
+          <li>
             <a href="dashboard-pre.html">
               <i class="fa-solid fa-gauge"></i> Pre-Dashboard
             </a>
@@ -42,7 +42,7 @@
             >
           </li>
           <li id="logoutBtn">
-            <a href="/student-public.html/login.html">
+            <a href="#">
               <i class="fa-solid fa-right-from-bracket"></i> Logout
             </a>
           </li>
@@ -64,23 +64,8 @@
       <!-- notifications -->
       <div id="notifications" class="tab-content">
         <h2>Notifications</h2>
-        <ul class="notifications-list">
-          <li>
-            <i class="fa-solid fa-circle-info"></i>
-            Your registration is successful. Please apply for a room within 7
-            days.
-            <span class="notif-date">2025-08-17</span>
-          </li>
-          <li>
-            <i class="fa-solid fa-clock"></i>
-            Reminder: Only <strong>3 days left</strong> to apply for your room!
-            <span class="notif-date">2025-08-20</span>
-          </li>
-          <li>
-            <i class="fa-solid fa-triangle-exclamation"></i>
-            If you fail to apply before deadline, your account will be removed.
-            <span class="notif-date">2025-08-24</span>
-          </li>
+        <ul class="notifications-list" id="notifications-container">
+          <!-- notifications will be loaded dynamically -->
         </ul>
       </div>
     </div>
@@ -89,5 +74,6 @@
     <script src="/assets/js/logout.js" defer></script>
     <script src="/assets/js/mobileView.js" defer></script>
     <script src="/assets/js/profile.js" defer></script>
+    <script src="/assets/js/student-notifications.js" defer></script>
   </body>
 </html>

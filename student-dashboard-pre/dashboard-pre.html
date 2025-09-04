@@ -42,7 +42,7 @@
             >
           </li>
           <li id="logoutBtn">
-            <a href="/student-public.html/login.html">
+            <a href="#">
               <i class="fa-solid fa-right-from-bracket"></i> Logout
             </a>
           </li>
@@ -88,7 +88,7 @@
             </div>
 
             <p class="muted" style="margin-top: 10px">
-              Apply within <b>7 days</b> of registration or your account may be
+              Apply within <b id="deadlineDays">7 days</b> of registration or your account may be
               removed automatically.
             </p>
 
@@ -131,24 +131,8 @@
         <!-- notifications -->
         <section class="card">
           <h3>Recent Notifications</h3>
-          <div class="notif">
-            <div class="note">
-              <span class="badge info"
-                ><i class="fa-solid fa-info-circle"></i> Info</span
-              >
-              <span
-                >Your registration is complete. Please apply for a room to
-                continue.</span
-              >
-            </div>
-            <div class="note">
-              <span class="badge alert"
-                ><i class="fa-solid fa-triangle-exclamation"></i> Alert</span
-              >
-              <span
-                >Reminder: Apply within 7 days to avoid automatic removal.</span
-              >
-            </div>
+          <div class="notif" id="notifications-container">
+            <!-- Notifications will be loaded dynamically -->
           </div>
         </section>
 
@@ -176,7 +160,7 @@
           <h3>Need Help?</h3>
           <p class="muted">
             If you have questions about application or payment, contact Admin
-            from the Profile page or email support@hostel.example
+            from the email support@hostel.example
           </p>
           <div class="row">
             <a class="btn" href="/admin-dashboard/profile.html"
