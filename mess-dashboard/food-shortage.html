@@ -13,7 +13,7 @@
   </head>
   <body>
     <div class="mess-container">
-      <!-- Sidebar -->
+      <!-- sidebar -->
       <aside class="mess-sideBar">
         <div class="logo"><span>Hostify</span></div>
         <nav>
@@ -60,101 +60,101 @@
                 >
               </li>
               <li id="logoutBtn">
-                    <a href="/student-public.html/login-all.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</li></a>
+                    <a href="/student-public.html/login-all.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
             </ul>
           </div>
         </header>
         <!-- food shortage tab -->
         <div class="mess-tab-content" id="food-shortage">
           <h2>Food Shortage Reports</h2>
+          
+          <!-- report food shortage form -->
           <div class="mess-form-container">
             <h3>Report Food Shortage</h3>
             <form id="mess-shortage-form">
+              <input type="hidden" name="csrfmiddlewaretoken" id="csrfToken">
               <div class="mess-form-group">
-                <label for="mess-item">Item Name</label>
+                <label for="mess-meal-type">Meal Type</label>
+                <select id="mess-meal-type" name="meal_type" required>
+                  <option value="">Select Meal Type</option>
+                  <option value="breakfast">Breakfast</option>
+                  <option value="lunch">Lunch</option>
+                  <option value="dinner">Dinner</option>
+                </select>
+              </div>
+
+              <div class="mess-form-group">
+                <label for="mess-shortage-date">Date</label>
                 <input
-                  type="text"
-                  id="mess-item"
-                  name="item"
-                  placeholder="e.g. Rice, Cooking Oil"
+                  type="date"
+                  id="mess-shortage-date"
+                  name="date"
                   required
                 />
               </div>
 
               <div class="mess-form-group">
-                <label for="mess-description">Description</label>
+                <label for="mess-shortage-description">Description</label>
                 <textarea
-                  id="mess-description"
+                  id="mess-shortage-description"
                   name="description"
                   rows="3"
-                  placeholder="Details about the shortage..."
+                  placeholder="Details about the food shortage..."
                   required
                 ></textarea>
               </div>
               <button type="submit" class="mess-btn">Submit Report</button>
             </form>
           </div>
+
+          <!-- food shortage reports table -->
+          <div class="mess-reports-container">
+            <h3>Submitted Reports</h3>
+            <table class="mess-reports-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Meal Type</th>
+                  <th>Description</th>
+                  <th>Status</th>
+                  <th>Admin Response</th>
+                </tr>
+              </thead>
+              <tbody id="shortage-reports-tbody">
+                <!-- reports will be loaded dynamically -->
+              </tbody>
+            </table>
+          </div>
         </div>
       </main>
     </div>
 
+    <script>
+      // add CSRF token to the page
+      function getCSRFToken() {
+        const cookies = document.cookie.split(';');
+        for (let cookie of cookies) {
+          const [name, value] = cookie.trim().split('=');
+          if (name === 'csrftoken') {
+            return value;
+          }
+        }
+        return '';
+      }
+      
+      // set CSRF token when page loads
+      document.addEventListener('DOMContentLoaded', function() {
+        const csrfTokenField = document.getElementById('csrfToken');
+        if (csrfTokenField) {
+          csrfTokenField.value = getCSRFToken();
+        }
+      });
+    </script>
     <script src="/assets/js/nav.js" defer></script>
     <script src="/assets/js/logout.js" defer></script>
     <script src="/assets/js/mobileView.js" defer></script>
     <script src="/assets/js/profile.js" defer></script>
     <script src="/assets/js/searchbar.js" defer></script>
-    <script>
-      // --- Select form & table ---
-const shortageForm = document.getElementById("mess-shortage-form");
-
-// LocalStorage key
-const STORAGE_KEY = "messFoodReports";
-
-// --- Helper: Save report ---
-function saveReport(report) {
-  let allReports = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-  allReports.push(report);
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(allReports));
-}
-
-// --- Helper: Load reports (for admin or Mess dashboard) ---
-function loadReports() {
-  let allReports = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-  return allReports;
-}
-
-// --- Handle form submit ---
-shortageForm.addEventListener("submit", function (e) {
-  e.preventDefault();
-
-  // Get input values
-  const item = document.getElementById("mess-item").value.trim();
-  const desc = document.getElementById("mess-description").value.trim();
-  const time = new Date().toLocaleString();
-
-  if (!item || !desc) {
-    alert("Please fill all fields.");
-    return;
-  }
-
-  // Create report object
-  const report = {
-    item,
-    description: desc,
-    time,
-    status: "unseen" // admin has not seen yet
-  };
-
-  // Save report
-  saveReport(report);
-
-  // Show confirmation
-  alert("Report submitted successfully!");
-
-  // Reset form
-  shortageForm.reset();
-});
-
-    </script>
+    <script src="/assets/js/mess-food-shortage.js" defer></script>
   </body>
 </html>

@@ -13,7 +13,7 @@
   </head>
   <body>
     <div class="mess-container">
-      <!-- Sidebar -->
+      <!-- sidebar -->
       <aside class="mess-sideBar">
       <div class="logo"><span>Hostify</span></div>
       <nav>
@@ -52,40 +52,48 @@
                   ><i class="fa-solid fa-user"></i>Profile</a
                 >
               </li>
-              <li id="logoutBtn">
-                <a href="/student-public.html/login-all.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</li></a>
+                            <li id="logoutBtn">
+                    <a href="/student-public.html/login-all.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
             </ul>
           </div>
         </header>
         <div class="mess-notifications">
           <h2>Notifications</h2>
+          
+          <input type="hidden" name="csrfmiddlewaretoken" id="csrfToken">
 
-          <div class="mess-notification-list">
-            <!-- unread notification -->
-            <div class="mess-notification unread">
-              <p>
-                <strong>Student Feedback:</strong> Ali Khan submitted feedback
-                for Lunch (Monday).
-              </p>
-              <span class="mess-notification-time">2 mins ago</span>
-            </div>
-
-            <!-- read notification -->
-            <div class="mess-notification read">
-              <p>
-                <strong>Food Shortage Report:</strong> Admin has seen your
-                report for rice shortage.
-              </p>
-              <span class="mess-notification-time">1 day ago</span>
-            </div>
+          <div class="mess-notification-list" id="notifications-container">
+            <!-- notifications will be loaded dynamically -->
           </div>
         </div>
       </main>
     </div>
 
+    <script>
+      // add CSRF token to the page
+      function getCSRFToken() {
+        const cookies = document.cookie.split(';');
+        for (let cookie of cookies) {
+          const [name, value] = cookie.trim().split('=');
+          if (name === 'csrftoken') {
+            return value;
+          }
+        }
+        return '';
+      }
+      
+      // set CSRF token when page loads
+      document.addEventListener('DOMContentLoaded', function() {
+        const csrfTokenField = document.getElementById('csrfToken');
+        if (csrfTokenField) {
+          csrfTokenField.value = getCSRFToken();
+        }
+      });
+    </script>
     <script src="/assets/js/nav.js" defer></script>
     <script src="/assets/js/logout.js" defer></script>
     <script src="/assets/js/mobileView.js" defer></script>
     <script src="/assets/js/profile.js" defer></script>
+    <script src="/assets/js/mess-notifications.js" defer></script>
   </body>
 </html>

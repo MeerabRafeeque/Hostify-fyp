@@ -13,7 +13,7 @@
   </head>
   <body>
     <div class="mess-container">
-      <!-- Sidebar -->
+      <!-- sidebar -->
       <aside class="mess-sideBar">
         <div class="logo"><span>Hostify</span></div>
         <nav>
@@ -60,7 +60,7 @@
                 >
               </li>
               <li id="logoutBtn">
-                    <a href="/student-public.html/login-all.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</li></a>
+                    <a href="/student-public.html/login-all.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
             </ul>
           </div>
         </header>
@@ -70,6 +70,7 @@
 
           <!-- add/updated meal sec -->
           <form class="mess-meal-form">
+            <input type="hidden" name="csrfmiddlewaretoken" id="csrfToken">
             <div class="mess-form-group">
               <label for="mess-day">Day</label>
               <select id="mess-day" name="day" required>
@@ -106,7 +107,7 @@
             </div>
 
             <div class="mess-form-group">
-              <label for="mess-updated-by">Updated By</label>
+              <label for="mess-updated-by">Updated Date</label>
               <input
                 type="text"
                 id="mess-updated-by"
@@ -117,7 +118,7 @@
             </div>
 
             <div class="mess-form-group">
-              <label for="mess-updated-date">Updated Date</label>
+              <label for="mess-updated-date">Updated by</label>
               <input
                 type="date"
                 id="mess-updated-date"
@@ -134,83 +135,47 @@
             <thead>
               <tr>
                 <th>Day</th>
-                <th>Meal</th>
-                <th>Description</th>
-                <th>Updated By</th>
+                <th>Meal Type</th>
+                <th>Menu</th>
                 <th>Updated Date</th>
+                <th>Updated By</th>
+                <th>Actions</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>Monday</td>
-                <td>Breakfast</td>
-                <td>Paratha, Omelette, Tea</td>
-                <td>Mess Committee</td>
-                <td>2025-08-15</td>
-              </tr>
+            <tbody id="meals-tbody">
+              <!-- meals will be loaded dynamically -->
             </tbody>
           </table>
         </div>
       </main>
     </div>
 
+    <script>
+      // add CSRF token to the page
+      function getCSRFToken() {
+        const cookies = document.cookie.split(';');
+        for (let cookie of cookies) {
+          const [name, value] = cookie.trim().split('=');
+          if (name === 'csrftoken') {
+            return value;
+          }
+        }
+        return '';
+      }
+      
+      // set CSRF token when page loads
+      document.addEventListener('DOMContentLoaded', function() {
+        const csrfTokenField = document.getElementById('csrfToken');
+        if (csrfTokenField) {
+          csrfTokenField.value = getCSRFToken();
+        }
+      });
+    </script>
     <script src="/assets/js/nav.js" defer></script>
     <script src="/assets/js/logout.js" defer></script>
     <script src="/assets/js/mobileView.js" defer></script>
     <script src="/assets/js/profile.js" defer></script>
     <script src="/assets/js/searchbar.js" defer></script>
-    
+    <script src="/assets/js/mess-meal-plan.js" defer></script>
   </body>
-  <script>
-  // Form listener
-  document.querySelector(".mess-meal-form").addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const day = document.getElementById("mess-day").value;
-    const meal = document.getElementById("mess-meal").value;
-    const description = document.getElementById("mess-description").value;
-    const updatedBy = document.getElementById("mess-updated-by").value;
-    const updatedDate = document.getElementById("mess-updated-date").value;
-
-    // Pehle ka data lao
-    let meals = JSON.parse(localStorage.getItem("mealPlan")) || [];
-
-    // Naya meal add karo
-    meals.push({ day, meal, description, updatedBy, updatedDate });
-
-    // Wapas save karo
-    localStorage.setItem("mealPlan", JSON.stringify(meals));
-
-    // UI update karo
-    renderMeals();
-
-    // Reset form
-    this.reset();
-    alert("Meal added successfully ✅");
-  });
-
-  // Render Function
-  function renderMeals() {
-    const meals = JSON.parse(localStorage.getItem("mealPlan")) || [];
-    const tbody = document.querySelector(".mess-meal-table tbody");
-    tbody.innerHTML = "";
-
-    meals.forEach((m) => {
-      const row = `<tr>
-        <td>${m.day}</td>
-        <td>${m.meal}</td>
-        <td>${m.description}</td>
-        <td>${m.updatedBy}</td>
-        <td>${m.updatedDate}</td>
-      </tr>`;
-      tbody.innerHTML += row;
-    });
-  }
-
-  // Page load pe render
-  renderMeals();
-</script>
-
-
-
 </html>
