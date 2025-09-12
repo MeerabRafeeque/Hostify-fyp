@@ -29,38 +29,6 @@ A comprehensive hostel management system built with Django and modern web techno
 - **Authentication**: Django Session Authentication
 - **File Handling**: Django File Storage for images and documents
 
-## Project Structure
-
-```
-hostify/
-├── hostify/                 # Django project settings
-│   ├── settings.py         # Project configuration
-│   ├── urls.py            # Main URL routing
-│   └── wsgi.py            # WSGI configuration
-├── hostel_management/      # Main Django app
-│   ├── models.py          # Database models
-│   ├── views.py           # API views and business logic
-│   ├── serializers.py     # DRF serializers
-│   ├── admin.py           # Django admin configuration
-│   ├── dashboard_queries.py # Centralized SQL queries
-│   └── urls.py            # API URL routing
-├── assets/                # Static files
-│   ├── css/              # Stylesheets
-│   ├── js/               # JavaScript files
-│   └── images/           # Images and media
-├── admin-dashboard/       # Admin interface pages
-├── student-dashboard-pre/ # Student pre-allocation pages
-├── student-dashoard-post/ # Student post-allocation pages
-├── warden-dashboard/      # Warden interface pages
-├── deputy-dashboard/      # Deputy RT interface pages
-├── mess-dashboard/        # Mess staff interface pages
-├── student-public.html/   # Public student pages
-├── manage.py             # Django management script
-├── requirements.txt      # Python dependencies
-├── setup.py             # Project setup script
-└── README.md            # This file
-```
-
 ## Installation & Setup
 
 ### Prerequisites
