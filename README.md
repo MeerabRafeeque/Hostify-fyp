@@ -24,42 +24,10 @@ A comprehensive hostel management system built with Django and modern web techno
 ## Technology Stack
 
 - **Backend**: Django 4.2.7, Django REST Framework
-- **Database**: SQLite (production-ready for PostgreSQL/MySQL)
+- **Database**: SQLite
 - **Frontend**: HTML5, CSS3, JavaScript (Vanilla)
 - **Authentication**: Django Session Authentication
 - **File Handling**: Django File Storage for images and documents
-
-## Project Structure
-
-```
-hostify/
-├── hostify/                 # Django project settings
-│   ├── settings.py         # Project configuration
-│   ├── urls.py            # Main URL routing
-│   └── wsgi.py            # WSGI configuration
-├── hostel_management/      # Main Django app
-│   ├── models.py          # Database models
-│   ├── views.py           # API views and business logic
-│   ├── serializers.py     # DRF serializers
-│   ├── admin.py           # Django admin configuration
-│   ├── dashboard_queries.py # Centralized SQL queries
-│   └── urls.py            # API URL routing
-├── assets/                # Static files
-│   ├── css/              # Stylesheets
-│   ├── js/               # JavaScript files
-│   └── images/           # Images and media
-├── admin-dashboard/       # Admin interface pages
-├── student-dashboard-pre/ # Student pre-allocation pages
-├── student-dashoard-post/ # Student post-allocation pages
-├── warden-dashboard/      # Warden interface pages
-├── deputy-dashboard/      # Deputy RT interface pages
-├── mess-dashboard/        # Mess staff interface pages
-├── student-public.html/   # Public student pages
-├── manage.py             # Django management script
-├── requirements.txt      # Python dependencies
-├── setup.py             # Project setup script
-└── README.md            # This file
-```
 
 ## Installation & Setup
 
@@ -117,8 +85,8 @@ After running the setup script, you can use these credentials:
 | Warden | warden | warden123 | Hostel management |
 | Deputy RT | deputy | deputy123 | Student affairs |
 | Mess Staff | mess_staff | mess123 | Mess management |
-| Student 1 | student1 | student123 | Student access |
-| Student 2 | student2 | student123 | Student access |
+| Student pre-room | student1 | student123 | Student access |
+| Student post-room | student2 | student123 | Student access |
 
 ## API Endpoints
 
@@ -172,7 +140,7 @@ Admins can verify student payments with support for multiple payment methods and
 Deputy RTs can mark attendance for multiple students at once with bulk operations support.
 
 ### 5. Room Allocation System
-Students can apply for rooms, and wardens can allocate rooms based on availability and student preferences.
+Students can apply for rooms, and Admins can allocate rooms based on availability and student preferences.
 
 ## Development Guidelines
 
@@ -214,19 +182,15 @@ DATABASE_URL=postgresql://user:password@localhost/dbname
 
 ## Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
+Thank you for considering contributing to the Django framework! The contribution guide can be found in the [Django documentation](https://docs.djangoproject.com/en/dev/internals/contributing/)
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License(https://opensource.org/licenses/MIT).
 
 ## Support
 
-For support and questions, please contact the development team or create an issue in the repository.
+For support and questions, please contact the development team.
 
 ## Changelog
 
